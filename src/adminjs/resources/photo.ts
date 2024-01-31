@@ -23,7 +23,7 @@ export const photoResourceOptions: ResourceOptions = {
             type:'mixed',
         }
     },
-    editProperties: ['id', 'bucket', 'comment','file'],
+    editProperties: [ 'bucket', 'comment','file'],
     listProperties: ['id', 'bucket', 'comment','file'],
     showProperties: ['id', 'bucket', 'comment','file'],
 }
