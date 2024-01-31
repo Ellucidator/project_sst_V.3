@@ -34,4 +34,7 @@ export const SubCategory = sequelize.define<SubCategoryInstace,SubCategory>('Sub
         onUpdate:'CASCADE',
         onDelete:'RESTRICT'
     }
+},
+{
+    tableName: 'sub_categories'
 })

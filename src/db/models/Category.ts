@@ -27,4 +27,7 @@ export const Category = sequelize.define<CategoryInstace,Category>('Category', {
         type: DataTypes.INTEGER,
         allowNull: true
     }
+}
+,{
+    tableName: 'categories'
 })
