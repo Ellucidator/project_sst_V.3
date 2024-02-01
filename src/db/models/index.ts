@@ -1,4 +1,3 @@
-import {Photo} from './Photo.js';
 import { Category } from './Category.js';
 import {SubCategory} from './SubCategory.js';
 import { Item } from './Item.js';
@@ -11,7 +10,6 @@ SubCategory.hasMany(Item,{foreignKey:'sub_category_id',onUpdate:'CASCADE',onDele
 Item.belongsTo(SubCategory,{foreignKey:'sub_category_id'});
 
 export {
-    Photo,
     Category,
     SubCategory,
     Item,

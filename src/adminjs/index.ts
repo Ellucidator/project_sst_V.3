@@ -18,7 +18,11 @@ export const adminJs = new AdminJS({
     availableThemes:[themeConfig,light, noSidebar],
     resources:AdminJSResources,
     version:{admin:true},
-    rootPath: '/admin'
+    rootPath: '/admin',
+    locale:{
+        language:'pt-BR',
+        availableLanguages: ['pt-BR', 'en'],
+    },
 
 })
 
