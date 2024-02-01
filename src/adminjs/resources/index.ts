@@ -1,15 +1,10 @@
 import { ResourceWithOptions } from "adminjs";
-import { Photo,Category, SubCategory } from "../../db/models/index.js";
-import { photoResourceOptions, photoResourceFeatures } from "./photo.js";
+import { Category, SubCategory, Item } from "../../db/models/index.js";
 import { categoriesResourceOptions } from "./category.js";
 import { subCategoriesResourceOptions } from "./sub_category.js";
+import { itemResourceFeatures, itemResourceOptions } from "./item.js";
 
 export const AdminJSResources: ResourceWithOptions[] = [
-    {
-        resource: Photo,
-        options: photoResourceOptions,
-        features: photoResourceFeatures
-    },
     {
         resource: Category,
         options: categoriesResourceOptions
@@ -17,5 +12,11 @@ export const AdminJSResources: ResourceWithOptions[] = [
     {
         resource: SubCategory,
         options: subCategoriesResourceOptions
+    },
+    {
+        resource:Item,
+        options:itemResourceOptions,
+        features:itemResourceFeatures
     }
+
 ]

@@ -38,6 +38,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      bucket:{
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      mime:{
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      size:{
+        type: Sequelize.FLOAT,
+        allowNull: true
+      },
       images:{
         type: Sequelize.JSONB,
         allowNull: true

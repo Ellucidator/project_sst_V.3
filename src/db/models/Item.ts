@@ -1,6 +1,14 @@
 import { Model, Optional, DataTypes } from "sequelize";
 import { sequelize } from "../index.js";
 
+
+export interface ItemPhotoInDB {
+    bucket: string;
+    mime:string;
+    key: string;
+    size: number;
+}
+
 export interface Item {
     id: number;
     name: string;
@@ -10,11 +18,14 @@ export interface Item {
     featured: boolean;
     promotion: boolean;
     thumbnail_url: string;
-    images: string[];
+    bucket: string;
+    mime: string;
+    size: number;
+    images: string;
     sub_category_id: number;
 }
 
-export interface CreateItemAttributes extends Optional<Item, 'id'|'description'|'featured'|'promotion'> {}
+export interface CreateItemAttributes extends Optional<Item, 'id'|'description'|'featured'|'promotion'|'thumbnail_url'|'bucket'|'mime'|'size'|'images'> {}
 
 
 export interface ItemInstance extends Model<Item, CreateItemAttributes>, Item {}
@@ -52,6 +63,18 @@ export const Item = sequelize.define<ItemInstance, Item>('Item', {
     },
     thumbnail_url:{
         type: DataTypes.STRING,
+        allowNull: true
+    },
+    bucket:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    mime:{
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    size:{
+        type: DataTypes.INTEGER,
         allowNull: true
     },
     images:{
