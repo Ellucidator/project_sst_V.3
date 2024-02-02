@@ -43,7 +43,7 @@ const uploadFeatureFor = (name?: string, multiple = false) => (
             size: name ? `${name}.size` : 'size',
         },
         uploadPath: (record, filename) => (
-            name ? `${record.id()}/${name}/${filename}` : `${record.id()}/thumbnail/${filename}`
+            name ? `items/${record.id()}/${name}/${filename}` : `items/${record.id()}/thumbnail/${filename}`
         ),
     })
 )

@@ -1,11 +1,11 @@
 import express from 'express';
 import {sequelize} from './db/index.js';
-import { adminJs, adminJsrouter } from './adminjs/index.js';
+import { adminJs, adminJsRouter } from './adminjs/index.js';
 
 
 const app = express();
 
-app.use(adminJs.options.rootPath,adminJsrouter)
+app.use(adminJs.options.rootPath,adminJsRouter)
 
 app.use(express.static('public'));
 app.use(express.json());
