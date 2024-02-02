@@ -16,6 +16,28 @@ AdminJS.registerAdapter(AdminJSSequelize)
 export const adminJs = new AdminJS({
     componentLoader,
     databases:[sequelize],
+    branding:{
+        theme:{
+            colors:{
+                primary100: '#ff0043',
+                bg: '#151419',
+                border: '#39383d',
+                text: '#fff',
+                container: '#1A1A1E',
+                sidebar: '#0C0B10',
+                grey100: '#CDCBD4',
+                grey60: '#8C8B90',
+                grey40: '#151419',
+                filterBg: '#1A1A1E',
+                inputBorder: 'rgba(145, 158, 171, 0.32)',
+                errorLight: '#C20012',
+                successLight: '#007D7F',
+                warningLight: '#A14F17',
+                infoLight: '#ff1a57',
+                
+            }
+        },
+    },
     defaultTheme:themeConfig.id,
     availableThemes:[themeConfig,light, noSidebar],
     resources:AdminJSResources,
