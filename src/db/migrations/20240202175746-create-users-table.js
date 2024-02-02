@@ -43,7 +43,10 @@ module.exports = {
       role: {
         type: Sequelize.STRING,
         allowNull: false,
-        defaultValue: 'user'
+        defaultValue: 'user',
+        validate: {
+          isIn: [['user', 'admin']]
+        }
       },
       img_key: {
         type: Sequelize.STRING,

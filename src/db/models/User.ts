@@ -1,6 +1,6 @@
 import { Model, Optional, DataTypes } from "sequelize"
+import bcrypt from "bcrypt"
 import { sequelize } from "../index.js"
-
 
 export interface User{
     id: number
@@ -19,7 +19,9 @@ export interface User{
 
 export interface CreateUserAttributes extends Optional<User,'id'|'img_key'|'bucket'|'mime'>{}
 
-export interface UserInstance extends Model<User, CreateUserAttributes>, User {}
+export interface UserInstance extends Model<User, CreateUserAttributes>, User {
+    checkPassword: (password:string, cb:(err?:Error|undefined, isMatch?:boolean) => void) => void
+}
 
 export const User = sequelize.define<UserInstance,User>('User', {
     id:{
@@ -60,7 +62,10 @@ export const User = sequelize.define<UserInstance,User>('User', {
     },
     role:{
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        validate:{
+            isIn:[['admin','user']]
+        }
     },
     img_key:{
         type: DataTypes.STRING,
@@ -76,5 +81,19 @@ export const User = sequelize.define<UserInstance,User>('User', {
     }
 },{
     tableName: 'users',
-
+    hooks:{
+        beforeSave: async (user) => {
+            if(user.isNewRecord || user.changed('password')) {
+                user.password = await bcrypt.hash(user.password, 10)
+            }
+        }
+    }
 },)
+
+
+User.prototype.checkPassword = function(password:string, cb:(err?:Error|undefined, isMatch?:boolean) => void) {
+    bcrypt.compare(password, this.password, (err, isMatch) => {
+        if(err) cb(err, false)
+        else cb(err, isMatch)
+    })
+}
