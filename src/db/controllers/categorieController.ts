@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Category, SubCategory } from "../models/index.js";
+import { Category } from "../models/index.js";
 
 
 export const categoriesController = {
@@ -18,7 +18,7 @@ export const categoriesController = {
     getOneCategoryAndSubCategories: async (req:Request,res:Response) => {
         try {
             const categoryId = req.params.id
-            const category = await Category.findOne({where: {id: categoryId},include:{model:SubCategory}})
+            const category = await Category.findOne({where: {id: categoryId},include:{association:'SubCategories'}})
             return res.json(category)
         } catch (error) {
             if(error instanceof Error) {
