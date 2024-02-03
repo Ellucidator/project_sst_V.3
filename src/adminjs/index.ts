@@ -34,8 +34,10 @@ export const adminJs = new AdminJS({
                 successLight: '#007D7F',
                 warningLight: '#A14F17',
                 infoLight: '#ff1a57',
-                
-            }
+                accent:'#00FA9A',
+
+
+            },
         },
     },
     defaultTheme:themeConfig.id,
