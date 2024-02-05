@@ -35,13 +35,13 @@ export const adminJs = new AdminJS({
                 warningLight: '#A14F17',
                 infoLight: '#ff1a57',
                 accent:'#00FA9A',
-
-
             },
         },
+        withMadeWithLove: false
     },
     defaultTheme:themeConfig.id,
     availableThemes:[themeConfig,light, noSidebar],
+    
     resources:AdminJSResources,
     version:{admin:true},
     rootPath: '/admin',
