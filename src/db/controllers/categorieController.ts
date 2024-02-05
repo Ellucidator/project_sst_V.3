@@ -10,7 +10,7 @@ export const categoriesController = {
             return res.json(categories)
         } catch (error) {
             if(error instanceof Error) {
-                throw new Error(error.message)
+                res.status(500).json({error: error.message})
             }
         }
     },
@@ -22,7 +22,7 @@ export const categoriesController = {
             return res.json(category)
         } catch (error) {
             if(error instanceof Error) {
-                throw new Error(error.message)
+                res.status(500).json({error: error.message})
             }
         }
     }
