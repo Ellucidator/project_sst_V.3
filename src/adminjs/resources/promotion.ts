@@ -5,4 +5,9 @@ export const promotionResourceOptions:ResourceOptions = {
     listProperties: ['item_id', 'price', 'description'],
     showProperties: ['item_id', 'price', 'description', 'createdAt', 'updatedAt'],
     filterProperties: ['item_id','createdAt', 'updatedAt'],
+    properties: {
+        price: {
+            type: 'currency',
+        },
+    }
 }

@@ -61,7 +61,7 @@ export const itemResourceOptions: ResourceOptions = {
             type:'mixed'
         },
         price:{
-            type:'currency',
+            type: 'currency',
         },
         description:{
             type: 'textarea',
