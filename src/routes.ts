@@ -5,6 +5,8 @@ import { subCategoriesControllers } from './db/controllers/subCategoriesControll
 
 const router = express.Router();
 
+
+
 router.get('/categories',categoriesController.list)
 router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories)
 
