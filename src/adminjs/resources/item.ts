@@ -60,6 +60,9 @@ export const itemResourceOptions: ResourceOptions = {
         images:{
             type:'mixed'
         },
+        price:{
+            type:'currency',
+        },
         description:{
             type: 'textarea',
             isSortable: false
