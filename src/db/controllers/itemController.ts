@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Item } from "../models/index.js";
+import { itemServices } from "../services/itemServices.js";
 
 
 export const itemController = {
@@ -33,6 +34,22 @@ export const itemController = {
             const item = await Item.findOne({where:{id:itemId},attributes: ['id', 'name', 'price','description', 'in_stock','promotion', 'thumbnail_url','images']})
 
             return res.json(item)
+        } catch (error) {
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
+        }
+    },
+
+    search:async(req:Request,res:Response)=>{
+        try {
+            const {name}= req.query
+
+            if(!name) return res.status(400).json({error: 'name is required'})
+            
+            const items = await itemServices.findByName(name.toString())
+
+            return res.json(items)
         } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
