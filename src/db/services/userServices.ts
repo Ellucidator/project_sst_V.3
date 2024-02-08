@@ -3,8 +3,11 @@ import { Favorite } from "../models/index.js"
 
 export const userServices = {
     favorites: async (userId: number) => {
-        const favorites = await Favorite.findAll({ where: { user_id: userId }, include: { association: 'Items' } })
-        return favorites
+        const favorites = await Favorite.findAll({ where: { user_id: userId }, include: { association: 'Item' } })
+        return {
+            userId,
+            favorites: favorites.map(favorite => favorite.Item)
+        }
     },
 
     addFavorite: async (userId: number, itemId: number) => {

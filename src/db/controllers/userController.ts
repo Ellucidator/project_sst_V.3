@@ -21,7 +21,7 @@ export const userController = {
         }
     },
 
-    favorites:async(req:AuthenticatedRequest,res:Response)=>{
+    showFavorites:async(req:AuthenticatedRequest,res:Response)=>{
         try {
             
             const userId = req.user!.id
@@ -34,5 +34,22 @@ export const userController = {
                 res.status(500).json({error: error.message})
             }
         }
+    },
+
+    addFavorite:async(req:AuthenticatedRequest,res:Response)=>{
+
+        try {
+            const userId = req.user!.id
+            const itemId = req.body.itemId
+
+            const favorite = await userServices.addFavorite(userId, itemId)
+
+            return res.json(favorite)
+        } catch (error) {
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
+        }
     }
+
 }

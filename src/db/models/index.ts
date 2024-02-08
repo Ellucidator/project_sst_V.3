@@ -17,6 +17,14 @@ Promotion.belongsTo(Item,{foreignKey:'item_id'});
 Item.belongsToMany(User,{through:Favorite})
 User.belongsToMany(Item,{through:Favorite})
 
+User.hasMany(Favorite);
+Favorite.belongsTo(User);
+
+Item.hasMany(Favorite);
+Favorite.belongsTo(Item);
+
+
+
 export {
     Category,
     SubCategory,
