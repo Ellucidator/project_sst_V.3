@@ -50,6 +50,24 @@ export const userController = {
                 res.status(500).json({error: error.message})
             }
         }
+    },
+
+    deleteFavorite:async(req:AuthenticatedRequest,res:Response)=>{
+
+        try {
+            
+            const userId = req.user!.id
+            const itemId = req.body.itemId
+
+            await userServices.deleteFavorite(userId, itemId)
+
+            return res.status(204).json('Favorite deleted')
+
+        } catch (error) {
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
+        }
     }
 
 }
