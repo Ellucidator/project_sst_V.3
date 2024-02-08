@@ -26,7 +26,9 @@ export const authController = {
 
             return res.status(401).json({error: 'email not found'})
         }catch (error) {
-            
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
         }
     }
 }
