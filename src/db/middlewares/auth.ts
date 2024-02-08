@@ -5,11 +5,11 @@ import { jwtService } from "../services/jwtServices.js";
 import { JwtPayload } from "jsonwebtoken";
 
 
-export interface authenticatedRequest extends Request{
+export interface AuthenticatedRequest extends Request{
     user?: UserInstance|null
 }
 
-export const ensureAuth = (req:authenticatedRequest, res:Response, next:NextFunction)=>{
+export const ensureAuth = (req:AuthenticatedRequest, res:Response, next:NextFunction)=>{
     const tokenAuthorization = req.headers.authorization
 
     if(!tokenAuthorization) return res.status(401).json({error: 'No token'})

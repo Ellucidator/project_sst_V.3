@@ -22,5 +22,6 @@ export {
     SubCategory,
     Item,
     User,
-    Promotion
+    Promotion,
+    Favorite
 };
