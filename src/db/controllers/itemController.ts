@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Item } from "../models/index.js";
 import { itemServices } from "../services/itemServices.js";
+import { getPaginationParams } from "src/helpers/getPaginationParams.js";
 
 
 export const itemController = {
@@ -54,6 +55,26 @@ export const itemController = {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
             }
+        }
+    },
+
+    fromSubCategory:async(req:Request, res:Response)=>{
+
+        try {
+            const [page, perPage] = getPaginationParams(req.query)
+            const offset = (page - 1) * perPage
+
+            const subCategoryId = req.params.id
+            
+            const items = await Item.findAndCountAll({
+                where: { sub_category_id: subCategoryId },
+                attributes: ['id', 'name', 'price', 'in_stock', 'thumbnail_url'],
+                limit: perPage,
+                offset: offset
+            })
+            return res.json(items)
+        } catch (error) {
+            
         }
     }
 }
