@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Item } from "../models/index.js";
 import { itemServices } from "../services/itemServices.js";
-import { getPaginationParams } from "src/helpers/getPaginationParams.js";
+import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
 
 export const itemController = {

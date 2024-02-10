@@ -2,9 +2,17 @@ import express from 'express';
 import { categoriesController } from './db/controllers/categorieController.js';
 import { itemController } from './db/controllers/itemController.js';
 import { subCategoriesControllers } from './db/controllers/subCategoriesController.js';
+import { authController } from './db/controllers/authController.js';
+import { ensureAuth } from './db/middlewares/auth.js';
+import { userController } from './db/controllers/userController.js';
 
 const router = express.Router();
 
+router.post('/login', authController.login)
+router.post('/register', authController.register)
+
+router.post('/user/favorite',ensureAuth, userController.addFavorite)
+router.get('/user/show/favorites',ensureAuth,userController.showFavorites)
 
 
 router.get('/categories',categoriesController.list)
@@ -16,6 +24,7 @@ router.get('/items/highlighted', itemController.highlighted)
 router.get('/items/promotion', itemController.promotion)
 router.get('/items/search', itemController.search)
 router.get('/items/:id', itemController.show)
+
 
 
 export default router
