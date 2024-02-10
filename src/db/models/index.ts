@@ -25,6 +25,9 @@ Favorite.belongsTo(User);
 Item.hasMany(Favorite);
 Favorite.belongsTo(Item);
 
+Favorite.hasMany(Item);
+Item.belongsTo(Favorite);
+
 User.hasMany(Purchase);
 Purchase.belongsTo(User);
 
