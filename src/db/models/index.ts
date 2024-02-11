@@ -16,26 +16,24 @@ Item.belongsTo(SubCategory,{foreignKey:'sub_category_id'});
 Item.hasOne(Promotion,{foreignKey:'item_id'});
 Promotion.belongsTo(Item,{foreignKey:'item_id'});
 
-Item.belongsToMany(User,{through:Favorite})
-User.belongsToMany(Item,{through:Favorite})
+Item.belongsToMany(User,{through:Favorite,foreignKey:'item_id',otherKey:'user_id'})
+User.belongsToMany(Item,{through:Favorite,foreignKey:'user_id',otherKey:'item_id'})
 
-User.hasMany(Favorite);
-Favorite.belongsTo(User);
+User.hasMany(Favorite,{foreignKey:'user_id'});
+Favorite.belongsTo(User,{foreignKey:'user_id'});
 
-Item.hasMany(Favorite);
-Favorite.belongsTo(Item);
+Item.hasMany(Favorite,{foreignKey:'item_id'});
+Favorite.belongsTo(Item,{foreignKey:'item_id'});
 
-Favorite.hasMany(Item);
-Item.belongsTo(Favorite);
 
-User.hasMany(Purchase);
-Purchase.belongsTo(User);
+// User.hasMany(Purchase);
+// Purchase.belongsTo(User);
 
-Item.belongsToMany(Purchase,{through:ItemSell})
-Purchase.belongsToMany(Item,{through:ItemSell})
+// Item.belongsToMany(Purchase,{through:ItemSell})
+// Purchase.belongsToMany(Item,{through:ItemSell})
 
-Item.hasMany(ItemSell);
-ItemSell.belongsTo(Item);
+// Item.hasMany(ItemSell);
+// ItemSell.belongsTo(Item);
 
 
 
@@ -46,5 +44,7 @@ export {
     Item,
     User,
     Promotion,
-    Favorite
+    Favorite,
+    // Purchase,
+    // ItemSell
 };

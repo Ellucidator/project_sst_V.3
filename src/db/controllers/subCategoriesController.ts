@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SubCategory } from "../models/index.js";
+import { SubCategory } from "../models/indexAdminJs.js";
 
 
 export const subCategoriesControllers = {

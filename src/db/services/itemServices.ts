@@ -1,4 +1,4 @@
-import { Item } from "../models/index.js";
+import { Item } from "../models/indexAdminJs.js";
 import { Op } from "sequelize";
 
 export const itemServices = {

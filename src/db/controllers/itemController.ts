@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Item } from "../models/index.js";
+import { Item } from "../models/indexAdminJs.js";
 import { itemServices } from "../services/itemServices.js";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 

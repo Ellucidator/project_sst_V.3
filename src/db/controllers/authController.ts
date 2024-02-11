@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { User } from "../models/index.js";
+import { User } from "../models/indexAdminJs.js";
 import { jwtService } from "../services/jwtServices.js";
 
 
