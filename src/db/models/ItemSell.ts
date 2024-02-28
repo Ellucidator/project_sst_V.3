@@ -6,6 +6,7 @@ export interface ItemSell{
     item_id: number
     purchase_id: number
     quantity: number
+    price: number
 }
 
 export interface CreateItemSellAttributes extends Optional<ItemSell, 'id'>{}
@@ -28,7 +29,7 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
             key:'id'
         },
         onUpdate:'CASCADE',
-        onDelete:'CASCADE'
+        onDelete:'RESTRICT'
     },
     item_id:{
         type: DataTypes.INTEGER,
@@ -38,9 +39,13 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
             key:'id'
         },
         onUpdate:'CASCADE',
-        onDelete:'CASCADE'
+        onDelete:'RESTRICT'
     },
     quantity:{
+        type: DataTypes.FLOAT,
+        allowNull: false
+    },
+    price:{
         type: DataTypes.FLOAT,
         allowNull: false
     }

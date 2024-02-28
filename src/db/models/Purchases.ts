@@ -26,6 +26,6 @@ export const Purchase = sequelize.define<PurchaseInstance,Purchase>('Purchase',{
             key:'id'
         },
         onUpdate:'CASCADE',
-        onDelete:'CASCADE'
+        onDelete:'RESTRICT'
     }
 })

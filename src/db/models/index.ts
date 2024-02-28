@@ -26,14 +26,14 @@ Item.hasMany(Favorite,{foreignKey:'item_id'});
 Favorite.belongsTo(Item,{foreignKey:'item_id'});
 
 
-// User.hasMany(Purchase);
-// Purchase.belongsTo(User);
+User.hasMany(Purchase,{foreignKey:'user_id'});
+Purchase.belongsTo(User,{foreignKey:'user_id'});
 
-// Item.belongsToMany(Purchase,{through:ItemSell})
-// Purchase.belongsToMany(Item,{through:ItemSell})
+Purchase.hasMany(ItemSell,{foreignKey:'purchase_id'});
+ItemSell.belongsTo(Purchase,{foreignKey:'purchase_id'});
 
-// Item.hasMany(ItemSell);
-// ItemSell.belongsTo(Item);
+Item.hasMany(ItemSell,{foreignKey:'item_id'});
+ItemSell.belongsTo(Item,{foreignKey:'item_id'});
 
 
 
@@ -45,6 +45,6 @@ export {
     User,
     Promotion,
     Favorite,
-    // Purchase,
-    // ItemSell
+    Purchase,
+    ItemSell
 };

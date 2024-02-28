@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Category } from "../models/indexAdminJs.js";
+import { Category } from "../models/index.js";
 
 
 export const categoriesController = {
