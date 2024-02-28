@@ -5,6 +5,7 @@ import { subCategoriesControllers } from './db/controllers/subCategoriesControll
 import { authController } from './db/controllers/authController.js';
 import { ensureAuth } from './db/middlewares/auth.js';
 import { userController } from './db/controllers/userController.js';
+import { purchaseController } from './db/controllers/purchaseController.js';
 
 const router = express.Router();
 
@@ -13,6 +14,9 @@ router.post('/register', authController.register)
 
 router.post('/user/favorite',ensureAuth, userController.addFavorite)
 router.get('/user/show/favorites',ensureAuth,userController.showFavorites)
+
+router.post('/user/purchase',ensureAuth,purchaseController.addPurchase)
+router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)
 
 
 router.get('/categories',categoriesController.list)

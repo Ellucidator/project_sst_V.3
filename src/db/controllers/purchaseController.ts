@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../middlewares/auth.js";
 import { CreateItemSellAttributes } from "../models/ItemSell.js";
-import { ItemSell, Purchase } from "../models/index.js";
+import {Item, ItemSell, Purchase } from "../models/index.js";
 
 
 export const purchaseController = {
@@ -23,10 +23,9 @@ export const purchaseController = {
                     price: item.price
                 }
             })
+            const createItens = await ItemSell.bulkCreate(itensCreate)
 
-            ItemSell.bulkCreate(itensCreate)
-
-            return res.status(201).json({message: 'Purchase created', id: createPurchase.id})
+            return res.status(201).json(createItens)
 
         } catch (error) {
             if(error instanceof Error) {
@@ -35,8 +34,9 @@ export const purchaseController = {
         }
     },
 
-    getPurchase: async (req:AuthenticatedRequest, res:Response)=>{
+    showPurchase: async (req:AuthenticatedRequest, res:Response)=>{
         try {
+
             const userId = req.user!.id
             const purchases =await Purchase.findAll({
                 where:{user_id: userId},
@@ -45,9 +45,10 @@ export const purchaseController = {
                         model:ItemSell,
                         include:[
                             {
-                                association:'item'
+                                association:'Item'
                             }
                         ]
+                        
                     }
                 ]
             })

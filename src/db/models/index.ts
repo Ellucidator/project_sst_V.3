@@ -36,6 +36,10 @@ Item.hasMany(ItemSell,{foreignKey:'item_id'});
 ItemSell.belongsTo(Item,{foreignKey:'item_id'});
 
 
+ItemSell.hasOne(Item,{foreignKey:'id'});
+Item.belongsTo(ItemSell,{foreignKey:'id'});
+
+
 
 
 export {

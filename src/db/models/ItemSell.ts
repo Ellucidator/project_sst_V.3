@@ -25,7 +25,7 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
         type: DataTypes.INTEGER,
         allowNull: false,
         references:{
-            model:'users',
+            model:'purchases',
             key:'id'
         },
         onUpdate:'CASCADE',
@@ -42,11 +42,14 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
         onDelete:'RESTRICT'
     },
     quantity:{
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     price:{
-        type: DataTypes.FLOAT,
+        type: DataTypes.NUMBER,
         allowNull: false
     }
+},
+{
+    tableName: 'items_sell'
 })
