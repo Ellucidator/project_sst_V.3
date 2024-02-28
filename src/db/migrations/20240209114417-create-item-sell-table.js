@@ -20,15 +20,19 @@ module.exports = {
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
       },
-      user_id:{
+      purchase_id:{
         type: Sequelize.INTEGER,
         allowNull: false,
         references:{
-          model:'users',
+          model:'purchases',
           key:'id'
         },
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
+      },
+      quantity:{
+        type: Sequelize.INTEGER,
+        allowNull: false
       },
       created_at: {
         allowNull: false,

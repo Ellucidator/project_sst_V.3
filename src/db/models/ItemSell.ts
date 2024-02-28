@@ -4,8 +4,8 @@ import { sequelize } from "../index.js"
 export interface ItemSell{
     id: number
     item_id: number
-    user_id: number
-    price: number
+    purchase_id: number
+    quantity: number
 }
 
 export interface CreateItemSellAttributes extends Optional<ItemSell, 'id'>{}
@@ -20,7 +20,7 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
         autoIncrement: true,
         allowNull: false
     },
-    user_id:{
+    purchase_id:{
         type: DataTypes.INTEGER,
         allowNull: false,
         references:{
@@ -40,7 +40,7 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
     },
-    price:{
+    quantity:{
         type: DataTypes.FLOAT,
         allowNull: false
     }
