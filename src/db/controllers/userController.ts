@@ -6,12 +6,12 @@ import { userServices } from "../services/userServices.js";
 
 export const userController = {
 
-    show:async (req:Request,res:Response)=>{
+    show:async (req:AuthenticatedRequest,res:Response)=>{
 
         try {
-            const userId = req.params.id
+            const userId = req.user!.id
 
-            const user = await User.findOne({where: {id: userId}})
+            const user = await User.findOne({where: {id: userId}, attributes: ['id', 'email', 'username', 'first_name', 'last_name', 'phone', 'birth','img_key']})
 
             return res.json(user)
         } catch (error) {

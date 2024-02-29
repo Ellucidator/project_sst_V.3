@@ -15,7 +15,13 @@ export const Promotion = sequelize.define<PromotionInstance,Promotion>('Promotio
     item_id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false
+        allowNull: false,
+        references:{
+            model:'items',
+            key:'id'
+        },
+        onUpdate:'CASCADE',
+        onDelete:'CASCADE'
     },
     price:{
         type: DataTypes.FLOAT,

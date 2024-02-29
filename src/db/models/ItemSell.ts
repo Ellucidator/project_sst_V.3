@@ -29,7 +29,7 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
             key:'id'
         },
         onUpdate:'CASCADE',
-        onDelete:'RESTRICT'
+        onDelete:'CASCADE'
     },
     item_id:{
         type: DataTypes.INTEGER,
@@ -39,7 +39,7 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
             key:'id'
         },
         onUpdate:'CASCADE',
-        onDelete:'RESTRICT'
+        onDelete:'CASCADE'
     },
     quantity:{
         type: DataTypes.INTEGER,

@@ -59,6 +59,6 @@ export const purchaseController = {
                 res.status(500).json({error: error.message})
             }
         }
-    }
+    },
 
 }

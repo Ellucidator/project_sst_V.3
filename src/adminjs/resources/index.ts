@@ -29,6 +29,6 @@ export const AdminJSResources: ResourceWithOptions[] = [
     {
         resource: Promotion,
         options: promotionResourceOptions
-    },
+    }
 
 ]
