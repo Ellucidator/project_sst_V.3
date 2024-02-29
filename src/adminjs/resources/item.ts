@@ -56,6 +56,7 @@ const photoPropertiesFor = (name, options = {}) => {
 }
 
 export const itemResourceOptions: ResourceOptions = {
+    navigation: 'Estoque',
     properties: {
         images:{
             type:'mixed'

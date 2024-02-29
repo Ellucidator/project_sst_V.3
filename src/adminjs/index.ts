@@ -48,6 +48,7 @@ export const adminJs = new AdminJS({
         language:'pt-BR',
         availableLanguages: ['pt-BR', 'en'],
     },
+    
 
 })
 

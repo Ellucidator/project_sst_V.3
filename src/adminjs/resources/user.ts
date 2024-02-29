@@ -3,6 +3,7 @@ import uploadFeature from "@adminjs/upload";
 import { componentLoader } from "../components/component-loader.js";
 
 export const userResourceOptions:ResourceOptions = {
+    navigation: 'Clientes',
     editProperties: ['perfilFile','first_name', 'last_name','phone', 'birth', 'username', 'email', 'password','role'],
     listProperties: ['id','perfilFile', 'first_name', 'last_name','phone', 'username', 'email', 'role'],
     showProperties: ['id','role','perfilFile', 'first_name', 'last_name','phone','birth', 'username', 'email', 'createdAt', 'updatedAt'],
