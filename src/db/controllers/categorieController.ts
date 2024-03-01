@@ -6,7 +6,14 @@ export const categoriesController = {
 
     list: async (req:Request,res:Response) => {
         try {
-            const categories = await Category.findAll({order: [['position', 'ASC']]});
+            const categories = await Category.findAll({
+                order: [['position', 'ASC']],
+                attributes: ['id', 'name'],
+                include:{
+                    association:'SubCategories',
+                    attributes: ['id', 'name'],
+                    
+                }});
             return res.json(categories)
         } catch (error) {
             if(error instanceof Error) {
