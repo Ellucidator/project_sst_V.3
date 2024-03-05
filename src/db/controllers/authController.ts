@@ -19,6 +19,8 @@ export const authController = {
                 const payload = {
                     id: user.id,
                     email: user.email,
+                    name: user.first_name,
+                    imgUrl: user.img_key
                 }
                 const token = jwtService.generateToken(payload, '8h')
                 return res.status(200).json({authenticated: true, user, token})

@@ -6,6 +6,7 @@ import { authController } from './db/controllers/authController.js';
 import { ensureAuth } from './db/middlewares/auth.js';
 import { userController } from './db/controllers/userController.js';
 import { purchaseController } from './db/controllers/purchaseController.js';
+import {promotionController} from './db/controllers/promotionController.js';
 
 const router = express.Router();
 
@@ -20,11 +21,14 @@ router.get('/user',ensureAuth,userController.show)
 router.post('/user/purchase',ensureAuth,purchaseController.addPurchase)
 router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)
 
+router.get('/promotions/featured', promotionController.getFeaturedPromotion )
 
 router.get('/categories',categoriesController.list)
 router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories)
 
 router.get('/sub-categories/:id', subCategoriesControllers.subCategoryAndItems)
+
+
 
 router.get('/items/highlighted', itemController.highlighted)
 router.get('/items/promotion', itemController.promotion)

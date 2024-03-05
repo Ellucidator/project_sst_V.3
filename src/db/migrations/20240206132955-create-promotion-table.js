@@ -23,6 +23,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true
       },
+      featured:{
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
+        defaultValue: false
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

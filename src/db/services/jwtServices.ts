@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 
-const secret = '123'
+const secret = 'secret'
 
 export const jwtService = {
 
