@@ -13,8 +13,7 @@ SubCategory.belongsTo(Category,{foreignKey:'category_id'});
 SubCategory.hasMany(Item,{foreignKey:'sub_category_id',onUpdate:'CASCADE',onDelete:'RESTRICT'});
 Item.belongsTo(SubCategory,{foreignKey:'sub_category_id'});
 
-Item.hasOne(Promotion,{foreignKey:'item_id'});
-Promotion.belongsTo(Item,{foreignKey:'item_id'});
+
 
 Item.belongsToMany(User,{through:Favorite,foreignKey:'item_id',otherKey:'user_id'})
 User.belongsToMany(Item,{through:Favorite,foreignKey:'user_id',otherKey:'item_id'})

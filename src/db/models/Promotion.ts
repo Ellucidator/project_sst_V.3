@@ -32,4 +32,7 @@ export const Promotion = sequelize.define<PromotionInstance,Promotion>('Promotio
         allowNull: true,
         defaultValue: false
     }
+},
+{
+    tableName: 'promotions'
 })
