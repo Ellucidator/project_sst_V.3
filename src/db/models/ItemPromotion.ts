@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../index.js"
+import { ItemInstance } from "./Item.js"
 
 export interface ItemPromotion{
     id:number
@@ -11,7 +12,9 @@ export interface ItemPromotion{
 
 export interface CreateItemPromotion extends Optional<ItemPromotion, 'id'|'description'>{}
 
-export interface ItemPromotionInstance extends Model<ItemPromotion, CreateItemPromotion>, ItemPromotion{}
+export interface ItemPromotionInstance extends Model<ItemPromotion, CreateItemPromotion>, ItemPromotion{
+    Item?:ItemInstance
+}
 
 export const ItemPromotion = sequelize.define<ItemPromotionInstance, ItemPromotion>('ItemPromotion',{
     id:{
@@ -25,6 +28,7 @@ export const ItemPromotion = sequelize.define<ItemPromotionInstance, ItemPromoti
             model:'items',
             key:'id'
         },
+        unique:true,
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
     },

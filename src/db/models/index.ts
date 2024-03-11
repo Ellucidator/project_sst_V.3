@@ -38,6 +38,11 @@ ItemSell.belongsTo(Item,{foreignKey:'item_id'});
 Promotion.belongsToMany(Item,{through:ItemPromotion,foreignKey:'promotion_id',otherKey:'item_id'})
 Item.belongsToMany(Promotion,{through:ItemPromotion,foreignKey:'item_id',otherKey:'promotion_id'})
 
+ItemPromotion.hasOne(Item,{foreignKey:'id',sourceKey:'item_id'});
+
+
+
+
 
 
 

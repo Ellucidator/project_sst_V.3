@@ -17,6 +17,7 @@ module.exports = {
           model:'items',
           key:'id'
         },
+        unique:true,
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
       },

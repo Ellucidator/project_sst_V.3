@@ -22,7 +22,7 @@ router.post('/user/purchase',ensureAuth,purchaseController.addPurchase)
 router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)
 
 router.get('/promotions/featured', promotionController.getFeaturedPromotion )
-router.get('/promotions/:id', promotionController.getItemsPromotion )
+router.get('/promotions/:id', promotionController.getPromotionAndItems )
 
 router.get('/categories',categoriesController.list)
 router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories)
