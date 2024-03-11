@@ -5,7 +5,7 @@ import { categoriesResourceOptions } from "./category.js";
 import { subCategoriesResourceOptions } from "./sub_category.js";
 import { itemResourceFeatures, itemResourceOptions } from "./item.js";
 import { userResourceFeatures, userResourceOptions } from "./user.js";
-import { promotionResourceOptions } from "./promotion.js";
+import { promotionResourceFeatures, promotionResourceOptions } from "./promotion.js";
 
 export const AdminJSResources: ResourceWithOptions[] = [
     {
@@ -28,7 +28,8 @@ export const AdminJSResources: ResourceWithOptions[] = [
     },
     {
         resource: Promotion,
-        options: promotionResourceOptions
+        options: promotionResourceOptions,
+        features: promotionResourceFeatures
     }
 
 ]
