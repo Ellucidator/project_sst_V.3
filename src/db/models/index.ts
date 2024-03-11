@@ -6,6 +6,7 @@ import { Promotion } from './Promotion.js';
 import { Favorite } from './Favorites.js';
 import { Purchase } from './Purchases.js';
 import { ItemSell } from './ItemSell.js';
+import { ItemPromotion } from './ItemPromotion.js';
 
 Category.hasMany(SubCategory,{foreignKey:'category_id',onUpdate:'CASCADE',onDelete:'RESTRICT'});
 SubCategory.belongsTo(Category,{foreignKey:'category_id'});
@@ -34,6 +35,9 @@ ItemSell.belongsTo(Purchase,{foreignKey:'purchase_id'});
 Item.hasMany(ItemSell,{foreignKey:'item_id'});
 ItemSell.belongsTo(Item,{foreignKey:'item_id'});
 
+Promotion.belongsToMany(Item,{through:ItemPromotion,foreignKey:'promotion_id',otherKey:'item_id'})
+Item.belongsToMany(Promotion,{through:ItemPromotion,foreignKey:'item_id',otherKey:'promotion_id'})
+
 
 
 
@@ -47,5 +51,6 @@ export {
     Promotion,
     Favorite,
     Purchase,
-    ItemSell
+    ItemSell,
+    ItemPromotion
 };
