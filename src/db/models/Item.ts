@@ -1,5 +1,6 @@
 import { Model, Optional, DataTypes } from "sequelize";
 import { sequelize } from "../index.js";
+import { ItemPromotionInstance } from "./ItemPromotion.js";
 
 
 export interface ItemPhotoInDB {
@@ -28,7 +29,9 @@ export interface Item {
 export interface CreateItemAttributes extends Optional<Item, 'id'|'description'|'featured'|'promotion'|'thumbnail_url'|'bucket'|'mime'|'size'|'images'> {}
 
 
-export interface ItemInstance extends Model<Item, CreateItemAttributes>, Item {}
+export interface ItemInstance extends Model<Item, CreateItemAttributes>, Item {
+    ItemPromotion?: ItemPromotionInstance
+}
 
 export const Item = sequelize.define<ItemInstance, Item>('Item', {
     id:{

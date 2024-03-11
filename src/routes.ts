@@ -22,6 +22,7 @@ router.post('/user/purchase',ensureAuth,purchaseController.addPurchase)
 router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)
 
 router.get('/promotions/featured', promotionController.getFeaturedPromotion )
+router.get('/promotions/:id', promotionController.getItemsPromotion )
 
 router.get('/categories',categoriesController.list)
 router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories)
@@ -31,7 +32,6 @@ router.get('/sub-categories/:id', subCategoriesControllers.subCategoryAndItems)
 
 
 router.get('/items/highlighted', itemController.highlighted)
-router.get('/items/promotion', itemController.promotion)
 router.get('/items/search', itemController.search)
 router.get('/items/:id', itemController.show)
 

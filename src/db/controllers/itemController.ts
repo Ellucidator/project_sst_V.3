@@ -17,18 +17,6 @@ export const itemController = {
             }
         }
     },
-
-    promotion: async (req: Request, res: Response) => {
-        try {
-            const itemsPromotin = await Item.findAll({ where: { promotion: true }, attributes: ['id', 'name', 'price', 'description', 'in_stock', 'thumbnail_url', 'images'],include:{association:'Promotion'}})
-            return res.json(itemsPromotin)
-        } catch (error) {
-            if (error instanceof Error) {
-                res.status(500).json({ error: error.message })
-            }
-        }
-    },
-
     show: async (req: Request, res: Response) => {
         try {
             const itemId = req.params.id
