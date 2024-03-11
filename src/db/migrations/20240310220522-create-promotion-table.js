@@ -23,6 +23,18 @@ module.exports = {
         allowNull: false,
         defaultValue: false
       },
+      thumbnail_url:{
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      bucket: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      mime: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
