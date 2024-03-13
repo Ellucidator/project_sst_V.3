@@ -35,7 +35,7 @@ export const promotionController = {
                             in_stock: item.Item!.in_stock,
                             thumbnail_url: item.Item!.thumbnail_url,
                             price: item.Item!.price,
-                            pricePromotion: item.price
+                            price_promotion: item.price
                         }
                     })
                 }
