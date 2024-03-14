@@ -9,11 +9,31 @@ export const itemController = {
     highlighted: async (req: Request, res: Response) => {
 
         try {
-            const itemsHighlighted = await Item.findAll({ where: { featured: true }, attributes: ['id', 'name', 'price', 'description', 'in_stock', 'thumbnail_url', 'images'] })
+            const itemsHighlighted = await Item.findAll(
+                {
+                    where: { featured: true }, 
+                    attributes: ['id', 'name', 'price', 'description', 'in_stock', 'thumbnail_url', 'images'] 
+                }
+                )
             return res.json(itemsHighlighted)
         } catch (error) {
             if (error instanceof Error) {
                 throw new Error(error.message)
+            }
+        }
+    },
+
+    newests: async (req: Request, res: Response) => {
+        try {
+            const newestsItems = await Item.findAll({
+                attributes:['id', 'name', 'price', 'description', 'in_stock', 'thumbnail_url', 'images'],
+                order:[['createdAt', 'DESC']],
+                limit:10
+            })
+            return res.status(200).json(newestsItems)
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
             }
         }
     },

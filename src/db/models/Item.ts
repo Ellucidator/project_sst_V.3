@@ -49,7 +49,7 @@ export const Item = sequelize.define<ItemInstance, Item>('Item', {
         allowNull: true
     },
     price:{
-        type: DataTypes.FLOAT,
+        type: DataTypes.NUMBER,
         allowNull: false
     },
     in_stock:{

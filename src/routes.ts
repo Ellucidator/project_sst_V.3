@@ -32,6 +32,7 @@ router.get('/sub-categories/:id', subCategoriesControllers.subCategoryAndItems)
 
 
 router.get('/items/highlighted', itemController.highlighted)
+router.get('/items/newests', itemController.newests)
 router.get('/items/search', itemController.search)
 router.get('/items/:id', itemController.show)
 
