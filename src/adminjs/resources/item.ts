@@ -61,9 +61,9 @@ export const itemResourceOptions: ResourceOptions = {
         images:{
             type:'mixed'
         },
-        price:{
-            type: 'currency',
-        },
+        // price:{
+        //     type: 'currency',
+        // },
         description:{
             type: 'textarea',
             isSortable: false
@@ -71,7 +71,7 @@ export const itemResourceOptions: ResourceOptions = {
         ...photoProperties(),
         ...photoPropertiesFor('images',{isArray:true})
     },
-    editProperties: ['name', 'description', 'price', 'in_stock', 'featured', 'promotion', 'sub_category_id','thumbnail', 'images'],
+    editProperties: ['name', 'description', 'price', 'in_stock', 'featured', 'sub_category_id','thumbnail', 'images'],
     listProperties: ['id', 'name', 'price', 'in_stock', 'featured', 'promotion', 'thumbnail','sub_category_id'],
     showProperties: ['id', 'name', 'description', 'price', 'in_stock', 'featured', 'promotion','sub_category_id', 'thumbnail', 'images'],
     filterProperties: ['id', 'name', 'price', 'featured', 'promotion', 'createdAt', 'updatedAt', 'sub_category_id'],

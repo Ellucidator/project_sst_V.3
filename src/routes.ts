@@ -36,6 +36,8 @@ router.get('/items/newests', itemController.newests)
 router.get('/items/search', itemController.search)
 router.get('/items/:id', itemController.show)
 
+router.get('/items/:id/promotion', itemController.updatePromotion)
+
 
 
 export default router

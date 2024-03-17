@@ -84,5 +84,35 @@ export const itemController = {
         } catch (error) {
             
         }
+    },
+
+    updatePromotion:async(itemId:number)=>{
+        
+        try {
+            const item = await Item.findOne({
+                where:{id:itemId},
+                include:[
+                    {
+                        association:'ItemPromotion'
+                    }
+                ]
+            })
+            if(item){
+                if(item?.ItemPromotion){
+                    item.promotion = true
+                    await item.save()
+                    return
+                }
+                item.promotion = false
+                await item.save()
+                return 
+            }
+            
+            
+        } catch (error) {
+            if(error instanceof Error) {
+                return error
+            }
+        }
     }
 }

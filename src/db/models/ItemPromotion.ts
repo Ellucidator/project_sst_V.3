@@ -1,6 +1,7 @@
 import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../index.js"
 import { ItemInstance } from "./Item.js"
+import { itemController } from "../controllers/itemController.js"
 
 export interface ItemPromotion{
     id:number
@@ -51,5 +52,14 @@ export const ItemPromotion = sequelize.define<ItemPromotionInstance, ItemPromoti
     }
 },
 {
-    tableName: 'items_promotion'
-})
+    tableName: 'items_promotion',
+    hooks:{
+        afterCreate:async (itemPromotion)=>{
+            await itemController.updatePromotion(itemPromotion.item_id)
+        },
+        afterDestroy:async (itemPromotion)=>{
+            await itemController.updatePromotion(itemPromotion.item_id)
+        }
+    }
+}
+)
