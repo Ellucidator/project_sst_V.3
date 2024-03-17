@@ -20,7 +20,7 @@ export interface User{
 export interface CreateUserAttributes extends Optional<User,'id'|'img_key'|'bucket'|'mime'>{}
 
 export interface UserInstance extends Model<User, CreateUserAttributes>, User {
-    checkPassword: (password:string, cb:(err?:Error|undefined, isMatch?:boolean) => void) => void
+    checkPassword: (password:string)=>Promise<boolean>
 }
 
 export const User = sequelize.define<UserInstance,User>('User', {
@@ -92,9 +92,7 @@ export const User = sequelize.define<UserInstance,User>('User', {
 },)
 
 
-User.prototype.checkPassword = function(password:string, cb:(err?:Error|undefined, isMatch?:boolean) => void) {
-    bcrypt.compare(password, this.password, (err, isMatch) => {
-        if(err) cb(err, false)
-        else cb(err, isMatch)
-    })
+User.prototype.checkPassword = async function(password:string) {
+    const validate = await bcrypt.compare(password, this.password)
+    return validate
 }

@@ -54,7 +54,7 @@ export const ItemPromotion = sequelize.define<ItemPromotionInstance, ItemPromoti
 {
     tableName: 'items_promotion',
     hooks:{
-        afterCreate:async (itemPromotion)=>{
+        afterSave:async (itemPromotion)=>{
             await itemController.updatePromotion(itemPromotion.item_id)
         },
         afterDestroy:async (itemPromotion)=>{

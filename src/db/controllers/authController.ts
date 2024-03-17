@@ -9,12 +9,13 @@ export const authController = {
     login:async(req:Request, res:Response)=>{
         try {
             const {email, password} = req.body
+
             const user = await User.findOne({where: {email:email}})
+
             if(user){
-                user.checkPassword(password,(err, isMatch)=>{
-                    if(err) throw err
-                    if(!isMatch) return res.status(401).json({error: 'Invalid password'})
-                })
+                const passwordMatch = await user.checkPassword(password)
+                
+                if(passwordMatch !== true) return res.status(401).json('password not found')
 
                 const payload = {
                     id: user.id,
@@ -26,7 +27,7 @@ export const authController = {
                 return res.status(200).json({authenticated: true, user, token})
             }
 
-            return res.status(401).json({error: 'email not found'})
+            return res.status(401).json('email not found')
         }catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
