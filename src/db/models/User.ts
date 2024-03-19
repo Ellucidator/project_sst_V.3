@@ -8,7 +8,6 @@ export interface User{
     last_name: string
     phone: string
     birth: Date
-    username: string
     email: string
     password: string
     role:'admin'| 'user'
@@ -45,11 +44,6 @@ export const User = sequelize.define<UserInstance,User>('User', {
     birth:{
         type: DataTypes.DATE,
         allowNull: false
-    },
-    username:{
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true
     },
     email:{
         type: DataTypes.STRING,

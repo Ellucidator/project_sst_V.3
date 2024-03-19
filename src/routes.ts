@@ -16,6 +16,7 @@ router.post('/register', authController.register)
 router.post('/user/favorite',ensureAuth, userController.addFavorite)
 router.get('/user/show/favorites',ensureAuth,userController.showFavorites)
 
+router.post('/create-user', userController.createUser)
 router.get('/user',ensureAuth,userController.show)
 
 router.post('/user/purchase',ensureAuth,purchaseController.addPurchase)
