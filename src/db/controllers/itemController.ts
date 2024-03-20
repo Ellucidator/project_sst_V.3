@@ -9,12 +9,42 @@ export const itemController = {
     highlighted: async (req: Request, res: Response) => {
 
         try {
-            const itemsHighlighted = await Item.findAll(
-                {
-                    where: { featured: true }, 
-                    attributes: ['id', 'name', 'price', 'description', 'in_stock', 'thumbnail_url', 'images'] 
+            const highlighted = await Item.findAll({
+                where: { featured: true },
+                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
+                include:[
+                    {
+                        association:'ItemPromotion',
+                        attributes:['price']
+                    }
+                ],
+                order:[['createdAt', 'DESC']],
+            })
+
+            const itemsHighlighted = highlighted.map(item=>{
+                if(item.ItemPromotion){
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        in_stock: item.in_stock,
+                        thumbnail_url: item.thumbnail_url,
+                        description: item.description,
+                        promotion: item.promotion,
+                        price_promotion: item.ItemPromotion.price
+                    }
+                }else{
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        in_stock: item.in_stock,
+                        thumbnail_url: item.thumbnail_url,
+                        description: item.description,
+                        promotion: item.promotion
+                    }
                 }
-                )
+            })
             return res.json(itemsHighlighted)
         } catch (error) {
             if (error instanceof Error) {
