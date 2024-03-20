@@ -26,11 +26,43 @@ export const itemController = {
     newests: async (req: Request, res: Response) => {
         try {
             const newestsItems = await Item.findAll({
-                attributes:['id', 'name', 'price', 'description', 'in_stock', 'thumbnail_url', 'images'],
+                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
+                include:[
+                    {
+                        association:'ItemPromotion',
+                        attributes:['price']
+                    }
+                ],
                 order:[['createdAt', 'DESC']],
                 limit:10
             })
-            return res.status(200).json(newestsItems)
+
+            const newests = newestsItems.map(item=>{
+                if(item.ItemPromotion){
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        in_stock: item.in_stock,
+                        thumbnail_url: item.thumbnail_url,
+                        description: item.description,
+                        promotion: item.promotion,
+                        price_promotion: item.ItemPromotion.price
+                    }
+                }else{
+                    return {
+                        id: item.id,
+                        name: item.name,
+                        price: item.price,
+                        in_stock: item.in_stock,
+                        thumbnail_url: item.thumbnail_url,
+                        description: item.description,
+                        promotion: item.promotion
+                    }
+                }
+            })
+
+            return res.status(200).json(newests)
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })

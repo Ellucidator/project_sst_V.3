@@ -11,10 +11,13 @@ export const userController = {
             const {first_name, last_name, email,password, phone, birth}:CreateUserAttributes = req.body
             const role = 'user'
             const newUser = await User.create({first_name, last_name, email, password, phone, birth, role})
-            console.log(newUser)
+            
+
             return res.status(201).json(newUser)
+
         } catch (error) {
             if(error instanceof Error) {
+                
                 res.status(500).json({error: error.message})
             }
         }

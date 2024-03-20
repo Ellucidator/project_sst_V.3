@@ -19,7 +19,7 @@ export const promotionController = {
                     include:[
                         {
                             association:'Item',
-                            attributes: ['id', 'name', 'price', 'in_stock', 'thumbnail_url'],
+                            attributes: ['id', 'name', 'price','promotion', 'in_stock', 'thumbnail_url'],
                         }
                     ]
                 })
@@ -35,6 +35,7 @@ export const promotionController = {
                             in_stock: item.Item!.in_stock,
                             thumbnail_url: item.Item!.thumbnail_url,
                             price: item.Item!.price,
+                            promotion: item.Item!.promotion,
                             price_promotion: item.price
                         }
                     })
