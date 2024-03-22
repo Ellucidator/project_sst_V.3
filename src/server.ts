@@ -9,12 +9,11 @@ import cors from 'cors'
 
 const app = express();
 
-app.use(adminJs.options.rootPath,adminJsRouter)
-
+app.use(adminJs.options.rootPath,adminJsRouter);
+app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
-app.use(router)
-app.use(cors())
+app.use(router);
 
 const PORT = 3000;
 
