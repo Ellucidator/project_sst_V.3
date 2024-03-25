@@ -25,7 +25,33 @@ export const categoriesController = {
     getOneCategoryAndSubCategories: async (req:Request,res:Response) => {
         try {
             const categoryId = req.params.id
-            const category = await Category.findOne({where: {id: categoryId},include:{association:'SubCategories'}})
+            const category = await Category.findOne({
+                where: {id: categoryId},
+                attributes:['id','name'],
+                include:[
+                    {
+                        association:'SubCategories',
+                        attributes:['id','name'],
+                        include:[
+                            {
+                                association:'Items',
+                                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
+                                include:[{
+                                    association:'ItemPromotion',
+                                    attributes: ['price']
+                                }]
+                            }
+                        ]
+                    }
+                ]
+            })
+            if(!category) return
+            const categoryRes = {
+                id:category.id,
+                name:category.name,
+                items: category
+            }
+
             return res.json(category)
         } catch (error) {
             if(error instanceof Error) {

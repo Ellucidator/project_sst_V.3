@@ -1,5 +1,6 @@
 import { Model, Optional, DataTypes } from "sequelize"
 import { sequelize } from "../index.js"
+import { SubCategoryInstace } from "./SubCategory.js"
 
 
 export interface Category{
@@ -10,7 +11,9 @@ export interface Category{
 
 export interface CreateCategoryAtributes extends Optional<Category,'id'|'position'>{}
 
-export interface CategoryInstace extends Model<Category,CreateCategoryAtributes>,Category {}
+export interface CategoryInstace extends Model<Category,CreateCategoryAtributes>,Category {
+    SubCategories?:SubCategoryInstace[]
+}
 
 export const Category = sequelize.define<CategoryInstace,Category>('Category', {
     id:{
