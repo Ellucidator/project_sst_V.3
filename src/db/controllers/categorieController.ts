@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { Category } from "../models/index.js";
+import test from "node:test";
+import { ItemInstance } from "../models/Item.js";
 
 
 export const categoriesController = {
@@ -46,13 +48,20 @@ export const categoriesController = {
                 ]
             })
             if(!category) return
+            const items:ItemInstance[]= []
+
+            category.SubCategories?.forEach((subCategory)=>{
+                subCategory.Items?.forEach((item)=>{items.push(item)})
+                
+            })
+
             const categoryRes = {
                 id:category.id,
                 name:category.name,
-                items: category
+                items
             }
 
-            return res.json(category)
+            return res.json(categoryRes)
         } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
