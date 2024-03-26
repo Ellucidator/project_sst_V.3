@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Category } from "../models/index.js";
-import test from "node:test";
 import { ItemInstance } from "../models/Item.js";
 
 
@@ -48,17 +47,17 @@ export const categoriesController = {
                 ]
             })
             if(!category) return
-            const items:ItemInstance[]= []
+            const Items:ItemInstance[]= []
 
             category.SubCategories?.forEach((subCategory)=>{
-                subCategory.Items?.forEach((item)=>{items.push(item)})
+                subCategory.Items?.forEach((item)=>{Items.push(item)})
                 
             })
 
             const categoryRes = {
                 id:category.id,
                 name:category.name,
-                items
+                Items
             }
 
             return res.json(categoryRes)

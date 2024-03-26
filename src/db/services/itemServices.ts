@@ -21,29 +21,6 @@ export const itemServices = {
                     limit:10
                 }
             )
-            return items.map(item=>{
-                if(item.ItemPromotion){
-                    return {
-                        id: item.id,
-                        name: item.name,
-                        price: item.price,
-                        in_stock: item.in_stock,
-                        thumbnail_url: item.thumbnail_url,
-                        description: item.description,
-                        promotion: item.promotion,
-                        price_promotion: item.ItemPromotion.price
-                    }
-                }else{
-                    return {
-                        id: item.id,
-                        name: item.name,
-                        price: item.price,
-                        in_stock: item.in_stock,
-                        thumbnail_url: item.thumbnail_url,
-                        description: item.description,
-                        promotion: item.promotion
-                    }
-                }
-            })
+            return items
     }
 }

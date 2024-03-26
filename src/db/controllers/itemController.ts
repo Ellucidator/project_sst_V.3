@@ -21,31 +21,7 @@ export const itemController = {
                 order:[['createdAt', 'DESC']],
             })
 
-            const itemsHighlighted = highlighted.map(item=>{
-                if(item.ItemPromotion){
-                    return {
-                        id: item.id,
-                        name: item.name,
-                        price: item.price,
-                        in_stock: item.in_stock,
-                        thumbnail_url: item.thumbnail_url,
-                        description: item.description,
-                        promotion: item.promotion,
-                        price_promotion: item.ItemPromotion.price
-                    }
-                }else{
-                    return {
-                        id: item.id,
-                        name: item.name,
-                        price: item.price,
-                        in_stock: item.in_stock,
-                        thumbnail_url: item.thumbnail_url,
-                        description: item.description,
-                        promotion: item.promotion
-                    }
-                }
-            })
-            return res.json(itemsHighlighted)
+            return res.json(highlighted)
         } catch (error) {
             if (error instanceof Error) {
                 throw new Error(error.message)
@@ -67,32 +43,7 @@ export const itemController = {
                 limit:10
             })
 
-            const newests = newestsItems.map(item=>{
-                if(item.ItemPromotion){
-                    return {
-                        id: item.id,
-                        name: item.name,
-                        price: item.price,
-                        in_stock: item.in_stock,
-                        thumbnail_url: item.thumbnail_url,
-                        description: item.description,
-                        promotion: item.promotion,
-                        price_promotion: item.ItemPromotion.price
-                    }
-                }else{
-                    return {
-                        id: item.id,
-                        name: item.name,
-                        price: item.price,
-                        in_stock: item.in_stock,
-                        thumbnail_url: item.thumbnail_url,
-                        description: item.description,
-                        promotion: item.promotion
-                    }
-                }
-            })
-
-            return res.status(200).json(newests)
+            return res.status(200).json(newestsItems)
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
@@ -125,26 +76,6 @@ export const itemController = {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
             }
-        }
-    },
-
-    fromSubCategory:async(req:Request, res:Response)=>{
-
-        try {
-            const [page, perPage] = getPaginationParams(req.query)
-            const offset = (page - 1) * perPage
-
-            const subCategoryId = req.params.id
-            
-            const items = await Item.findAndCountAll({
-                where: { sub_category_id: subCategoryId },
-                attributes: ['id', 'name', 'price', 'in_stock', 'thumbnail_url'],
-                limit: perPage,
-                offset: offset
-            })
-            return res.json(items)
-        } catch (error) {
-            
         }
     },
 
