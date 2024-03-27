@@ -13,6 +13,8 @@ export const categoriesController = {
                 include:{
                     association:'SubCategories',
                     attributes: ['id', 'name'],
+                    order:[['position','DESC']],
+                    separate:true
                     
                 }});
             return res.json(categories)
@@ -25,6 +27,13 @@ export const categoriesController = {
 
     getOneCategoryAndSubCategories: async (req:Request,res:Response) => {
         try {
+            const {order} = req.query
+            let orderQ:string[]=[]
+
+            if(typeof order === 'string') orderQ = order.split('-')
+            else orderQ = ['created_at','DESC']
+
+
             const categoryId = req.params.id
             const category = await Category.findOne({
                 where: {id: categoryId},
@@ -54,7 +63,33 @@ export const categoriesController = {
                 subCategory.Items?.forEach((item)=>{Items.push(item)})
                 
             })
-            Items.sort((a,b)=> b.getDataValue('created_at').getTime() - a.getDataValue('created_at').getTime())
+
+            if(orderQ[0] === 'created_at' ){
+
+                Items.sort((a,b)=> {
+                    if(orderQ[1] === 'DESC') return b.getDataValue('created_at').getTime() - a.getDataValue('created_at').getTime();
+
+                    else return a.getDataValue('created_at').getTime() - b.getDataValue('created_at').getTime();
+                })
+
+            } else{
+
+                    Items.sort((a,b)=> {
+
+                        let compA:number
+                        let compB:number
+
+                        if(a.promotion) compA = a.ItemPromotion!.price
+                        else compA = a.price
+
+                        if(b.promotion) compB = b.ItemPromotion!.price
+                        else compB = b.price
+
+                        if(orderQ[1] === 'DESC') return compA - compB
+                        else return compB - compA
+                    })
+
+            }
             
             const categoryRes = {
                 id:category.id,

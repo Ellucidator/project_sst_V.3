@@ -9,11 +9,25 @@ export const subCategoriesControllers = {
         try {
 
             const subCategoryId = req.params.id
+            const {order} = req.query
+
+            let orderQ:string[]=[]
+
+            if (typeof order === 'string'){
+                orderQ = order.split('-')
+            }else{
+                orderQ = ['created_at', 'DESC']
+            }
+            
+            console.log(orderQ)
+            
+
+
             const subCategory = await SubCategory.findOne({
                 where: { id: subCategoryId },
                 attributes: ['id', 'name'],
                 include: [{
-                    model: Item,
+                    association: 'Items',
                     attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url'],
                     where: {
                         id: {
@@ -22,13 +36,14 @@ export const subCategoriesControllers = {
                                     SELECT id
                                     FROM items
                                     WHERE sub_category_id = ${subCategoryId}
-                                    ORDER BY created_at DESC
                                     OFFSET ${0}
                                     LIMIT ${10}
                                     )`)
                             ]
                         }
                     },
+                    separate:true,
+                    order:[[orderQ[0], orderQ[1]]],
                     include: [{
                         association: 'ItemPromotion',
                         attributes: ['price']
@@ -36,7 +51,7 @@ export const subCategoriesControllers = {
                 }],
 
             })
-
+            console.log(subCategory?.Items)
             res.json(subCategory)
         } catch (error) {
             if (error instanceof Error) {
