@@ -36,7 +36,8 @@ export const categoriesController = {
                         include:[
                             {
                                 association:'Items',
-                                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
+                                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url','created_at', 'updated_at',],
+                                
                                 include:[{
                                     association:'ItemPromotion',
                                     attributes: ['price']
@@ -47,13 +48,14 @@ export const categoriesController = {
                 ]
             })
             if(!category) return
-            const Items:ItemInstance[]= []
 
+            const Items:ItemInstance[]= []
             category.SubCategories?.forEach((subCategory)=>{
                 subCategory.Items?.forEach((item)=>{Items.push(item)})
                 
             })
-
+            Items.sort((a,b)=> b.getDataValue('created_at').getTime() - a.getDataValue('created_at').getTime())
+            
             const categoryRes = {
                 id:category.id,
                 name:category.name,
