@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Item, SubCategory } from "../models/index.js";
+import { Category, Item, SubCategory } from "../models/index.js";
 import { Op } from "sequelize";
 import { sequelize } from "../index.js";
 
@@ -25,7 +25,7 @@ export const subCategoriesControllers = {
 
             const subCategory = await SubCategory.findOne({
                 where: { id: subCategoryId },
-                attributes: ['id', 'name'],
+                attributes: ['id', 'name', 'category_id'],
                 include: [{
                     association: 'Items',
                     attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url'],
@@ -51,8 +51,20 @@ export const subCategoriesControllers = {
                 }],
 
             })
-            console.log(subCategory?.Items)
-            res.json(subCategory)
+            const category = await Category.findOne({
+                where:{id:subCategory!.category_id},
+                attributes:['name']
+            })
+
+            const response = {
+                id:subCategory!.id,
+                name:subCategory!.name,
+                category_name: category!.name,
+                Items:subCategory?.Items
+            }
+
+            console.log(response)
+            res.json(response)
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
