@@ -53,7 +53,14 @@ export const itemController = {
     show: async (req: Request, res: Response) => {
         try {
             const itemId = req.params.id
-            const item = await Item.findOne({ where: { id: itemId }, attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'images'] })
+            const item = await Item.findOne({
+                where: { id: itemId }, 
+                attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'images'], 
+                include:{
+                    association:'ItemPromotion',
+                    attributes:['price']
+                }
+            })
 
             return res.json(item)
         } catch (error) {
