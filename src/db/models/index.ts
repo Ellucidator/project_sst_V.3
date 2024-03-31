@@ -7,6 +7,8 @@ import { Favorite } from './Favorites.js';
 import { Purchase } from './Purchases.js';
 import { ItemSell } from './ItemSell.js';
 import { ItemPromotion } from './ItemPromotion.js';
+import { Tag } from './Tag.js';
+import { ItemTag } from './ItemTag.js';
 
 Category.hasMany(SubCategory,{foreignKey:'category_id',onUpdate:'CASCADE',onDelete:'RESTRICT'});
 SubCategory.belongsTo(Category,{foreignKey:'category_id'});
@@ -40,6 +42,9 @@ Item.belongsToMany(Promotion,{through:ItemPromotion,foreignKey:'item_id',otherKe
 
 ItemPromotion.hasOne(Item,{foreignKey:'id',sourceKey:'item_id'});
 Item.hasOne(ItemPromotion,{foreignKey:'item_id',sourceKey:'id'});
+
+Tag.belongsToMany(Item, {through:ItemTag, foreignKey:'tag_id', otherKey:'item_id'});
+Item.belongsToMany(Tag, {through:ItemTag, foreignKey:'item_id', otherKey:'tag_id'})
 
 
 
