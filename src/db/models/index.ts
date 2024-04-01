@@ -63,5 +63,7 @@ export {
     Favorite,
     Purchase,
     ItemSell,
-    ItemPromotion
+    ItemPromotion,
+    Tag,
+    ItemTag
 };
