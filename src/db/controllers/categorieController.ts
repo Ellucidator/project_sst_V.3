@@ -13,7 +13,7 @@ export const categoriesController = {
                 include:{
                     association:'SubCategories',
                     attributes: ['id', 'name'],
-                    order:[['position','DESC']],
+                    order:[['id','DESC']],
                     separate:true
                     
                 }});

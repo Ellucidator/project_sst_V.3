@@ -55,7 +55,7 @@ export const itemController = {
             const itemId = req.params.id
             const item = await Item.findOne({
                 where: { id: itemId }, 
-                attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'images'], 
+                attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'images','sub_category_id'], 
                 include:{
                     association:'ItemPromotion',
                     attributes:['price']
