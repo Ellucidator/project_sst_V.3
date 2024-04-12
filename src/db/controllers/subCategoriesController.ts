@@ -9,7 +9,14 @@ export const subCategoriesControllers = {
         try {
 
             const subCategoryId = req.params.id
-            const {order} = req.query
+            const {order,perPage,page} = req.query
+            let pageNumber = 1
+            let perPageNumber = 10
+
+            if(typeof page === 'string') pageNumber = parseInt(page, 10)
+            if(typeof perPage === 'string') perPageNumber = parseInt(perPage, 10)
+
+
 
             let orderQ:string[]=[]
 
@@ -36,8 +43,8 @@ export const subCategoriesControllers = {
                                     SELECT id
                                     FROM items
                                     WHERE sub_category_id = ${subCategoryId}
-                                    OFFSET ${0}
-                                    LIMIT ${10}
+                                    OFFSET ${(perPageNumber * (pageNumber - 1))}
+                                    LIMIT ${perPageNumber}
                                     )`)
                             ]
                         }
