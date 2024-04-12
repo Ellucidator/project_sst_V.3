@@ -27,7 +27,14 @@ export const categoriesController = {
 
     getOneCategoryAndSubCategories: async (req:Request,res:Response) => {
         try {
-            const {order} = req.query
+            const {order,perPage,page} = req.query
+
+            let pageNumber = 1
+            let perPageNumber = 10
+
+            if(typeof page === 'string') pageNumber = parseInt(page, 10)
+            if(typeof perPage === 'string') perPageNumber = parseInt(perPage, 10)
+
             let orderQ:string[]=[]
 
             if(typeof order === 'string') orderQ = order.split('-')
@@ -90,11 +97,13 @@ export const categoriesController = {
                     })
 
             }
+
+            const ItemsPaginated = Items.slice((pageNumber-1)*perPageNumber,pageNumber*perPageNumber)
             
             const categoryRes = {
                 id:category.id,
                 name:category.name,
-                Items
+                ItemsPaginated
             }
 
             return res.json(categoryRes)
