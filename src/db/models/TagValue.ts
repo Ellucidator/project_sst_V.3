@@ -19,9 +19,18 @@ export const TagValue = sequelize.define<TagValueInstance,TagValue>('TagValue',{
         autoIncrement:true
     },
     tag_id:{
-        type:DataTypes.INTEGER
+        type:DataTypes.INTEGER,
+        references:{
+            model:'tags',
+            key:'id'
+        },
+        onUpdate:'CASCADE',
+        onDelete:'CASCADE'
     },
     value:{
         type:DataTypes.STRING
     }
+},
+{
+    tableName:'tags_value'
 })

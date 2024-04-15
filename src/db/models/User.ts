@@ -19,7 +19,7 @@ export interface User{
 export interface CreateUserAttributes extends Optional<User,'id'|'img_key'|'bucket'|'mime'>{}
 
 export interface UserInstance extends Model<User, CreateUserAttributes>, User {
-    checkPassword: (password:string)=>Promise<boolean>
+    checkPassword: (password: string) => Promise<boolean>;
 }
 
 export const User = sequelize.define<UserInstance,User>('User', {
