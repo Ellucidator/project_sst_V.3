@@ -1,5 +1,5 @@
 import { ResourceWithOptions } from "adminjs";
-import {Category, SubCategory, Item, User, Promotion, ItemPromotion, Tag, ItemTag} from "../../db/models/index.js"
+import {Category, SubCategory, Item, User, Promotion, ItemPromotion, Tag, ItemTagValue, TagValue} from "../../db/models/index.js"
 
 import { categoriesResourceOptions } from "./category.js";
 import { subCategoriesResourceOptions } from "./sub_category.js";
@@ -8,7 +8,8 @@ import { userResourceFeatures, userResourceOptions } from "./user.js";
 import { promotionResourceFeatures, promotionResourceOptions } from "./promotion.js";
 import { itemPromotionsResourceOptions } from "./itemPromotions.js";
 import { tagsResourceOptions } from "./tags.js";
-import { itemTagResourceOptions } from "./item_tag.js";
+import { itemTagValueResourceOptions } from "./item_tag_value.js";
+import { tagValueResourceOptions } from "./tag_value.js";
 
 export const AdminJSResources: ResourceWithOptions[] = [
     {
@@ -43,8 +44,12 @@ export const AdminJSResources: ResourceWithOptions[] = [
         options: tagsResourceOptions
     },
     {
-        resource:ItemTag,
-        options: itemTagResourceOptions
+        resource:TagValue,
+        options:tagValueResourceOptions
+    },
+    {
+        resource:ItemTagValue,
+        options: itemTagValueResourceOptions
     }
 
 ]

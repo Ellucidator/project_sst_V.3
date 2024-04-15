@@ -5,7 +5,7 @@ import { sequelize } from "../index.js"
 export interface TagValue{
     id:number
     tag_id:number
-    value:string
+    name:string
 }
 
 export interface CreateTagValueAttributes extends Optional<TagValue, 'id'>{}
@@ -27,7 +27,7 @@ export const TagValue = sequelize.define<TagValueInstance,TagValue>('TagValue',{
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
     },
-    value:{
+    name:{
         type:DataTypes.STRING
     }
 },
