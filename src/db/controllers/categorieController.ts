@@ -103,7 +103,7 @@ export const categoriesController = {
             const categoryRes = {
                 id:category.id,
                 name:category.name,
-                ItemsPaginated
+                Items:ItemsPaginated
             }
 
             return res.json(categoryRes)
