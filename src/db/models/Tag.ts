@@ -1,5 +1,6 @@
 import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../index.js"
+import { TagValueInstance } from "./TagValue.js"
 
 export interface Tag {
     id: number
@@ -9,7 +10,9 @@ export interface Tag {
 
 export interface CreateTagAttributes extends Optional<Tag, 'id'> { }
 
-export interface TagInstance extends Model<Tag, CreateTagAttributes>, Tag { }
+export interface TagInstance extends Model<Tag, CreateTagAttributes>, Tag {
+    TagValues?: TagValueInstance[]
+}
 
 export const Tag = sequelize.define<TagInstance, Tag>('Tag', {
     id: {

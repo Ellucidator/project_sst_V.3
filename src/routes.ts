@@ -7,6 +7,7 @@ import { ensureAuth } from './db/middlewares/auth.js';
 import { userController } from './db/controllers/userController.js';
 import { purchaseController } from './db/controllers/purchaseController.js';
 import {promotionController} from './db/controllers/promotionController.js';
+import { tagController } from './db/controllers/tagController.js';
 
 const router = express.Router();
 
@@ -30,7 +31,7 @@ router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories
 
 router.get('/sub-categories/:id', subCategoriesControllers.subCategoryAndItems)
 
-
+router.get('/tags/:id',tagController.getTagsWhereSubCategory)
 
 router.get('/items/highlighted', itemController.highlighted)
 router.get('/items/newests', itemController.newests)

@@ -10,6 +10,7 @@ import { ItemPromotion } from './ItemPromotion.js';
 import { Tag } from './Tag.js';
 import { TagValue } from './TagValue.js';
 import { ItemTagValue } from './ItemTagValue.js';
+import { SubCategoryTag } from './SubCategoryTag.js';
 
 Category.hasMany(SubCategory,{foreignKey:'category_id',onUpdate:'CASCADE',onDelete:'RESTRICT'});
 SubCategory.belongsTo(Category,{foreignKey:'category_id'});
@@ -50,6 +51,9 @@ TagValue.belongsTo(Tag,{foreignKey:'tag_id'});
 TagValue.belongsToMany(Item,{through:ItemTagValue,foreignKey:'tag_value_id',otherKey:'item_id'})
 Item.belongsToMany(TagValue,{through:ItemTagValue,foreignKey:'item_id',otherKey:'tag_value_id'});
 
+Tag.belongsToMany(SubCategory,{through:SubCategoryTag,foreignKey:'tag_id',otherKey:'sub_category_id'})
+SubCategory.belongsToMany(Tag,{through:SubCategoryTag,foreignKey:'sub_category_id',otherKey:'tag_id'});
+
 
 
 
@@ -69,5 +73,6 @@ export {
     ItemPromotion,
     Tag,
     TagValue,
-    ItemTagValue
+    ItemTagValue,
+    SubCategoryTag
 };
