@@ -36,24 +36,30 @@ export const tagController = {
     getItemsByTagValue:async (req:Request,res:Response) => {
         try {
             const subCategoryId = req.params.id
-            const tags:string[] = req.body
-            
+            const tags:string[] = req.body.tags
 
-            const items = await Item.findAll({
-                where: { sub_category_id: subCategoryId},
-                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
-                include:[
-                    {
-                        association:'ItemPromotion',
-                        attributes:['price']
-                    },
-                    {
-                        association:'TagValues',
-                        attributes:['name'],
-                        through:{attributes:[]},
-                    }
-                ]
-            })
+            const [subCategory,items]= await Promise.all([
+                SubCategory.findOne({
+                    where: { id: subCategoryId },
+                    attributes: ['id', 'name'],
+                }),
+                Item.findAll({
+                    where: { sub_category_id: subCategoryId},
+                    attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
+                    include:[
+                        {
+                            association:'ItemPromotion',
+                            attributes:['price']
+                        },
+                        {
+                            association:'TagValues',
+                            attributes:['name'],
+                            through:{attributes:[]},
+                        }
+                    ]
+                })
+            ])
+
 
             const itemsFiltred = items.filter(item => {
                 let validate = 0
@@ -67,8 +73,13 @@ export const tagController = {
                 }
 
             })
-
-            return res.status(200).json(itemsFiltred)
+            const response = {
+                id: subCategory!.id,
+                name: subCategory!.name,
+                Items: itemsFiltred,
+                countItems: itemsFiltred.length
+            }
+            return res.status(200).json(response)
 
 
         } catch (error) {
