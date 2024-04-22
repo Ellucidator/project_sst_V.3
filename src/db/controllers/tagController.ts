@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SubCategory, Tag, TagValue } from "../models/index.js";
+import { Item, SubCategory, Tag, TagValue } from "../models/index.js";
 
 export const tagController = {
     getTagsWhereSubCategory: async (req:Request,res:Response) => {
@@ -35,27 +35,40 @@ export const tagController = {
 
     getItemsByTagValue:async (req:Request,res:Response) => {
         try {
-            const tagValueId = req.params.id
+            const subCategoryId = req.params.id
+            const tags:string[] = req.body
+            
 
-            const items = await TagValue.findOne({
-                where: { id: tagValueId },
+            const items = await Item.findAll({
+                where: { sub_category_id: subCategoryId},
+                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
                 include:[
                     {
-                        association:'Items',
-                        attributes:['id','name','price','promotion', 'description', 'in_stock', 'thumbnail_url'],
+                        association:'ItemPromotion',
+                        attributes:['price']
+                    },
+                    {
+                        association:'TagValues',
+                        attributes:['name'],
                         through:{attributes:[]},
-                        include:[
-                            {
-                                association:'ItemPromotion',
-                                attributes:['price']
-                            }
-                        ]
                     }
                 ]
             })
 
+            const itemsFiltred = items.filter(item => {
+                let validate = 0
+                for (let i = 0; i < tags.length; i++) {
+                    if(item.TagValues!.some(tag => tag.name === tags[i])){
+                        validate++
+                    }
+                }
+                if(validate === tags.length){
+                    return item
+                }
 
-            return res.status(200).json(items)
+            })
+
+            return res.status(200).json(itemsFiltred)
 
 
         } catch (error) {
