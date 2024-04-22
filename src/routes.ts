@@ -31,6 +31,8 @@ router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories
 
 router.get('/sub-categories/:id', subCategoriesControllers.subCategoryAndItems)
 
+router.get('/tag-values/:id', tagController.getItemsByTagValue)
+
 router.get('/tags/:id',tagController.getTagsWhereSubCategory)
 
 router.get('/items/highlighted', itemController.highlighted)
