@@ -11,14 +11,14 @@ export const itemController = {
         try {
             const highlighted = await Item.findAll({
                 where: { featured: true },
-                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
-                include:[
+                attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url'],
+                include: [
                     {
-                        association:'ItemPromotion',
-                        attributes:['price']
+                        association: 'ItemPromotion',
+                        attributes: ['price']
                     }
                 ],
-                order:[['createdAt', 'DESC']],
+                order: [['createdAt', 'DESC']],
             })
 
             return res.json(highlighted)
@@ -32,15 +32,15 @@ export const itemController = {
     newests: async (req: Request, res: Response) => {
         try {
             const newestsItems = await Item.findAll({
-                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
-                include:[
+                attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url'],
+                include: [
                     {
-                        association:'ItemPromotion',
-                        attributes:['price']
+                        association: 'ItemPromotion',
+                        attributes: ['price']
                     }
                 ],
-                order:[['createdAt', 'DESC']],
-                limit:10
+                order: [['createdAt', 'DESC']],
+                limit: 10
             })
 
             return res.status(200).json(newestsItems)
@@ -54,12 +54,21 @@ export const itemController = {
         try {
             const itemId = req.params.id
             const item = await Item.findOne({
-                where: { id: itemId }, 
-                attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'images','sub_category_id'], 
-                include:{
-                    association:'ItemPromotion',
-                    attributes:['price']
-                }
+                where: { id: itemId },
+                attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'images', 'sub_category_id'],
+                include: [{
+                    association: 'ItemPromotion',
+                    attributes: ['price']
+                },
+                {
+                    association: 'TagValues',
+                    through: { attributes: [] },
+                    attributes: ['id', 'name'],
+                    include: [{
+                        association: 'Tag',
+                        attributes: ['id', 'name']
+                    }]
+                }]
             })
 
             return res.json(item)
@@ -86,31 +95,31 @@ export const itemController = {
         }
     },
 
-    updatePromotion:async(itemId:number)=>{
-        
+    updatePromotion: async (itemId: number) => {
+
         try {
             const item = await Item.findOne({
-                where:{id:itemId},
-                include:[
+                where: { id: itemId },
+                include: [
                     {
-                        association:'ItemPromotion'
+                        association: 'ItemPromotion'
                     }
                 ]
             })
-            if(item){
-                if(item?.ItemPromotion){
+            if (item) {
+                if (item?.ItemPromotion) {
                     item.promotion = true
                     await item.save()
                     return
                 }
                 item.promotion = false
                 await item.save()
-                return 
+                return
             }
-            
-            
+
+
         } catch (error) {
-            if(error instanceof Error) {
+            if (error instanceof Error) {
                 return error
             }
         }

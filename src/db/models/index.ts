@@ -48,6 +48,7 @@ Item.hasOne(ItemPromotion,{foreignKey:'item_id',sourceKey:'id'});
 Tag.hasMany(TagValue,{foreignKey:'tag_id'});
 TagValue.belongsTo(Tag,{foreignKey:'tag_id'});
 
+
 TagValue.belongsToMany(Item,{through:ItemTagValue,foreignKey:'tag_value_id',otherKey:'item_id'})
 Item.belongsToMany(TagValue,{through:ItemTagValue,foreignKey:'item_id',otherKey:'tag_value_id'});
 
