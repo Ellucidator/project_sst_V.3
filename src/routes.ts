@@ -37,6 +37,7 @@ router.get('/tags/:id',tagController.getTagsWhereSubCategory)
 
 router.get('/items/highlighted', itemController.highlighted)
 router.get('/items/newests', itemController.newests)
+router.post('/items/show-cart', itemController.showItemById)
 router.get('/items/search', itemController.search)
 router.get('/items/:id', itemController.show)
 

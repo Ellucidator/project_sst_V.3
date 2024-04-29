@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Item } from "../models/index.js";
 import { itemServices } from "../services/itemServices.js";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
+import { Op } from "sequelize";
 
 
 export const itemController = {
@@ -76,6 +77,27 @@ export const itemController = {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
             }
+        }
+    },
+    showItemById: async (req: Request, res: Response) => {
+        try {
+            const ids = req.body
+            const items = await Item.findAll({
+                where: {
+                    id:{
+                        [Op.in]: ids
+                    }
+                },
+                attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'sub_category_id'],
+                include: [{
+                    association: 'ItemPromotion',
+                    attributes: ['price']
+                },]
+            })
+
+            return res.json(items)
+        } catch (error) {
+            
         }
     },
 
