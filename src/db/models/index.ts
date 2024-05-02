@@ -11,6 +11,7 @@ import { Tag } from './Tag.js';
 import { TagValue } from './TagValue.js';
 import { ItemTagValue } from './ItemTagValue.js';
 import { SubCategoryTag } from './SubCategoryTag.js';
+import { Avaliation } from './Avaliation.js';
 
 Category.hasMany(SubCategory,{foreignKey:'category_id',onUpdate:'CASCADE',onDelete:'RESTRICT'});
 SubCategory.belongsTo(Category,{foreignKey:'category_id'});
@@ -75,5 +76,6 @@ export {
     Tag,
     TagValue,
     ItemTagValue,
-    SubCategoryTag
+    SubCategoryTag,
+    Avaliation
 };

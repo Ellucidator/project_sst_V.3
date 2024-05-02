@@ -8,6 +8,7 @@ import { userController } from './db/controllers/userController.js';
 import { purchaseController } from './db/controllers/purchaseController.js';
 import {promotionController} from './db/controllers/promotionController.js';
 import { tagController } from './db/controllers/tagController.js';
+import { avaliationsController } from './db/controllers/avaliationsController.js';
 
 const router = express.Router();
 
@@ -34,6 +35,8 @@ router.get('/sub-categories/:id', subCategoriesControllers.subCategoryAndItems)
 router.post('/tag-values/:id', tagController.getItemsByTagValue)
 
 router.get('/tags/:id',tagController.getTagsWhereSubCategory)
+
+router.post('/item/avaliation', avaliationsController.postAvaliation)
 
 router.get('/items/highlighted', itemController.highlighted)
 router.get('/items/newests', itemController.newests)

@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../index.js";
 
 export interface Avaliation {
@@ -10,7 +10,9 @@ export interface Avaliation {
     comment: string;
 }
 
-export interface AvaliationInstance extends Model<Avaliation>, Avaliation {}
+export interface AvaliationCreationAttributes extends Optional<Avaliation, "id"> {}
+
+export interface AvaliationInstance extends Model<Avaliation, AvaliationCreationAttributes>, Avaliation {}
 
 export const Avaliation = sequelize.define<AvaliationInstance, Avaliation>("Avaliation", {
     id: {
