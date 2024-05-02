@@ -36,7 +36,8 @@ router.post('/tag-values/:id', tagController.getItemsByTagValue)
 
 router.get('/tags/:id',tagController.getTagsWhereSubCategory)
 
-router.post('/item/avaliation', avaliationsController.postAvaliation)
+router.post('/item/create-avaliation', avaliationsController.postAvaliation)
+router.get('/item/:id/avaliations', avaliationsController.getAllAvaliationsByItemId)
 
 router.get('/items/highlighted', itemController.highlighted)
 router.get('/items/newests', itemController.newests)

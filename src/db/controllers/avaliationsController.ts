@@ -22,5 +22,25 @@ export const avaliationsController = {
             }
         }
 
+    },
+
+    getAllAvaliationsByItemId: async (req: Request, res: Response) => {
+        try {
+            const { id } = req.params
+
+            const avaliations = await Avaliation.findAll({
+                where: { item_id: id },
+                attributes:['rating','title','comment','created_at'],
+                order: [['created_at', 'DESC']],
+                limit: 10
+            })
+
+            return res.status(200).json(avaliations)
+        } catch (error) {
+            
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
+            }
+        }
     }
 }
