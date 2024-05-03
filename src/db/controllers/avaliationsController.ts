@@ -7,13 +7,14 @@ export const avaliationsController = {
         try {
             const { item_id, user_id, rating, title, comment } = req.body
 
-            const newAvaliation = await Avaliation.create({
-                item_id,
-                user_id,
-                rating,
-                title,
-                comment
+            const newAvaliation = await Avaliation.findOrCreate({
+                where: { item_id, user_id },
+                defaults: { item_id, user_id, rating, title, comment }
             })
+
+            if (newAvaliation[1] === false) {
+                await newAvaliation[0].setAttributes({ rating, title, comment }).save()
+            }
 
             return res.status(201).json(newAvaliation)
         } catch (error) {
