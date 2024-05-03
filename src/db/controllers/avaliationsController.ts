@@ -24,6 +24,24 @@ export const avaliationsController = {
 
     },
 
+    getAvaliationByUserId: async (req: Request, res: Response) => {
+        try {
+            const userId = req.params.id
+            const avaliation = await Avaliation.findOne(
+                { 
+                    where: { user_id: userId },
+                    attributes:['rating','title','comment','created_at'], 
+                }
+            )
+
+            return res.status(200).json(avaliation)
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
+            }
+        }
+    },
+
     getAllAvaliationsByItemId: async (req: Request, res: Response) => {
         try {
             const { id } = req.params
