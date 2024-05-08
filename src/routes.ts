@@ -40,6 +40,8 @@ router.get('/user/:id/avaliation', avaliationsController.getAvaliationByUserId)
 router.post('/item/create-avaliation', avaliationsController.postAvaliation)
 router.get('/item/:id/avaliations', avaliationsController.getAllAvaliationsByItemId)
 
+router.get('/item/:id/characteristics', itemController.getItemCharacteristics)
+
 router.get('/items/highlighted', itemController.highlighted)
 router.get('/items/newests', itemController.newests)
 router.post('/items/show-cart', itemController.showItemById)

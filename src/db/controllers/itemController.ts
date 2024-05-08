@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Item } from "../models/index.js";
+import { Item, ItemCharacteristics } from "../models/index.js";
 import { itemServices } from "../services/itemServices.js";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 import { Op } from "sequelize";
@@ -142,6 +142,21 @@ export const itemController = {
 
         } catch (error) {
             if (error instanceof Error) {
+                return error
+            }
+        }
+    },
+
+    getItemCharacteristics:async(req:Request,res:Response)=>{
+        try {
+            const itemId = req.params.id
+
+            const itemCharacteristics = await ItemCharacteristics.findByPk(itemId)
+
+            return res.status(200).json(itemCharacteristics)
+            
+        } catch (error) {
+            if(error instanceof Error ){
                 return error
             }
         }
