@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../models/index.js";
 import { jwtService } from "../services/jwtServices.js";
+import { error } from "console";
 
 
 
@@ -15,7 +16,7 @@ export const authController = {
             if(user){
                 const passwordMatch = await user.checkPassword(password)
                 
-                if(passwordMatch !== true) return res.status(401).json('password not found')
+                if(passwordMatch !== true) return res.status(401).json({error:'password'})
 
                 const payload = {
                     id: user.id,
@@ -27,7 +28,7 @@ export const authController = {
                 return res.status(200).json({authenticated: true, user, token})
             }
 
-            return res.status(401).json('email not found')
+            return res.status(401).json({error:'email'})
         }catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
