@@ -35,6 +35,10 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false
       },
+      quantity:{
+        type: Sequelize.INTEGER,
+        allowNull:true
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

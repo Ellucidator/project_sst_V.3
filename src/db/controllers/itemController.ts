@@ -89,10 +89,16 @@ export const itemController = {
                     }
                 },
                 attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'sub_category_id'],
-                include: [{
-                    association: 'ItemPromotion',
-                    attributes: ['price']
-                },]
+                include: [
+                    {
+                        association: 'ItemPromotion',
+                        attributes: ['price']
+                    },
+                    {
+                        association:'ItemCharacteristic',
+                        attributes:[['item_id','id'],'width','height','length','weight','insurance_value','quantity']
+                    }
+                ]
             })
 
             return res.json(items)
@@ -151,10 +157,14 @@ export const itemController = {
         try {
             const itemId = req.params.id
 
-            const itemCharacteristics = await ItemCharacteristics.findByPk(itemId)
+            const itemCharacteristics = await ItemCharacteristics.findByPk(itemId,
+                {
+                    attributes:[['item_id','id'],'width','height','length','weight','insurance_value','quantity']
+                }
+            )
 
             return res.status(200).json(itemCharacteristics)
-            
+
         } catch (error) {
             if(error instanceof Error ){
                 return error
