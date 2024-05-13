@@ -1,9 +1,9 @@
 import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../index.js"
 
-export interface Address{
+export interface Address {
     user_id: number
-    cep: string
+    zip_code: string
     state: string
     city: string
     neighborhood: string
@@ -14,58 +14,61 @@ export interface Address{
     active: boolean
 }
 
-export interface CreateAddressAttributes extends Optional<Address,'house_number'|'complement'|'reference_point'|'active'>{}
+export interface CreateAddressAttributes extends Optional<Address, 'house_number' | 'complement' | 'reference_point' | 'active'> { }
 
-export interface AddressInstance extends Model<Address,CreateAddressAttributes>,Address{}
+export interface AddressInstance extends Model<Address, CreateAddressAttributes>, Address { }
 
-export const Address = sequelize.define<AddressInstance,Address>('Address',{
-    user_id:{
-        type: DataTypes.INTEGER,
+export const Address = sequelize.define<AddressInstance, Address>('Address', {
+    user_id: {
+        type: DataTypes.BIGINT,
         primaryKey: true,
         allowNull: false,
-        references:{
-            model:'users',
-            key:'id'
+        references: {
+            model: 'users',
+            key: 'id'
         },
-        onUpdate:'CASCADE',
-        onDelete:'CASCADE'
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
     },
-    cep:{
-        type: DataTypes.STRING,
+    zip_code: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
-    state:{
-        type: DataTypes.STRING,
+    state: {
+        type: DataTypes.CHAR(3),
         allowNull: false
     },
-    city:{
-        type: DataTypes.STRING,
+    city: {
+        type: DataTypes.CHAR(100),
         allowNull: false
     },
-    neighborhood:{
-        type: DataTypes.STRING,
+    neighborhood: {
+        type: DataTypes.CHAR(100),
         allowNull: false
     },
-    street:{
-        type: DataTypes.STRING,
+    street: {
+        type: DataTypes.CHAR(100),
         allowNull: false
     },
-    house_number:{
-        type: DataTypes.STRING,
-        allowNull:true,
-        defaultValue: 'S/N'
-    },
-    complement:{
-        type: DataTypes.STRING,
+    house_number: {
+        type: DataTypes.CHAR(10),
+        defaultValue: "S/N",
         allowNull: true
     },
-    reference_point:{
-        type: DataTypes.STRING,
+    complement: {
+        type: DataTypes.CHAR(15),
         allowNull: true
     },
-    active:{
+    reference_point: {
+        type: DataTypes.CHAR(100),
+        allowNull: true
+    },
+    active: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
         defaultValue: false
     }
-})
+},
+    {
+        tableName: 'adresses'
+    })

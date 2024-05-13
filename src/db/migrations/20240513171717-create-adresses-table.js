@@ -15,7 +15,7 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
-      cep: {
+      zip_code: {
         type: Sequelize.INTEGER,
         allowNull: false
       },
