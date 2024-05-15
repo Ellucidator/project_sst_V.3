@@ -9,6 +9,7 @@ import { purchaseController } from './db/controllers/purchaseController.js';
 import {promotionController} from './db/controllers/promotionController.js';
 import { tagController } from './db/controllers/tagController.js';
 import { avaliationsController } from './db/controllers/avaliationsController.js';
+import { addressController } from './db/controllers/addressController.js';
 
 const router = express.Router();
 
@@ -17,6 +18,7 @@ router.post('/register', authController.register)
 
 router.post('/user/favorite',ensureAuth, userController.addFavorite)
 router.get('/user/show/favorites',ensureAuth,userController.showFavorites)
+router.post('/user/address',ensureAuth,addressController.create)
 
 router.post('/create-user', userController.createUser)
 router.get('/user',ensureAuth,userController.show)
