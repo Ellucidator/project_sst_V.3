@@ -2,6 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize"
 import { sequelize } from "../index.js"
 
 export interface Address {
+    id: number
     user_id: number
     zip_code: string
     state: string
@@ -19,9 +20,13 @@ export interface CreateAddressAttributes extends Optional<Address, 'house_number
 export interface AddressInstance extends Model<Address, CreateAddressAttributes>, Address { }
 
 export const Address = sequelize.define<AddressInstance, Address>('Address', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
+    },
     user_id: {
         type: DataTypes.BIGINT,
-        primaryKey: true,
         allowNull: false,
         references: {
             model: 'users',
