@@ -12,7 +12,7 @@ module.exports = {
       },
       all_value:{
         type: Sequelize.FLOAT,
-        allowNull: false
+        allowNull: true
       },
       user_id:{
         type: Sequelize.INTEGER,

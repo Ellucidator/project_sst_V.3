@@ -46,7 +46,7 @@ export const ItemSell = sequelize.define<ItemSellInstance,ItemSell>('ItemSell',{
         allowNull: false
     },
     price:{
-        type: DataTypes.NUMBER,
+        type: DataTypes.FLOAT,
         allowNull: false
     }
 },
