@@ -10,10 +10,6 @@ module.exports = {
         autoIncrement: true,
         allowNull: false
       },
-      all_value:{
-        type: Sequelize.FLOAT,
-        allowNull: true
-      },
       user_id:{
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -23,6 +19,15 @@ module.exports = {
         },
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
+      },
+      all_value:{
+        type: Sequelize.FLOAT,
+        allowNull: true
+      },
+      status:{
+        type: Sequelize.ENUM('Recebido', 'Transportadora', 'Enviado', 'Entregue','Cancelado'),
+        allowNull: true,
+        defaultValue: 'Recebido'
       },
       created_at: {
         allowNull: false,

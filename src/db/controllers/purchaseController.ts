@@ -66,12 +66,15 @@ export const purchaseController = {
             const userId = req.user!.id
             const purchases = await Purchase.findAll({
                 where: { user_id: userId },
+                order: [['created_at', 'DESC']],
                 include: [
                     {
                         model: ItemSell,
+                        attributes: ['quantity', 'price'],
                         include: [
                             {
-                                association: 'Item'
+                                association: 'Item',
+                                attributes: ['thumbnail_url','name'],
                             }
                         ]
 

@@ -6,9 +6,10 @@ export interface Purchase{
     id:number,
     user_id:number
     all_value:number
+    status:string
 }
 
-export interface CreatePurchaseAttributes extends Optional<Purchase,'id'|'all_value'>{}
+export interface CreatePurchaseAttributes extends Optional<Purchase,'id'|'all_value'|'status'>{}
 
 export interface PurchaseInstance extends Model<Purchase,CreatePurchaseAttributes>,Purchase{}
 
@@ -32,5 +33,10 @@ export const Purchase = sequelize.define<PurchaseInstance,Purchase>('Purchase',{
     all_value:{
         type: DataTypes.FLOAT,
         allowNull: true
+    },
+    status:{
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: 'Recebido'
     }
 })
