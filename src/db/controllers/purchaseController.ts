@@ -4,6 +4,7 @@ import { CreateItemSellAttributes } from "../models/ItemSell.js";
 import { Item, ItemSell, Purchase } from "../models/index.js";
 import { Op } from "sequelize";
 import { QueryParams } from "adminjs";
+import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
 
 export const purchaseController = {
@@ -62,10 +63,13 @@ export const purchaseController = {
 
     showPurchase: async (req: AuthenticatedRequest, res: Response) => {
         try {
-
+            const [page,perPage] = getPaginationParams(req.query)
+            
             const userId = req.user!.id
             const purchases = await Purchase.findAll({
                 where: { user_id: userId },
+                limit: perPage,
+                offset: (page-1)*perPage,
                 order: [['created_at', 'DESC']],
                 include: [
                     {
