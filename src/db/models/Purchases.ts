@@ -39,4 +39,6 @@ export const Purchase = sequelize.define<PurchaseInstance,Purchase>('Purchase',{
         allowNull: true,
         defaultValue: 'Recebido'
     }
+},{
+    tableName: 'purchases'
 })

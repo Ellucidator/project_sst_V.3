@@ -66,27 +66,30 @@ export const purchaseController = {
             const [page,perPage] = getPaginationParams(req.query)
             
             const userId = req.user!.id
-            const purchases = await Purchase.findAll({
-                where: { user_id: userId },
-                limit: perPage,
-                offset: (page-1)*perPage,
-                order: [['created_at', 'DESC']],
-                include: [
-                    {
-                        model: ItemSell,
-                        attributes: ['quantity', 'price'],
-                        include: [
-                            {
-                                association: 'Item',
-                                attributes: ['thumbnail_url','name'],
-                            }
-                        ]
+            const [count,rows] = await Promise.all([
+                Purchase.count({ where: { user_id: userId } }),
+                Purchase.findAll({
+                    where: { user_id: userId },
+                    limit: perPage,
+                    offset: (page-1)*perPage,
+                    order: [['created_at', 'DESC']],
+                    include: [
+                        {
+                            association: 'ItemSells',
+                            attributes: ['quantity', 'price'],
+                            include: [
+                                {
+                                    association: 'Item',
+                                    attributes: ['thumbnail_url','name'],
+                                }
+                            ]
+    
+                        }
+                    ]
+                })
+            ])
 
-                    }
-                ]
-            })
-
-            return res.json(purchases)
+            return res.json({count,rows})
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
