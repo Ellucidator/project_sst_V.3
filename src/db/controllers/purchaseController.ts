@@ -16,6 +16,7 @@ export const purchaseController = {
             const userId = req.user!.id
             const createPurchase = await Purchase.create({
                 user_id: userId,
+                address_id: req.body.address_id
             })
 
             const items: { itemId: number, quantity: number}[] = req.body
@@ -66,6 +67,7 @@ export const purchaseController = {
             const [page,perPage] = getPaginationParams(req.query)
             
             const userId = req.user!.id
+
             const [count,rows] = await Promise.all([
                 Purchase.count({ where: { user_id: userId } }),
                 Purchase.findAll({
@@ -90,6 +92,39 @@ export const purchaseController = {
             ])
 
             return res.json({count,rows})
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
+            }
+        }
+    },
+    showPurchaseById: async (req: AuthenticatedRequest, res: Response) => {
+        try {            
+                const userId = req.user!.id
+                const purchaseId = req.params.id
+
+                const purchase = await Purchase.findOne({
+                    where: { id: purchaseId, user_id: userId },
+                    include: [
+                        {
+                            association: 'ItemSells',
+                            attributes: ['quantity', 'price'],
+                            include: [
+                                {
+                                    association: 'Item',
+                                    attributes: ['thumbnail_url','name'],
+                                }
+                            ]
+        
+                        },
+                        {
+                            association: 'Address',
+                        }
+                    ]
+                })
+            
+
+            return res.json(purchase)
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
