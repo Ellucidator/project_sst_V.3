@@ -39,6 +39,9 @@ Purchase.belongsTo(User,{foreignKey:'user_id'});
 Purchase.hasMany(ItemSell,{foreignKey:'purchase_id'});
 ItemSell.belongsTo(Purchase,{foreignKey:'purchase_id'});
 
+Address.hasOne(Purchase,{foreignKey:'address_id'});
+Purchase.belongsTo(Address,{foreignKey:'address_id'});
+
 Item.hasMany(ItemSell,{foreignKey:'item_id'});
 ItemSell.belongsTo(Item,{foreignKey:'item_id'});
 

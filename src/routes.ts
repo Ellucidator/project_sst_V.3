@@ -26,6 +26,7 @@ router.get('/user',ensureAuth,userController.show)
 
 router.post('/user/purchase',ensureAuth,purchaseController.addPurchase)
 router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)
+router.get('/user/show/purchase/:id',ensureAuth,purchaseController.showPurchaseById)
 
 router.get('/promotions/featured', promotionController.getFeaturedPromotion )
 router.get('/promotions/:id', promotionController.getPromotionAndItems )

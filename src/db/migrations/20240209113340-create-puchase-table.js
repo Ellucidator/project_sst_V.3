@@ -20,6 +20,16 @@ module.exports = {
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
       },
+      address_id:{
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references:{
+          model:'adresses',
+          key:'id'
+        },
+        onUpdate:'CASCADE',
+        onDelete:'CASCADE'
+      },
       all_value:{
         type: Sequelize.FLOAT,
         allowNull: true

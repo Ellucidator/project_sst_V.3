@@ -3,8 +3,9 @@ import { sequelize } from "../index.js";
 
 
 export interface Purchase{
-    id:number,
+    id:number
     user_id:number
+    address_id:number
     all_value:number
     status:string
 }
@@ -25,6 +26,16 @@ export const Purchase = sequelize.define<PurchaseInstance,Purchase>('Purchase',{
         allowNull: false,
         references:{
             model:'users',
+            key:'id'
+        },
+        onUpdate:'CASCADE',
+        onDelete:'CASCADE'
+    },
+    address_id:{
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references:{
+            model:'adresses',
             key:'id'
         },
         onUpdate:'CASCADE',

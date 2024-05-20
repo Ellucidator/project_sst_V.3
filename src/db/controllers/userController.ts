@@ -3,7 +3,7 @@ import { Favorite, User } from "../models/index.js";
 import { AuthenticatedRequest } from "../middlewares/auth.js";
 import { userServices } from "../services/userServices.js";
 import { CreateUserAttributes } from "../models/User.js";
-import { getPaginationParams } from "src/helpers/getPaginationParams.js";
+import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
 
 export const userController = {
