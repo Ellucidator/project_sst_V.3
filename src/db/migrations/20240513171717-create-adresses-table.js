@@ -49,6 +49,10 @@ module.exports = {
         type: Sequelize.CHAR(15),
         allowNull: true
       },
+      phone_number: {
+        type: Sequelize.CHAR(15),
+        allowNull: false
+      },
       reference_point: {
         type: Sequelize.CHAR(100),
         allowNull: true

@@ -11,6 +11,7 @@ export interface Address {
     street: string
     house_number: string
     complement: string
+    phone_number: string
     reference_point: string
     active: boolean
 }
@@ -63,6 +64,10 @@ export const Address = sequelize.define<AddressInstance, Address>('Address', {
     complement: {
         type: DataTypes.CHAR(15),
         allowNull: true
+    },
+    phone_number: {
+        type: DataTypes.CHAR(15),
+        allowNull: false
     },
     reference_point: {
         type: DataTypes.CHAR(100),
