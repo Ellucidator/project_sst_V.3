@@ -20,6 +20,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+      receiver_name: {
+        type: Sequelize.CHAR(100),
+        allowNull: false
+      },
       zip_code: {
         type: Sequelize.INTEGER,
         allowNull: false

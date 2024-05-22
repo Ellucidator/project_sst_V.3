@@ -4,6 +4,7 @@ import { sequelize } from "../index.js"
 export interface Address {
     id: number
     user_id: number
+    receiver_name: string
     zip_code: string
     state: string
     city: string
@@ -35,6 +36,10 @@ export const Address = sequelize.define<AddressInstance, Address>('Address', {
         },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
+    },
+    receiver_name: {
+        type: DataTypes.CHAR(100),
+        allowNull: false
     },
     zip_code: {
         type: DataTypes.INTEGER,
