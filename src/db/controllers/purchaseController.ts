@@ -33,11 +33,15 @@ export const purchaseController = {
                 ]
             })
             const createItemSell = itemsDB.map((item)=>{
+
+                const quantity = items.find(elem=>elem.itemId===item.id)!.quantity
+                if(item.in_stock<quantity)process.exit(1)
+
+                item.update({in_stock:item.in_stock-quantity})
+                
                 let price:number
                 if(item.promotion)price=item.ItemPromotion!.price
                 else price=item.price
-
-                const quantity = items.find(elem=>elem.itemId===item.id)!.quantity
                 all_value+=(price*quantity)
                 return {
                     item_id: item.id,
@@ -46,6 +50,8 @@ export const purchaseController = {
                     price
                 }
             })
+
+            
             const itemsSell = await ItemSell.bulkCreate(createItemSell)
             await createPurchase.update({ all_value: all_value })
 

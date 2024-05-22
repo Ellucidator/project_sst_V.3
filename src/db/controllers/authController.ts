@@ -12,7 +12,6 @@ export const authController = {
             const {email, password} = req.body
 
             const user = await User.findOne({where: {email:email}})
-
             if(user){
                 const passwordMatch = await user.checkPassword(password)
                 

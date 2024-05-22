@@ -85,8 +85,10 @@ export const User = sequelize.define<UserInstance,User>('User', {
     }
 },)
 
-
+//@ts-ignore
 User.prototype.checkPassword = async function(password:string) {
+    // @ts-ignore
     const validate = await bcrypt.compare(password, this.password)
     return validate
 }
+

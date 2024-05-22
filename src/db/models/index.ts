@@ -45,8 +45,8 @@ Purchase.belongsTo(Address,{foreignKey:'address_id'});
 Item.hasMany(ItemSell,{foreignKey:'item_id'});
 ItemSell.belongsTo(Item,{foreignKey:'item_id'});
 
-ItemSell.hasOne(Item,{foreignKey:'id',sourceKey:'item_id'});
-Item.belongsTo(ItemSell,{foreignKey:'item_id',targetKey:'id'});
+// ItemSell.hasOne(Item,{foreignKey:'id',sourceKey:'item_id'});
+// Item.belongsTo(ItemSell,{foreignKey:'item_id',targetKey:'id'});
 
 Promotion.belongsToMany(Item,{through:ItemPromotion,foreignKey:'promotion_id',otherKey:'item_id'})
 Item.belongsToMany(Promotion,{through:ItemPromotion,foreignKey:'item_id',otherKey:'promotion_id'})
