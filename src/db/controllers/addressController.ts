@@ -16,6 +16,20 @@ export const addressController = {
             }
         }
     },
+    delete: async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            const { id } = req.params
+
+            await Address.destroy({ where: { id } })
+
+            return res.status(204).json('Address deleted')
+
+        } catch (error) {
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
+        }
+    },
 
     listByUserId: async (req: AuthenticatedRequest, res: Response) => {
         try {
