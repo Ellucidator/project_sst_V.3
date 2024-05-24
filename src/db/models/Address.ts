@@ -17,7 +17,7 @@ export interface Address {
     active: boolean
 }
 
-export interface CreateAddressAttributes extends Optional<Address, 'house_number' | 'complement' | 'reference_point' | 'active'> { }
+export interface CreateAddressAttributes extends Optional<Address,'id'| 'house_number' | 'complement' | 'reference_point' | 'active'> { }
 
 export interface AddressInstance extends Model<Address, CreateAddressAttributes>, Address { }
 

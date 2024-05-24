@@ -6,10 +6,25 @@ export const addressController = {
 
     create: async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const address = req.body
+            const address:Address = req.body
             const userId = req.user!.id
 
-            if(parseInt(address.id) === 0)await Address.create({ ...address, user_id: userId })
+            if(address.id === 0)await Address.create(
+                { 
+                    user_id: userId,
+                    receiver_name: address.receiver_name,
+                    zip_code: address.zip_code,
+                    state: address.state,
+                    city: address.city,
+                    neighborhood: address.neighborhood,
+                    street: address.street,
+                    house_number: address.house_number,
+                    complement: address.complement,
+                    phone_number: address.phone_number,
+                    reference_point: address.reference_point,
+                    
+                }
+            )
             
             else await Address.update({ ...address }, { where: { id: address.id } })
             
