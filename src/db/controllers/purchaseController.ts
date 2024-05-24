@@ -13,13 +13,16 @@ export const purchaseController = {
         try {
             let all_value: number=0
 
+            const address_id = parseInt(req.params.id)
+            const items: { itemId: number, quantity: number}[] = req.body
+
+
             const userId = req.user!.id
             const createPurchase = await Purchase.create({
                 user_id: userId,
-                address_id: req.body.address_id
+                address_id
             })
 
-            const items: { itemId: number, quantity: number}[] = req.body
 
             const itemsId = items.map(item => item.itemId)
             const itemsDB = await Item.findAll({
@@ -50,7 +53,6 @@ export const purchaseController = {
                     price
                 }
             })
-
             
             const itemsSell = await ItemSell.bulkCreate(createItemSell)
             await createPurchase.update({ all_value: all_value })
