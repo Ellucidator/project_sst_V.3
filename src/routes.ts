@@ -16,17 +16,19 @@ const router = express.Router();
 router.post('/login', authController.login)
 router.post('/register', authController.register)
 
+router.post('/create-user', userController.createUser)
+router.get('/user',ensureAuth,userController.show)
+router.put('/user',ensureAuth,userController.updateUser)
+
 router.post('/user/favorite',ensureAuth, userController.addFavorite)
 router.get('/user/show/favorites',ensureAuth,userController.showFavorites)
+router.delete('/user/favorite/:id',ensureAuth, userController.deleteFavorite)
 
 router.put('/user/address/:id',ensureAuth,addressController.activated)
 router.post('/user/address',ensureAuth,addressController.create)
 router.get('/user/address/:id',ensureAuth,addressController.showAddress)
 router.get('/user/addresses',ensureAuth,addressController.listByUserId)
 router.delete('/user/address/:id',ensureAuth,addressController.delete)
-
-router.post('/create-user', userController.createUser)
-router.get('/user',ensureAuth,userController.show)
 
 router.post('/user/purchase/:id',ensureAuth,purchaseController.addPurchase)
 router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)

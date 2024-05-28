@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Favorite, User } from "../models/index.js";
 import { AuthenticatedRequest } from "../middlewares/auth.js";
 import { userServices } from "../services/userServices.js";
-import { CreateUserAttributes } from "../models/User.js";
+import { CreateUserAttributes, UpdateUserAttributes } from "../models/User.js";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
 
@@ -38,13 +38,29 @@ export const userController = {
         }
     },
 
+    updateUser: async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            const userId = req.user!.id
+            const updateAttributes:UpdateUserAttributes = req.body
+
+            const user = await User.update(updateAttributes, { where: { id: userId } })
+
+
+            return res.status(204).json('User updated')
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
+            }
+        }
+    },
+
     showFavorites: async (req: AuthenticatedRequest, res: Response) => {
         try {
 
             const [page, perPage] = getPaginationParams(req.query)
 
             const userId = req.user!.id
-            const favorites = await Favorite.findAll(
+            const favorites = await Favorite.findAndCountAll(
                 {
                     where: { user_id: userId },
                     limit: perPage,
@@ -94,7 +110,7 @@ export const userController = {
         try {
 
             const userId = req.user!.id
-            const itemId = req.body.itemId
+            const itemId = req.params.id
 
             await userServices.deleteFavorite(userId, itemId)
 

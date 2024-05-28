@@ -10,7 +10,7 @@ export const userServices = {
         return favorite
     },
 
-    deleteFavorite: async (userId: number, itemId: number) => {
+    deleteFavorite: async (userId: number, itemId: string) => {
         const favorite = await Favorite.destroy({ where: { user_id: userId, item_id: itemId } })
         return favorite
     }

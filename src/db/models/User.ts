@@ -16,7 +16,9 @@ export interface User{
     mime:string
 }
 
-export interface CreateUserAttributes extends Optional<User,'id'|'img_key'|'bucket'|'mime'>{}
+export interface CreateUserAttributes extends Optional<User,'id'|'img_key'|'bucket'|'mime'|'role'>{}
+
+export interface UpdateUserAttributes extends Optional<CreateUserAttributes,'password'>{}
 
 export interface UserInstance extends Model<User, CreateUserAttributes>, User {
     checkPassword: (password: string) => Promise<boolean>;
