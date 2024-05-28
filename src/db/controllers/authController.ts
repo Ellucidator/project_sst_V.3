@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../models/index.js";
 import { jwtService } from "../services/jwtServices.js";
 import { error } from "console";
+import { verify } from "crypto";
 
 
 
@@ -49,6 +50,25 @@ export const authController = {
                 return res.status(201).json({authenticated: true, user, token})
             }
             return res.status(500).json({error: 'Error creating user'})
+        } catch (error) {
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
+        }
+    },
+
+    verifyLogin:async(req:Request, res:Response)=>{
+        try {
+            const {token} = req.body
+            const payload = jwtService.verifyToken(token,(err,decoded)=>{
+                if(err||!decoded) return false
+
+                return decoded
+            })
+            
+            if(!payload) return res.status(401).json({error: 'Invalid token'})
+
+            return res.status(200).json('Token valid')
         } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})

@@ -15,6 +15,7 @@ const router = express.Router();
 
 router.post('/login', authController.login)
 router.post('/register', authController.register)
+router.post('/verify-login', authController.verifyLogin)
 
 router.post('/create-user', userController.createUser)
 router.get('/user',ensureAuth,userController.show)
