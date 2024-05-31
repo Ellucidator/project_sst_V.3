@@ -5,27 +5,28 @@ export interface Address {
     id: number
     user_id: number
     receiver_name: string
-    zip_code: string
+    zip_code: number
     state: string
     city: string
     neighborhood: string
     street: string
     house_number: string
     complement: string
-    phone_number: string
+    phone_number: number
     reference_point: string
     active: boolean
 }
 
-export interface CreateAddressAttributes extends Optional<Address,'id'| 'house_number' | 'complement' | 'reference_point' | 'active'> { }
+export interface CreateAddressAttributes extends Optional<Address, 'id' | 'house_number' | 'complement' | 'reference_point' | 'active'> { }
 
 export interface AddressInstance extends Model<Address, CreateAddressAttributes>, Address { }
 
 export const Address = sequelize.define<AddressInstance, Address>('Address', {
     id: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         primaryKey: true,
         autoIncrement: true,
+        allowNull: false
     },
     user_id: {
         type: DataTypes.BIGINT,
@@ -38,51 +39,51 @@ export const Address = sequelize.define<AddressInstance, Address>('Address', {
         onDelete: 'CASCADE'
     },
     receiver_name: {
-        type: DataTypes.CHAR(100),
+        type: DataTypes.STRING,
         allowNull: false
     },
     zip_code: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: false
     },
     state: {
-        type: DataTypes.CHAR(3),
+        type: DataTypes.STRING,
         allowNull: false
     },
     city: {
-        type: DataTypes.CHAR(100),
+        type: DataTypes.STRING,
         allowNull: false
     },
     neighborhood: {
-        type: DataTypes.CHAR(100),
+        type: DataTypes.STRING,
         allowNull: false
     },
     street: {
-        type: DataTypes.CHAR(100),
+        type: DataTypes.STRING,
         allowNull: false
     },
     house_number: {
-        type: DataTypes.CHAR(10),
+        type: DataTypes.STRING,
         defaultValue: "S/N",
         allowNull: true
     },
     complement: {
-        type: DataTypes.CHAR(15),
+        type: DataTypes.STRING,
         allowNull: true
     },
     phone_number: {
-        type: DataTypes.CHAR(15),
+        type: DataTypes.BIGINT,
         allowNull: false
     },
     reference_point: {
-        type: DataTypes.CHAR(100),
+        type: DataTypes.STRING,
         allowNull: true
     },
     active: {
         type: DataTypes.BOOLEAN,
         allowNull: true,
         defaultValue: false
-    }
+    },
 },
     {
         tableName: 'adresses'

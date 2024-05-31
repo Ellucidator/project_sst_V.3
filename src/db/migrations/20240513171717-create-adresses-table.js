@@ -21,44 +21,44 @@ module.exports = {
         onDelete: 'CASCADE'
       },
       receiver_name: {
-        type: Sequelize.CHAR(100),
+        type: Sequelize.STRING,
         allowNull: false
       },
       zip_code: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BIGINT,
         allowNull: false
       },
       state: {
-        type: Sequelize.CHAR(3),
+        type: Sequelize.STRING,
         allowNull: false
       },
       city: {
-        type: Sequelize.CHAR(100),
+        type: Sequelize.STRING,
         allowNull: false
       },
       neighborhood: {
-        type: Sequelize.CHAR(100),
+        type: Sequelize.STRING,
         allowNull: false
       },
       street: {
-        type: Sequelize.CHAR(100),
+        type: Sequelize.STRING,
         allowNull: false
       },
       house_number: {
-        type: Sequelize.CHAR(10),
+        type: Sequelize.STRING,
         defaultValue: "S/N",
         allowNull: true
       },
       complement: {
-        type: Sequelize.CHAR(15),
+        type: Sequelize.STRING,
         allowNull: true
       },
       phone_number: {
-        type: Sequelize.CHAR(15),
+        type: Sequelize.BIGINT,
         allowNull: false
       },
       reference_point: {
-        type: Sequelize.CHAR(100),
+        type: Sequelize.STRING,
         allowNull: true
       },
       active: {

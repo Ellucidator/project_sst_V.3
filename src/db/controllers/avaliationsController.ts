@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Avaliation } from "../models/index.js";
+import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
 
 export const avaliationsController = {
@@ -46,12 +47,14 @@ export const avaliationsController = {
     getAllAvaliationsByItemId: async (req: Request, res: Response) => {
         try {
             const { id } = req.params
+            const [pageNumber, perPageNumber] = getPaginationParams(req.query)
 
-            const avaliations = await Avaliation.findAll({
+            const avaliations = await Avaliation.findAndCountAll({
                 where: { item_id: id },
                 attributes:['rating','title','comment','created_at'],
                 order: [['created_at', 'DESC']],
-                limit: 10
+                limit: 6,
+                offset: (pageNumber - 1) * 6
             })
 
             return res.status(200).json(avaliations)
