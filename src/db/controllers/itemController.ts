@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { Item, ItemCharacteristics } from "../models/index.js";
-import { itemServices } from "../services/itemServices.js";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 import { Op } from "sequelize";
 
@@ -109,13 +108,48 @@ export const itemController = {
 
     search: async (req: Request, res: Response) => {
         try {
-            const { name } = req.query
+            const { name, order } = req.query
+            const [pageNumber, perPageNumber] = getPaginationParams(req.query)
 
+
+            let orderQ: string[] = []
+            if (typeof order === 'string') {
+                orderQ = order.split('-')
+            } else {
+                orderQ = ['created_at', 'DESC']
+            }
+            
             if (!name) return res.status(400).json({ error: 'name is required' })
 
-            const items = await itemServices.findByName(name.toString())
 
-            return res.json(items)
+            const items = await Item.findAndCountAll(
+                {
+                    where:{
+                        name:{
+                            [Op.iLike]: `%${name}%`
+                        }
+                    },
+                    attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url'],
+                    include:[
+                        {
+                            association:'ItemPromotion',
+                            attributes:['price']
+                        }
+                    ],
+                    order:[[orderQ[0], orderQ[1]]],
+                    limit: perPageNumber,
+                    offset: (pageNumber - 1) * perPageNumber
+                }
+            )
+            
+            const response = {
+                id: 0,
+                name: name,
+                Items: items.rows,
+                countItems: items.count
+            }
+
+            return res.json(response)
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })

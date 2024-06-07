@@ -55,7 +55,6 @@ export const tagController = {
                 orderQ = ['created_at', 'DESC']
             }
 
-
             const [subCategory,items]= await Promise.all([
                 SubCategory.findOne({
                     where: { id: subCategoryId },
@@ -79,11 +78,12 @@ export const tagController = {
                 })
             ])
 
+            
 
             const itemsFiltred = items.filter(item => {
                 let validate = 0
                 for (let i = 0; i < tags.length; i++) {
-                    if(item.TagValues!.some(tag => tag.name === tags[i])){
+                    if(item.TagValues?.some(tag => tag.name === tags[i])){
                         validate++
                     }
                 }
