@@ -45,5 +45,14 @@ export const CompanyInformation = sequelize.define<CompanyInformationInstace,Com
     }
 },
 {
-    tableName: 'company_information'
+    tableName: 'company_information',
+    hooks: {
+        beforeCreate: async() => {
+
+            const verify = await CompanyInformation.count()
+            if(verify > 0){
+                throw new Error('Company already exists')
+            }
+        }
+    }
 })
