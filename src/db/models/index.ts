@@ -14,6 +14,7 @@ import { SubCategoryTag } from './SubCategoryTag.js';
 import { Avaliation } from './Avaliation.js';
 import { ItemCharacteristics } from './ItemCharacteristics.js';
 import { Address } from './Address.js';
+import { CompanyInformation } from './CompanyInformation.js';
 
 Category.hasMany(SubCategory,{foreignKey:'category_id',onUpdate:'CASCADE',onDelete:'RESTRICT'});
 SubCategory.belongsTo(Category,{foreignKey:'category_id'});
@@ -44,9 +45,6 @@ Purchase.belongsTo(Address,{foreignKey:'address_id'});
 
 Item.hasMany(ItemSell,{foreignKey:'item_id'});
 ItemSell.belongsTo(Item,{foreignKey:'item_id'});
-
-// ItemSell.hasOne(Item,{foreignKey:'id',sourceKey:'item_id'});
-// Item.belongsTo(ItemSell,{foreignKey:'item_id',targetKey:'id'});
 
 Promotion.belongsToMany(Item,{through:ItemPromotion,foreignKey:'promotion_id',otherKey:'item_id'})
 Item.belongsToMany(Promotion,{through:ItemPromotion,foreignKey:'item_id',otherKey:'promotion_id'})
@@ -92,5 +90,6 @@ export {
     SubCategoryTag,
     Avaliation,
     ItemCharacteristics,
-    Address
+    Address,
+    CompanyInformation
 };

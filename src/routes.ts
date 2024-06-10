@@ -10,8 +10,11 @@ import {promotionController} from './db/controllers/promotionController.js';
 import { tagController } from './db/controllers/tagController.js';
 import { avaliationsController } from './db/controllers/avaliationsController.js';
 import { addressController } from './db/controllers/addressController.js';
+import { companyInformationController } from './db/controllers/companyInformationController.js';
 
 const router = express.Router();
+
+router.get('/company-information', companyInformationController.show)
 
 router.post('/login', authController.login)
 router.post('/register', authController.register)
