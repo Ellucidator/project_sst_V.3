@@ -5,7 +5,7 @@ export const companyInformationController = {
     show:async (req: Request, res: Response) => {
 
         try {
-            const companyInformation = await CompanyInformation.findAll({
+            const companyInformation = await CompanyInformation.findOne({
                 attributes: ['name','cnpj','email','phone','address','address_url','instagram_url'],
                 limit: 1
             })
