@@ -7,12 +7,13 @@ export interface CompanyInformation{
     cnpj: string
     email: string
     phone: string
+    phone_url: string
     address: string
     address_url: string
     instagram_url: string
 }
 
-export interface CompanyInformationAtributes extends Optional<CompanyInformation, 'address_url' | 'instagram_url' | 'id'>{}
+export interface CompanyInformationAtributes extends Optional<CompanyInformation, 'address_url' | 'instagram_url' | 'phone_url' | 'id'>{}
 
 export interface CompanyInformationInstace extends Model<CompanyInformation, CompanyInformationAtributes>, CompanyInformation{}
 
@@ -32,6 +33,9 @@ export const CompanyInformation = sequelize.define<CompanyInformationInstace,Com
         type: DataTypes.STRING
     },
     phone:{
+        type: DataTypes.STRING
+    },
+    phone_url:{
         type: DataTypes.STRING
     },
     address:{

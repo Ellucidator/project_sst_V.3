@@ -66,7 +66,8 @@ export const Item = sequelize.define<ItemInstance, Item>('Item', {
     },
     promotion:{
         type: DataTypes.BOOLEAN,
-        allowNull: true
+        allowNull: true,
+        defaultValue:false
     },
     thumbnail_url:{
         type: DataTypes.STRING,

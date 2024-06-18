@@ -6,7 +6,7 @@ export const companyInformationController = {
 
         try {
             const companyInformation = await CompanyInformation.findOne({
-                attributes: ['name','cnpj','email','phone','address','address_url','instagram_url'],
+                attributes: ['name','cnpj','email','phone','phone_url','address','address_url','instagram_url'],
                 limit: 1
             })
 
