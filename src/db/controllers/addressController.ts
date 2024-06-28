@@ -9,22 +9,28 @@ export const addressController = {
             const address:Address = req.body
             const userId = req.user!.id
 
-            if(address.id === 0)await Address.create(
-                { 
-                    user_id: userId,
-                    receiver_name: address.receiver_name,
-                    zip_code: address.zip_code,
-                    state: address.state,
-                    city: address.city,
-                    neighborhood: address.neighborhood,
-                    street: address.street,
-                    house_number: address.house_number,
-                    complement: address.complement,
-                    phone_number: address.phone_number,
-                    reference_point: address.reference_point,
-                    
-                }
-            )
+            if(address.id === 0){
+                const count = await Address.count({ where: { user_id: userId } })
+                if(count > 5) return res.status(400).json('You can only have 6 addresses')
+                
+                await Address.update({active: false}, { where: { user_id: userId , active: true} })
+                await Address.create(
+                    { 
+                        user_id: userId,
+                        receiver_name: address.receiver_name,
+                        zip_code: address.zip_code,
+                        state: address.state,
+                        city: address.city,
+                        neighborhood: address.neighborhood,
+                        street: address.street,
+                        house_number: address.house_number,
+                        complement: address.complement,
+                        phone_number: address.phone_number,
+                        reference_point: address.reference_point,
+                        active: true
+                    }
+                )
+            }
             
             else await Address.update({ ...address }, { where: { id: address.id } })
             

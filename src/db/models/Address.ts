@@ -86,5 +86,5 @@ export const Address = sequelize.define<AddressInstance, Address>('Address', {
     },
 },
     {
-        tableName: 'adresses'
+        tableName: 'adresses',
     })

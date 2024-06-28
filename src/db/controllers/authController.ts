@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../models/index.js";
 import { jwtService } from "../services/jwtServices.js";
-import { error } from "console";
-import { verify } from "crypto";
+
 
 
 
@@ -65,7 +64,8 @@ export const authController = {
 
                 return decoded
             })
-            
+
+
             if(!payload) return res.status(401).json({error: 'Invalid token'})
 
             return res.status(200).json('Token valid')
