@@ -14,17 +14,23 @@ export const purchaseController = {
             let all_value: number=0
 
             const address_id = parseInt(req.params.id)
-            const items: { itemId: number, quantity: number}[] = req.body
-
-
+            const {items,total}:{items:{ id: number, quantity: number, price: number}[], total: number} = req.body
             const userId = req.user!.id
+            const teste = req.body
+
+            console.log(teste)
+            console.log(items,userId,address_id)
+
             const createPurchase = await Purchase.create({
                 user_id: userId,
                 address_id
             })
 
 
-            const itemsId = items.map(item => item.itemId)
+            const itemsId = items.map(item => item.id)
+
+            console.log(itemsId)
+
             const itemsDB = await Item.findAll({
                 where: { id: { [Op.in]: itemsId } },
                 attributes: ['id','price','in_stock', 'promotion'],
@@ -35,9 +41,10 @@ export const purchaseController = {
                     }
                 ]
             })
+
             const createItemSell = itemsDB.map((item)=>{
 
-                const quantity = items.find(elem=>elem.itemId===item.id)!.quantity
+                const quantity = items.find(elem=>elem.id===item.id)!.quantity
                 if(item.in_stock<quantity)process.exit(1)
 
                 item.update({in_stock:item.in_stock-quantity})
