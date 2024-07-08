@@ -34,7 +34,7 @@ export interface CreateItemAttributes extends Optional<Item, 'id'|'description'|
 
 export interface ItemInstance extends Model<Item, CreateItemAttributes>, Item {
     ItemPromotion?: ItemPromotionInstance,
-    TagValues?: TagValue[]
+    TagValues?: TagValue[],
 }
 
 export const Item = sequelize.define<ItemInstance, Item>('Item', {
