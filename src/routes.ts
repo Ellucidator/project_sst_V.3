@@ -11,8 +11,11 @@ import { tagController } from './db/controllers/tagController.js';
 import { avaliationsController } from './db/controllers/avaliationsController.js';
 import { addressController } from './db/controllers/addressController.js';
 import { companyInformationController } from './db/controllers/companyInformationController.js';
+import { notificationController } from './db/controllers/notificationController.js';
 
 const router = express.Router();
+
+router.post('/notifications', notificationController.show)
 
 router.get('/company-information', companyInformationController.show)
 
