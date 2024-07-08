@@ -42,7 +42,7 @@ router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)
 router.get('/user/show/purchase/:id',ensureAuth,purchaseController.showPurchaseById)
 
 router.get('/promotions/featured', promotionController.getFeaturedPromotion )
-router.get('/promotions/:id', promotionController.getPromotionAndItems )
+router.get('/promotions/:id', promotionController.getPromotionByID )
 
 router.get('/categories',categoriesController.list)
 router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories)
