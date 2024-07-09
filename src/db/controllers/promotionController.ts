@@ -15,34 +15,34 @@ export const promotionController = {
             })
 
             if(promotion){
-                const itemsPromotion = await ItemPromotion.findAll({
-                    where:{ promotion_id:promotion.id},
-                    limit:10,
-                    include:[
-                        {
-                            association:'Item',
-                            attributes: ['id', 'name', 'price','promotion', 'in_stock', 'thumbnail_url'],
+                const itemsPromotion = await Item.findAll({
+                    where: {
+                        id: {
+                            [Op.in]: sequelize.literal(`
+                                (SELECT "item_id"
+                                FROM "items_promotion"
+                                WHERE "promotion_id" = ${promotion.id})
+    
+                            `)
                         }
-                    ]
+                    },
+                    attributes: ['id', 'name', 'price', 'in_stock', 'promotion', 'thumbnail_url'],
+                    include: [
+                        {
+                            model: ItemPromotion,
+                            as: 'ItemPromotion',
+                            attributes: ['price']
+                        }
+                    ],
+                    limit: 10
                 })
+
                 const promotionResponse = {
                     id:promotion.id,
                     name:promotion.name,
                     description:promotion.description,
                     thumbnail_url:promotion.thumbnail_url,
-                    Items: itemsPromotion.map(item => {
-                        return {
-                            id: item.Item!.id,
-                            name: item.Item!.name,
-                            in_stock: item.Item!.in_stock,
-                            thumbnail_url: item.Item!.thumbnail_url,
-                            price: item.Item!.price,
-                            promotion: item.Item!.promotion,
-                            ItemPromotion: {
-                                price: item.price
-                            }
-                        }
-                    })
+                    Items: itemsPromotion
                 }
 
                 return res.status(200).json(promotionResponse)
