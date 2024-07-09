@@ -46,15 +46,17 @@ Purchase.belongsTo(Address,{foreignKey:'address_id'});
 Item.hasMany(ItemSell,{foreignKey:'item_id'});
 ItemSell.belongsTo(Item,{foreignKey:'item_id'});
 
+
+
 Promotion.belongsToMany(Item,{through:ItemPromotion,foreignKey:'promotion_id',otherKey:'item_id'})
 Item.belongsToMany(Promotion,{through:ItemPromotion,foreignKey:'item_id',otherKey:'promotion_id'})
 
 ItemPromotion.hasOne(Item,{foreignKey:'id',sourceKey:'item_id'});
 Item.hasOne(ItemPromotion,{foreignKey:'item_id',sourceKey:'id'});
 
+
 Tag.hasMany(TagValue,{foreignKey:'tag_id'});
 TagValue.belongsTo(Tag,{foreignKey:'tag_id'});
-
 
 TagValue.belongsToMany(Item,{through:ItemTagValue,foreignKey:'tag_value_id',otherKey:'item_id'})
 Item.belongsToMany(TagValue,{through:ItemTagValue,foreignKey:'item_id',otherKey:'tag_value_id'});
