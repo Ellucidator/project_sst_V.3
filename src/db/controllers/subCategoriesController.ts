@@ -1,30 +1,29 @@
 import { Request, Response } from "express";
 import { Category, Item, SubCategory } from "../models/index.js";
+import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
 
 
 export const subCategoriesControllers = {
+
+    getAllSubCategories: async (req: Request, res: Response) => {
+        try {
+            const subCategories = await SubCategory.findAll({
+                attributes: ['id', 'name'],
+            })
+
+            return res.status(200).json(subCategories)
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
+            }
+        }
+    },
     subCategoryAndItems: async (req: Request, res: Response) => {
         try {
 
             const subCategoryId = req.params.id
-            const { order, perPage, page } = req.query
-            let pageNumber = 1
-            let perPageNumber = 10
-
-            if (typeof page === 'string') pageNumber = parseInt(page, 10)
-            if (typeof perPage === 'string') perPageNumber = parseInt(perPage, 10)
-
-
-
-            let orderQ: string[] = []
-
-            if (typeof order === 'string') {
-                orderQ = order.split('-')
-            } else {
-                orderQ = ['created_at', 'DESC']
-            }
-
+            const [perPage, offset, order] = getPaginationParams(req.query)
 
             const [subCategory, items] = await Promise.all(
                 [
@@ -34,9 +33,9 @@ export const subCategoriesControllers = {
                     }),
                     Item.findAndCountAll({
                         where: { sub_category_id: subCategoryId },
-                        limit: perPageNumber,
-                        offset: (perPageNumber * (pageNumber - 1)),
-                        order: [[orderQ[0], orderQ[1]]],
+                        limit: perPage,
+                        offset: offset,
+                        order: [[order[0], order[1]]],
                         attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url'],
                         include: [
                             {
