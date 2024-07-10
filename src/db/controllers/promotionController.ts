@@ -3,8 +3,18 @@ import {  Item, ItemPromotion, Promotion } from "../models/index.js"
 import { getPaginationParams } from "../../helpers/getPaginationParams.js"
 import { sequelize } from "../index.js"
 import { Op } from "sequelize"
+import { Literal } from "sequelize/lib/utils"
 
+function sequelizeLiteral(idParam:number|string):{[Op.in]:Literal} {
+    return {
+        [Op.in]: sequelize.literal(`
+            (SELECT "item_id"
+            FROM "items_promotion"
+            WHERE "promotion_id" = ${idParam})
 
+        `)
+    }
+}
 export const promotionController = {
     getFeaturedPromotion: async(req:Request, res:Response)=>{
         try {
@@ -17,14 +27,7 @@ export const promotionController = {
             if(promotion){
                 const itemsPromotion = await Item.findAll({
                     where: {
-                        id: {
-                            [Op.in]: sequelize.literal(`
-                                (SELECT "item_id"
-                                FROM "items_promotion"
-                                WHERE "promotion_id" = ${promotion.id})
-    
-                            `)
-                        }
+                        id: sequelizeLiteral(promotion.id)
                     },
                     attributes: ['id', 'name', 'price', 'in_stock', 'promotion', 'thumbnail_url'],
                     include: [
@@ -46,6 +49,8 @@ export const promotionController = {
                 }
 
                 return res.status(200).json(promotionResponse)
+            }else{
+                return res.status(404).json({error: 'Promotion not found'})
             }
             
         } catch (error) {
@@ -58,25 +63,25 @@ export const promotionController = {
         try {
 
             const promotionId = req.params.id
-            const [page, perPage] = getPaginationParams(req.query)
-            const offset = (page - 1) * perPage
+            const {subCategoryId} = req.query
+            const [perPage,offset,order] = getPaginationParams(req.query)
+            
+
+
+            const conditions = typeof subCategoryId === 'string' 
+            ? { 
+                sub_category_id: parseInt(subCategoryId),
+                id: sequelizeLiteral(promotionId)
+            } 
+            : { id: sequelizeLiteral(promotionId) }
 
             const [promotion, items] = await Promise.all([
                 Promotion.findOne({
                     where:{id:promotionId},
                     attributes:['id','name','description','thumbnail_url'],
                 }),
-                Item.findAll({
-                    where: {
-                        id: {
-                            [Op.in]: sequelize.literal(`
-                                (SELECT "item_id"
-                                FROM "items_promotion"
-                                WHERE "promotion_id" = ${promotionId})
-    
-                            `)
-                        }
-                    },
+                Item.findAndCountAll({
+                    where: conditions,
                     attributes: ['id', 'name', 'price', 'in_stock', 'promotion', 'thumbnail_url'],
                     include: [
                         {
@@ -87,7 +92,7 @@ export const promotionController = {
                     ],
                     limit: perPage,
                     offset: offset,
-                    order: [[{ model: ItemPromotion, as: 'ItemPromotion' }, 'price', 'ASC']]
+                    order: [[{ model: ItemPromotion, as: 'ItemPromotion' }, order[0], order[1]]],
                 })
             ])
 
@@ -96,7 +101,8 @@ export const promotionController = {
                 name:promotion!.name,
                 description:promotion!.description,
                 thumbnail_url:promotion!.thumbnail_url,
-                Items: items
+                Items: items.rows,
+                countItems: items.count
             })
         } catch (error) {
             if(error instanceof Error) {
