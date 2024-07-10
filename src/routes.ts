@@ -47,6 +47,7 @@ router.get('/promotions/:id', promotionController.getPromotionByID )
 router.get('/categories',categoriesController.list)
 router.get('/categories/:id',categoriesController.getOneCategoryAndSubCategories)
 
+router.get('/sub-categories', subCategoriesControllers.getAllSubCategories)
 router.get('/sub-categories/:id', subCategoriesControllers.subCategoryAndItems)
 
 router.post('/tag-values/:id', tagController.getItemsByTagValue)

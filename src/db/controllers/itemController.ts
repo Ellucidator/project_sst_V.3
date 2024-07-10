@@ -53,6 +53,7 @@ export const itemController = {
     show: async (req: Request, res: Response) => {
         try {
             const itemId = req.params.id
+
             const item = await Item.findOne({
                 where: { id: itemId },
                 attributes: ['id', 'name', 'price', 'description', 'in_stock', 'promotion', 'thumbnail_url', 'images', 'sub_category_id'],
@@ -81,6 +82,7 @@ export const itemController = {
     showItemById: async (req: Request, res: Response) => {
         try {
             const ids = req.body
+            
             const items = await Item.findAll({
                 where: {
                     id:{
@@ -108,16 +110,8 @@ export const itemController = {
 
     search: async (req: Request, res: Response) => {
         try {
-            const { name, order } = req.query
-            const [pageNumber, perPageNumber] = getPaginationParams(req.query)
-
-
-            let orderQ: string[] = []
-            if (typeof order === 'string') {
-                orderQ = order.split('-')
-            } else {
-                orderQ = ['created_at', 'DESC']
-            }
+            const { name } = req.query
+            const [perPage,offset,order] = getPaginationParams(req.query)
             
             if (!name) return res.status(400).json({ error: 'name is required' })
 
@@ -136,9 +130,9 @@ export const itemController = {
                             attributes:['price']
                         }
                     ],
-                    order:[[orderQ[0], orderQ[1]]],
-                    limit: perPageNumber,
-                    offset: (pageNumber - 1) * perPageNumber
+                    order:[[order[0], order[1]]],
+                    limit: perPage,
+                    offset: offset
                 }
             )
             
