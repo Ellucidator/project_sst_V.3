@@ -109,6 +109,20 @@ export const promotionController = {
                 res.status(500).json({error: error.message})
             }
         }
+    },
+
+    getAllPromotions: async(req:Request, res:Response)=>{
+        try {
+            const promotion = await Promotion.findAll({
+                attributes:['id','name','description','thumbnail_url'],
+            })
+
+            return res.status(200).json(promotion)
+        } catch (error) {
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
+        }
     }
 }
 

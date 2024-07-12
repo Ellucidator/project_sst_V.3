@@ -68,7 +68,7 @@ export const tagController = {
                     attributes: ['id', 'name'],
                 }),
                 Item.findAll({
-                    where: { sub_category_id: subCategoryId },
+                    where:{sub_category_id:subCategoryId},
                     attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url', 'created_at', 'updated_at'],
                     order: [[orderQ[0], orderQ[1]]],
                     limit: perPageNumber,
