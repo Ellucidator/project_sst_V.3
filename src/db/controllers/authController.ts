@@ -59,17 +59,13 @@ export const authController = {
     verifyLogin:async(req:Request, res:Response)=>{
         try {
             const {token} = req.body
-            const payload = jwtService.verifyToken(token,(err,decoded)=>{
-                if(err||!decoded) return false
-
-                return decoded
+            jwtService.verifyToken(token,(err,decoded)=>{
+                if(err||!decoded) return res.status(500).json({error:'Invalid Token'})
+                
+                return res.status(200).json(decoded)
             })
 
-
-            if(!payload) return res.status(401).json({error: 'Invalid token'})
-
-            return res.status(200).json('Token valid')
-        } catch (error) {
+            } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
             }
