@@ -2,7 +2,7 @@ import { Response } from "express";
 import { AuthenticatedRequest } from "../middlewares/auth.js";
 import { CreateItemSellAttributes } from "../models/ItemSell.js";
 import { Item, ItemSell, Purchase } from "../models/index.js";
-import { Op } from "sequelize";
+import { Op, or } from "sequelize";
 import { QueryParams } from "adminjs";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
@@ -14,22 +14,24 @@ export const purchaseController = {
             let all_value: number=0
 
             const address_id = parseInt(req.params.id)
+            const payment_type = req.query.payment_type
             const {items,total}:{items:{ id: number, quantity: number, price: number}[], total: number} = req.body
             const userId = req.user!.id
-            const teste = req.body
+            
+            console.log(payment_type)
 
-            console.log(teste)
-            console.log(items,userId,address_id)
+            
 
             const createPurchase = await Purchase.create({
                 user_id: userId,
-                address_id
+                address_id,
+                payment_type:(payment_type as string)
             })
 
 
             const itemsId = items.map(item => item.id)
 
-            console.log(itemsId)
+            console.log(payment_type)
 
             const itemsDB = await Item.findAll({
                 where: { id: { [Op.in]: itemsId } },
@@ -79,7 +81,7 @@ export const purchaseController = {
 
     showPurchase: async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const [page,perPage] = getPaginationParams(req.query)
+            const [perPage,offset,order] = getPaginationParams(req.query)
             
             const userId = req.user!.id
 
@@ -88,8 +90,8 @@ export const purchaseController = {
                 Purchase.findAll({
                     where: { user_id: userId },
                     limit: perPage,
-                    offset: (page-1)*perPage,
-                    order: [['created_at', 'DESC']],
+                    offset: offset,
+                    order: [[order[0], order[1]]],
                     include: [
                         {
                             association: 'ItemSells',
@@ -105,6 +107,7 @@ export const purchaseController = {
                     ]
                 })
             ])
+
 
             return res.json({count,rows})
         } catch (error) {

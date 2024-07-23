@@ -30,6 +30,10 @@ module.exports = {
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
       },
+      payment_type:{
+        type: Sequelize.CHAR,
+        allowNull: false
+      },
       all_value:{
         type: Sequelize.FLOAT,
         allowNull: true

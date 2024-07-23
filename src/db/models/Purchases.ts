@@ -6,6 +6,7 @@ export interface Purchase{
     id:number
     user_id:number
     address_id:number
+    payment_type:string
     all_value:number
     status:string
 }
@@ -40,6 +41,10 @@ export const Purchase = sequelize.define<PurchaseInstance,Purchase>('Purchase',{
         },
         onUpdate:'CASCADE',
         onDelete:'CASCADE'
+    },
+    payment_type:{
+        type: DataTypes.CHAR,
+        allowNull: false
     },
     all_value:{
         type: DataTypes.FLOAT,

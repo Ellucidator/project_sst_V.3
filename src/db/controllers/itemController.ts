@@ -94,10 +94,6 @@ export const itemController = {
                     {
                         association: 'ItemPromotion',
                         attributes: ['price']
-                    },
-                    {
-                        association:'ItemCharacteristic',
-                        attributes:[['item_id','id'],'width','height','length','weight','insurance_value','quantity']
                     }
                 ]
             })
