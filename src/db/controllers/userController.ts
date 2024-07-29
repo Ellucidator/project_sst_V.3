@@ -57,14 +57,15 @@ export const userController = {
     showFavorites: async (req: AuthenticatedRequest, res: Response) => {
         try {
 
-            const [page, perPage] = getPaginationParams(req.query)
+            const [perPage,offset,order] = getPaginationParams(req.query)
 
             const userId = req.user!.id
+            console.log(perPage,offset,order,userId)
             const favorites = await Favorite.findAndCountAll(
                 {
                     where: { user_id: userId },
                     limit: perPage,
-                    offset: (page - 1) * perPage,
+                    offset: offset,
                     attributes:[],
                     include: [
                         {
@@ -81,7 +82,8 @@ export const userController = {
                 }
             )
 
-            return res.json(favorites)
+            return res.status(200).json(favorites)
+
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })
@@ -94,7 +96,6 @@ export const userController = {
         try {
             const userId = req.user!.id
             const itemId = req.body.itemId
-
             const favorite = await userServices.addFavorite(userId, itemId)
 
             return res.json(favorite)

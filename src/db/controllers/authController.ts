@@ -38,7 +38,7 @@ export const authController = {
 
     register:async (req:Request,res:Response)=>{
         try {
-            const {email, password, username, first_name, last_name, phone, birth} = req.body
+            const {email, password, first_name, last_name, phone, birth} = req.body
             const user = await User.create({email, password, first_name, last_name, phone, birth,role:'user'})
             if(user){
                 const payload = {
@@ -48,7 +48,7 @@ export const authController = {
                 const token = jwtService.generateToken(payload, '1h')
                 return res.status(201).json({authenticated: true, user, token})
             }
-            return res.status(500).json({error: 'Error creating user'})
+            return res.status(401).json({error: 'email'})
         } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
