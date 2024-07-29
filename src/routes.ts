@@ -28,6 +28,7 @@ router.get('/user',ensureAuth,userController.show)
 router.put('/user',ensureAuth,userController.updateUser)
 
 router.post('/user/favorite',ensureAuth, userController.addFavorite)
+router.get('/user/show/favorite/:id',ensureAuth,userController.showFavoriteByItemId)
 router.get('/user/show/favorites',ensureAuth,userController.showFavorites)
 router.delete('/user/favorite/:id',ensureAuth, userController.deleteFavorite)
 

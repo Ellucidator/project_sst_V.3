@@ -54,6 +54,21 @@ export const userController = {
         }
     },
 
+    showFavoriteByItemId: async (req: AuthenticatedRequest, res: Response) => {
+        try {
+            
+            const userId = req.user!.id
+            const itemId = req.params.id
+            const favorite = await Favorite.findOne({ where: { user_id: userId, item_id: itemId } })
+
+
+            return res.status(200).json(favorite)
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
+            }
+        }
+    },
     showFavorites: async (req: AuthenticatedRequest, res: Response) => {
         try {
 
