@@ -1,10 +1,9 @@
 import { Response } from "express";
 import { AuthenticatedRequest } from "../middlewares/auth.js";
-import { CreateItemSellAttributes } from "../models/ItemSell.js";
 import { Item, ItemSell, Purchase } from "../models/index.js";
-import { Op, or } from "sequelize";
-import { QueryParams } from "adminjs";
+import { Op } from "sequelize";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
+import { Cart } from "../models/Purchases.js";
 
 
 export const purchaseController = {
@@ -12,10 +11,8 @@ export const purchaseController = {
     addPurchase: async (req: AuthenticatedRequest, res: Response) => {
         try {
             let all_value: number=0
-
-            const address_id = parseInt(req.params.id)
             const payment_type = req.query.payment_type
-            const {items,total}:{items:{ id: number, quantity: number, price: number}[], total: number} = req.body
+            const {items,total,frete}:Cart = req.body
             const userId = req.user!.id
             
             console.log(payment_type)
@@ -24,7 +21,8 @@ export const purchaseController = {
 
             const createPurchase = await Purchase.create({
                 user_id: userId,
-                address_id,
+                address_id:parseInt(`${frete.address_id}`),
+                frete:`${frete.name}-${frete.price}`,
                 payment_type:(payment_type as string)
             })
 
@@ -46,7 +44,7 @@ export const purchaseController = {
 
             const createItemSell = itemsDB.map((item)=>{
 
-                const quantity = items.find(elem=>elem.id===item.id)!.quantity
+                const quantity = items.find(elem=>elem.id===item.id)!.ItemCharacteristics.quantity
                 if(item.in_stock<quantity)process.exit(1)
 
                 item.update({in_stock:item.in_stock-quantity})

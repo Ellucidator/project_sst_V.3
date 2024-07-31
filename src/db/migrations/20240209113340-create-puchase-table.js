@@ -43,6 +43,10 @@ module.exports = {
         allowNull: true,
         defaultValue: 'Recebido'
       },
+      frete:{
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

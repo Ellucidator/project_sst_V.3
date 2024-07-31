@@ -1,6 +1,21 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../index.js";
+import { ItemCharacteristics } from "./ItemCharacteristics.js";
 
+export interface ItemToCar{
+    id:number
+    price:number
+    ItemCharacteristics: ItemCharacteristics
+}
+export interface Cart{
+    items:ItemToCar[]
+    frete:{
+        address_id:string|number
+        name:string
+        price:number
+    }
+    total:number
+}
 
 export interface Purchase{
     id:number
@@ -9,6 +24,7 @@ export interface Purchase{
     payment_type:string
     all_value:number
     status:string
+    frete:string
 }
 
 export interface CreatePurchaseAttributes extends Optional<Purchase,'id'|'all_value'|'status'>{}
@@ -54,6 +70,10 @@ export const Purchase = sequelize.define<PurchaseInstance,Purchase>('Purchase',{
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: 'Recebido'
+    },
+    frete:{
+        type: DataTypes.STRING,
+        allowNull: false
     }
 },{
     tableName: 'purchases'

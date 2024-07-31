@@ -38,7 +38,7 @@ router.get('/user/address/:id',ensureAuth,addressController.showAddress)
 router.get('/user/addresses',ensureAuth,addressController.listByUserId)
 router.delete('/user/address/:id',ensureAuth,addressController.delete)
 
-router.post('/user/purchase/:id',ensureAuth,purchaseController.addPurchase)
+router.post('/user/purchase',ensureAuth,purchaseController.addPurchase)
 router.get('/user/show/purchases',ensureAuth,purchaseController.showPurchase)
 router.get('/user/show/purchase/:id',ensureAuth,purchaseController.showPurchaseById)
 
