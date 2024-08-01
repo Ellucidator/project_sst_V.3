@@ -32,7 +32,18 @@ export const addressController = {
                 )
             }
             
-            else await Address.update({ ...address }, { where: { id: address.id } })
+            else await Address.update({ 
+                user_id: userId,
+                receiver_name: address.receiver_name,
+                zip_code: address.zip_code,
+                state: address.state,
+                city: address.city,
+                neighborhood: address.neighborhood,
+                street: address.street,
+                house_number: address.house_number,
+                complement: address.complement,
+                phone_number: address.phone_number,
+                reference_point: address.reference_point, }, { where: { id: address.id, user_id: userId } })
             
 
             return res.status(201).json('Address created')
