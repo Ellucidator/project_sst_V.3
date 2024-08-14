@@ -2,6 +2,7 @@
   "compilerOptions": {
     "jsx": "react",
     "baseUrl": "./",
+    "rootDir": "src",
     "outDir": "dist",
     "target": "esnext",
     "module": "nodenext",
@@ -16,5 +17,5 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
   },
-  "include": [ "sequelize.js", "./src/**/*"]
+  "include": [ "src/config/sequelize.js", "./src/**/*"]
 }
