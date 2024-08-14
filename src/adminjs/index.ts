@@ -8,6 +8,7 @@ import { componentLoader } from "./components/component-loader.js";
 import { AdminJSResources } from "./resources/index.js";
 import { User } from "../db/models/User.js";
 import bcrypt from "bcrypt"
+import { ADMINJS_COOKIE_PASSWORD } from "../config/enviroment.js";
 
 
 
@@ -54,24 +55,24 @@ export const adminJs = new AdminJS({
 
 
 
-export const adminJsRouter = AdminJSExpress.buildRouter(adminJs)
+// export const adminJsRouter = AdminJSExpress.buildRouter(adminJs)
 
-// export const adminJsRouter = AdminJSExpress.buildAuthenticatedRouter(adminJs,{
-//     authenticate: async (email, password) => {
-//         const user = await User.findOne({ where: { email } })
+export const adminJsRouter = AdminJSExpress.buildAuthenticatedRouter(adminJs,{
+    authenticate: async (email, password) => {
+        const user = await User.findOne({ where: { email } })
 
-//         if(user && user.role === 'admin'){
-//             const passwordMatch = await bcrypt.compare(password,user.password.toString())
-//             if(passwordMatch){
-//                 return user
-//             }
-//         }
+        if(user && user.role === 'admin'){
+            const passwordMatch = await bcrypt.compare(password,user.password.toString())
+            if(passwordMatch){
+                return user
+            }
+        }
 
-//         return false
-//     },
-//     cookiePassword: 'some-secret-password-used-to-secure-cookie'
+        return false
+    },
+    cookiePassword: ADMINJS_COOKIE_PASSWORD
 
-// },null,{
-//     resave: false,
-//     saveUninitialized: false
-// })
+},null,{
+    resave: false,
+    saveUninitialized: false
+})

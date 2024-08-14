@@ -14,7 +14,3 @@ export const override = (
     componentName: OverridableComponent
 ): string => componentLoader.override(componentName, path.join(__dirname, url));
 
-/**
- * Overridable components
- */
-override('./theme/ThemeSelector', 'Version');
