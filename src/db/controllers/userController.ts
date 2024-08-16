@@ -7,6 +7,24 @@ import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 
 
 export const userController = {
+    initialUserAdmin: async (req: Request, res: Response) => {
+        try {
+            await User.create({
+                first_name: 'Admin',
+                last_name: 'Admin',
+                email: 'admin@admin.com',
+                password: 'admin',
+                phone: '1234567890',
+                birth: new Date('2000-01-01'),
+                role: 'admin'
+            })
+            return res.status(201).json('Admin created')
+        } catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.message })
+            }
+        }
+    },
     createUser: async (req: Request, res: Response) => {
         try {
             const { first_name, last_name, email, password, phone, birth }: CreateUserAttributes = req.body
