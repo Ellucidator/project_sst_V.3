@@ -59,9 +59,6 @@ export const tagController = {
             }
 
 
-            console.log()
-
-
             const [subCategory, items] = await Promise.all([
                 SubCategory.findOne({
                     where: { id: subCategoryId },

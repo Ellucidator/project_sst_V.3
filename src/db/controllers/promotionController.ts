@@ -68,7 +68,7 @@ export const promotionController = {
 
 
 
-            const conditions = typeof subCategoryId === 'string'
+            const conditions = typeof subCategoryId === 'string'&& subCategoryId!=='all'
                 ? {
                     sub_category_id: parseInt(subCategoryId),
                     id: sequelizeLiteral(promotionId)
