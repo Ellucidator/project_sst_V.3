@@ -17,6 +17,7 @@ const router = express.Router();
 
 router.get('/new-admin', userController.initialUserAdmin)
 
+router.post('/notifications-mp', notificationController.purchaseStatusMp)
 router.post('/notifications', notificationController.show)
 
 router.get('/company-information', companyInformationController.show)
