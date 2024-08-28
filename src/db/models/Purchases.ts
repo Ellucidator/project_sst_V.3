@@ -13,6 +13,7 @@ export interface Cart{
         address_id:string|number
         name:string
         price:number
+        range:string
     }
     total:number
 }
