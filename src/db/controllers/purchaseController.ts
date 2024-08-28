@@ -4,35 +4,39 @@ import { Item, ItemSell, Purchase } from "../models/index.js";
 import { Op } from "sequelize";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 import { Cart } from "../models/Purchases.js";
+import { MercadoPagoConfig, Preference } from 'mercadopago';
+
 
 
 export const purchaseController = {
 
     addPurchase: async (req: AuthenticatedRequest, res: Response) => {
         try {
+
+            const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN_MP! });
+            const preference = new Preference(client);
+            let itemsMp:{
+                category_id: string;
+                id: string;
+                quantity: number;
+                title: string;
+                unit_price: number;
+            }[] = []
+
             let all_value: number=0
-            const payment_type = req.query.payment_type
+
             const {items,total,frete}:Cart = req.body
             const userId = req.user!.id
             
-            console.log(payment_type)
-
-            
-
             const createPurchase = await Purchase.create({
                 user_id: userId,
                 address_id:parseInt(`${frete.address_id}`),
-                frete:`${frete.name}-${frete.price}`,
-                payment_type:(payment_type as string)
+                frete:`${frete.name}-${frete.price}-${frete.range}`,
+                payment_type:'null'
             })
 
-
-            const itemsId = items.map(item => item.id)
-
-            console.log(payment_type)
-
             const itemsDB = await Item.findAll({
-                where: { id: { [Op.in]: itemsId } },
+                where: { id: { [Op.in]: items.map(item => item.id)} },
                 attributes: ['id','price','in_stock', 'promotion'],
                 include: [
                     {
@@ -45,14 +49,23 @@ export const purchaseController = {
             const createItemSell = itemsDB.map((item)=>{
 
                 const quantity = items.find(elem=>elem.id===item.id)!.ItemCharacteristics.quantity
-                if(item.in_stock<quantity)process.exit(1)
+                if(item.in_stock<quantity)throw new Error('Quantidade em estoque insuficiente');
 
                 item.update({in_stock:item.in_stock-quantity})
                 
                 let price:number
                 if(item.promotion)price=item.ItemPromotion!.price
                 else price=item.price
+
                 all_value+=(price*quantity)
+
+                itemsMp.push({
+                    category_id: `${createPurchase.id}`,
+                    id: `${item.id}`,
+                    quantity: quantity,
+                    title: `${item.name}`,
+                    unit_price: price
+                })
                 return {
                     item_id: item.id,
                     purchase_id: createPurchase.id,
@@ -61,13 +74,28 @@ export const purchaseController = {
                 }
             })
             
-            const itemsSell = await ItemSell.bulkCreate(createItemSell)
+            await ItemSell.bulkCreate(createItemSell)
             await createPurchase.update({ all_value: all_value })
 
+            const resMp = await preference.create({
+                body: {
+                    items: itemsMp,
+                    shipments: {
+                        cost: frete.price,
+                        mode: 'not_specified',
+                    },
+        
+                    back_urls: {
+                        success: process.env.LOCAL_HOST + `/api/checkoutOk`,
+                        pending: process.env.LOCAL_HOST + `/api/checkoutOk`,
+                    },
+                    auto_return: 'approved',
+                    statement_descriptor: process.env.STATEMENT_DESCRIPTOR_MP,
+                }
+            })
+
             return res.status(201).json({
-                id: createPurchase.id,
-                all_value,
-                itemsSell
+                preference_id: resMp.id
             })
 
         } catch (error) {
