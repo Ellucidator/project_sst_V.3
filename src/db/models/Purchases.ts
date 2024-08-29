@@ -23,12 +23,14 @@ export interface Purchase{
     user_id:number
     address_id:number
     payment_type:string
+    payment_status:string
+    payment_id:string
     all_value:number
     status:string
     frete:string
 }
 
-export interface CreatePurchaseAttributes extends Optional<Purchase,'id'|'all_value'|'status'>{}
+export interface CreatePurchaseAttributes extends Optional<Purchase,'id'|'all_value'|'status'|'payment_id'|'payment_status'|'payment_type'>{}
 
 export interface PurchaseInstance extends Model<Purchase,CreatePurchaseAttributes>,Purchase{}
 
@@ -60,8 +62,16 @@ export const Purchase = sequelize.define<PurchaseInstance,Purchase>('Purchase',{
         onDelete:'CASCADE'
     },
     payment_type:{
-        type: DataTypes.CHAR,
-        allowNull: false
+        type: DataTypes.ENUM('ticket', 'credit_card','debit_card','bank_transfer','atm','prepaid_card','digital_currency','digital_wallet','voucher_card','crypto_transfer'),
+        allowNull: true
+    },
+    payment_status:{
+        type: DataTypes.ENUM('pending', 'approved','authorized','in_process','in_mediation','rejected','cancelled','refunded','charged_back'),
+        allowNull: true
+    },
+    payment_id:{
+        type: DataTypes.STRING,
+        allowNull: true
     },
     all_value:{
         type: DataTypes.FLOAT,

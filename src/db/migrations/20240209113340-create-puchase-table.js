@@ -31,8 +31,16 @@ module.exports = {
         onDelete:'CASCADE'
       },
       payment_type:{
-        type: Sequelize.CHAR,
-        allowNull: false
+        type: Sequelize.ENUM('ticket', 'credit_card','debit_card','bank_transfer','atm','prepaid_card','digital_currency','digital_wallet','voucher_card','crypto_transfer'),
+        allowNull: true
+      },
+      payment_status:{
+        type: Sequelize.ENUM('pending', 'approved','authorized','in_process','in_mediation','rejected','cancelled','refunded','charged_back'),
+        allowNull: true,
+      },
+      payment_id:{
+        type: Sequelize.STRING,
+        allowNull: true
       },
       all_value:{
         type: Sequelize.FLOAT,
