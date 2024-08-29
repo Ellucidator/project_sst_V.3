@@ -3,7 +3,7 @@ import { categoriesController } from './db/controllers/categorieController.js';
 import { itemController } from './db/controllers/itemController.js';
 import { subCategoriesControllers } from './db/controllers/subCategoriesController.js';
 import { authController } from './db/controllers/authController.js';
-import { ensureAuth } from './db/middlewares/auth.js';
+import { ensureAuth, ensureAuthNotificationMp } from './db/middlewares/auth.js';
 import { userController } from './db/controllers/userController.js';
 import { purchaseController } from './db/controllers/purchaseController.js';
 import {promotionController} from './db/controllers/promotionController.js';
@@ -17,7 +17,7 @@ const router = express.Router();
 
 router.get('/new-admin', userController.initialUserAdmin)
 
-router.post('/notifications-mp', notificationController.purchaseStatusMp)
+router.post('/notifications-mp',ensureAuthNotificationMp, notificationController.purchaseStatusMp)
 
 router.get('/company-information', companyInformationController.show)
 
