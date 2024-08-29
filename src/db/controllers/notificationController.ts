@@ -1,25 +1,38 @@
 import { Request, Response } from "express";
-import { TestTableNotification } from "../models/index.js";
-
-
-
+import { MercadoPagoPaymentActionResponse, payment } from "../models/MercadoPago.js";
+import { Purchase } from "../models/Purchases.js";
 
 
 export const notificationController = {
 
-    show: async (req: Request, res: Response) => {
-
-        const notifications = await TestTableNotification.findAll()
-
-        return res.status(200).json(notifications)
-
-    },
     purchaseStatusMp: async (req: Request, res: Response) => {
 
-        const json_body=req.body
+        try {
+            const json_body: MercadoPagoPaymentActionResponse = req.body
 
-        const data = await TestTableNotification.create({json_body})
+            if(json_body.data.id)res.status(200).json({})
 
-        return res.status(200).json({})
+            const payamentInfo = await payment.get({id: json_body.data.id})
+            if(!payamentInfo.additional_info?.items)return
+
+            const purchase = await Purchase.findOne({
+                where: {
+                    id: payamentInfo.additional_info.items[0].category_id
+                }
+            })
+
+            if(purchase)await purchase.update(
+                {
+                    payment_id:json_body.data.id,
+                    payment_type:payamentInfo.payment_type_id,
+                    payment_status:payamentInfo.status
+                }
+            )
+            return
+        } catch (error) {
+            if(error instanceof Error) {
+                res.status(500).json({error: error.message})
+            }
+        }
     }
 }

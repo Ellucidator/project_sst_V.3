@@ -4,7 +4,7 @@ import { Item, ItemSell, Purchase } from "../models/index.js";
 import { Op } from "sequelize";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 import { Cart } from "../models/Purchases.js";
-import { MercadoPagoConfig, Preference } from 'mercadopago';
+import { preference } from "../models/MercadoPago.js";
 
 
 
@@ -13,8 +13,6 @@ export const purchaseController = {
     addPurchase: async (req: AuthenticatedRequest, res: Response) => {
         try {
 
-            const client = new MercadoPagoConfig({ accessToken: process.env.ACCESS_TOKEN_MP! });
-            const preference = new Preference(client);
             let itemsMp:{
                 category_id: string;
                 id: string;
@@ -32,7 +30,6 @@ export const purchaseController = {
                 user_id: userId,
                 address_id:parseInt(`${frete.address_id}`),
                 frete:`${frete.name}-${frete.price}-${frete.range}`,
-                payment_type:'null'
             })
 
             const itemsDB = await Item.findAll({
