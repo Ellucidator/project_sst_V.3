@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { MercadoPagoPaymentActionResponse, payment } from "../models/MercadoPago.js";
-import { Purchase } from "../models/Purchases.js";
+import { Purchase } from "../models/index.js";
 
 
 export const notificationController = {

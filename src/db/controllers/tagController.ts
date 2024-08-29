@@ -55,7 +55,7 @@ export const tagController = {
             if (typeof order === 'string') {
                 orderQ = order.split('-')
             } else {
-                orderQ = ['created_at', 'DESC']
+                orderQ = ['createdAt', 'DESC']
             }
 
 
@@ -66,7 +66,7 @@ export const tagController = {
                 }),
                 Item.findAll({
                     where:{sub_category_id:subCategoryId},
-                    attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url', 'created_at', 'updated_at'],
+                    attributes: ['id', 'name', 'price', 'promotion', 'description', 'in_stock', 'thumbnail_url', 'createdAt', 'updatedAt'],
                     order: [[orderQ[0], orderQ[1]]],
                     limit: perPageNumber,
                     offset: (pageNumber - 1) * perPageNumber,

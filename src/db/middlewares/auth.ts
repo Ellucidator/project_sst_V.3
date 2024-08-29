@@ -62,10 +62,10 @@ export const ensureAuthNotificationMp = (req: Request, res: Response, next: Next
 
     const sha = hmac.digest('hex');
 
-if (sha === hash) {
-    console.log("HMAC verification passed");
-    next();
-} else {
-    res.status(401).json({ error: 'HMAC verification failed' });
-}
+    if (sha === hash) {
+        console.log("HMAC verification passed");
+        next();
+    } else {
+        return res.status(401).json({ error: 'HMAC verification failed' });
+    }
 }

@@ -25,11 +25,11 @@ export interface Item {
     size: number;
     images: string;
     sub_category_id: number;
-    created_at:Date;
-    updated_at:Date;
+    createdAt:Date;
+    updatedAt:Date;
 }
 
-export interface CreateItemAttributes extends Optional<Item, 'id'|'description'|'featured'|'promotion'|'thumbnail_url'|'bucket'|'mime'|'size'|'images'|'created_at'|'updated_at'> {}
+export interface CreateItemAttributes extends Optional<Item, 'id'|'description'|'featured'|'promotion'|'thumbnail_url'|'bucket'|'mime'|'size'|'images'|'createdAt'|'updatedAt'> {}
 
 
 export interface ItemInstance extends Model<Item, CreateItemAttributes>, Item {
@@ -99,10 +99,10 @@ export const Item = sequelize.define<ItemInstance, Item>('Item', {
         onUpdate:'CASCADE',
         onDelete:'RESTRICT'
     },
-    created_at:{
+    createdAt:{
         type: DataTypes.DATE
     },
-    updated_at:{
+    updatedAt:{
         type:DataTypes.DATE
 
     }

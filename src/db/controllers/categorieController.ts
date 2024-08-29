@@ -38,7 +38,7 @@ export const categoriesController = {
             let orderQ:string[]=[]
 
             if(typeof order === 'string') orderQ = order.split('-')
-            else orderQ = ['created_at','DESC']
+            else orderQ = ['createdAt','DESC']
 
 
             const categoryId = req.params.id
@@ -52,7 +52,7 @@ export const categoriesController = {
                         include:[
                             {
                                 association:'Items',
-                                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url','created_at', 'updated_at',],
+                                attributes:['id', 'name', 'price','promotion', 'description', 'in_stock', 'thumbnail_url','createdAt', 'updatedAt',],
                                 
                                 include:[{
                                     association:'ItemPromotion',
@@ -71,12 +71,12 @@ export const categoriesController = {
                 
             })
 
-            if(orderQ[0] === 'created_at' ){
+            if(orderQ[0] === 'createdAt' ){
 
                 Items.sort((a,b)=> {
-                    if(orderQ[1] === 'DESC') return b.getDataValue('created_at').getTime() - a.getDataValue('created_at').getTime();
+                    if(orderQ[1] === 'DESC') return b.getDataValue('createdAt').getTime() - a.getDataValue('createdAt').getTime();
 
-                    else return a.getDataValue('created_at').getTime() - b.getDataValue('created_at').getTime();
+                    else return a.getDataValue('createdAt').getTime() - b.getDataValue('createdAt').getTime();
                 })
 
             } else{
