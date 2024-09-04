@@ -28,11 +28,11 @@ export const avaliationsController = {
 
     getAvaliationByUserId: async (req: Request, res: Response) => {
         try {
-            const userId = req.params.id
+            const [userId, itemId] = req.params.id.split('-')
             const avaliation = await Avaliation.findOne(
                 { 
-                    where: { user_id: userId },
-                    attributes:['rating','title','comment','created_at'], 
+                    where: { user_id: userId, item_id: itemId },
+                    attributes:['rating','title','comment','createdAt'], 
                 }
             )
 
@@ -47,14 +47,14 @@ export const avaliationsController = {
     getAllAvaliationsByItemId: async (req: Request, res: Response) => {
         try {
             const { id } = req.params
-            const [pageNumber, perPageNumber] = getPaginationParams(req.query)
+            const [perPage,offset,order] = getPaginationParams(req.query)
 
             const avaliations = await Avaliation.findAndCountAll({
                 where: { item_id: id },
-                attributes:['rating','title','comment','created_at'],
-                order: [['created_at', 'DESC']],
-                limit: 6,
-                offset: (pageNumber - 1) * 6
+                attributes:['rating','title','comment','createdAt'],
+                order: [[order[0], order[1]]],
+                limit: perPage,
+                offset: offset
             })
 
             return res.status(200).json(avaliations)

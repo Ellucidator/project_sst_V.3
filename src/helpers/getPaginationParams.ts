@@ -14,7 +14,7 @@ export function getPaginationParams(query: any): [ perPage: number,offset: numbe
 
     const orderQ = typeof order === 'string' 
     ? order.split('-') 
-    : ['created_at', 'DESC'] 
+    : ['createdAt', 'DESC'] 
     
     return [perPageNumber,offset, orderQ]
 }
