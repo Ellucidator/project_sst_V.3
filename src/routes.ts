@@ -15,7 +15,6 @@ import { notificationController } from './db/controllers/notificationController.
 
 const router = express.Router();
 
-router.get('/test', purchaseController.show)
 
 router.get('/new-admin', userController.initialUserAdmin)
 
