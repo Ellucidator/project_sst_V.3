@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { AuthenticatedRequest } from "../middlewares/auth.js";
 import { Item, ItemSell, Purchase } from "../models/index.js";
 import { Op } from "sequelize";
@@ -9,6 +9,13 @@ import { preference } from "../models/MercadoPago.js";
 
 
 export const purchaseController = {
+    destroyAll: async (req: Request, res: Response) => {
+            await Purchase.destroy({
+                where: { user_id: {[Op.in]:[4,5,1]}}
+            })
+
+        return res.status(204).json('Purchases deleted')
+    },
 
     addPurchase: async (req: AuthenticatedRequest, res: Response) => {
         try {
