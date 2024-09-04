@@ -15,7 +15,6 @@ import { Avaliation } from './Avaliation.js';
 import { ItemCharacteristics } from './ItemCharacteristics.js';
 import { Address } from './Address.js';
 import { CompanyInformation } from './CompanyInformation.js';
-import { TestTableNotification } from './TestTableNotification.js';
 
 Category.hasMany(SubCategory,{foreignKey:'category_id',onUpdate:'CASCADE',onDelete:'RESTRICT'});
 SubCategory.belongsTo(Category,{foreignKey:'category_id'});
@@ -95,5 +94,4 @@ export {
     ItemCharacteristics,
     Address,
     CompanyInformation,
-    TestTableNotification
 };
