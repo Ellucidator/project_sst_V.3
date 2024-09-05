@@ -1,12 +1,14 @@
 import { Request, Response } from "express";
 import { Avaliation } from "../models/index.js";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
+import { AuthenticatedRequest } from "../middlewares/auth.js";
 
 
 export const avaliationsController = {
-    postAvaliation: async (req: Request, res: Response) => {
+    postAvaliation: async (req: AuthenticatedRequest, res: Response) => {
         try {
-            const { item_id, user_id, rating, title, comment } = req.body
+            const user_id = req.user!.id
+            const { item_id, rating, title, comment } = req.body
 
             const newAvaliation = await Avaliation.findOne({
                 where: { item_id, user_id },
