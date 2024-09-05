@@ -90,8 +90,6 @@ export const purchaseController = {
                     },
         
                     back_urls: {
-                        success: process.env.LOCAL_HOST + `/api/checkoutOk`,
-                        pending: process.env.LOCAL_HOST + `/api/checkoutOk`,
                         success: process.env.FRONT_URL + `/api/cart-delete`,
                         pending: process.env.FRONT_URL + `/api/cart-delete`,
                     },
