@@ -8,16 +8,19 @@ export const avaliationsController = {
         try {
             const { item_id, user_id, rating, title, comment } = req.body
 
-            const newAvaliation = await Avaliation.findOrCreate({
+            const newAvaliation = await Avaliation.findOne({
                 where: { item_id, user_id },
-                defaults: { item_id, user_id, rating, title, comment }
             })
 
-            if (newAvaliation[1] === false) {
-                await newAvaliation[0].setAttributes({ rating, title, comment }).save()
+            if (newAvaliation) {
+                const updatedAvaliation = await newAvaliation.setAttributes({ rating, title, comment }).save()
+                return res.status(200).json(updatedAvaliation)
+            }else {
+                const newAvaliation = await Avaliation.create({ item_id, user_id, rating, title, comment })
+
+                return res.status(201).json(newAvaliation)
             }
 
-            return res.status(201).json(newAvaliation)
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })

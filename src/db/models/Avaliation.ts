@@ -10,44 +10,50 @@ export interface Avaliation {
     comment: string;
 }
 
-export interface AvaliationCreationAttributes extends Optional<Avaliation, "id"> {}
+export interface AvaliationCreationAttributes extends Optional<Avaliation, "id"> { }
 
-export interface AvaliationInstance extends Model<Avaliation, AvaliationCreationAttributes>, Avaliation {}
+export interface AvaliationInstance extends Model<Avaliation, AvaliationCreationAttributes>, Avaliation { }
 
 export const Avaliation = sequelize.define<AvaliationInstance, Avaliation>("Avaliation", {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-        autoIncrement: true
-    },
-    item_id: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: "items",
-            key: "id"
-        },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        autoIncrement: true,
+        allowNull: false
     },
     user_id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         references: {
-            model: "users",
-            key: "id"
+            model: 'users',
+            key: 'id'
         },
-        onUpdate: "CASCADE",
-        onDelete: "CASCADE"
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+    },
+    item_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'items',
+            key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
     },
     rating: {
-        type: DataTypes.INTEGER
+        type: DataTypes.INTEGER,
+        allowNull: false
     },
     title: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     comment: {
-        type: DataTypes.STRING
-    }
+        type: DataTypes.STRING,
+        allowNull: false
+    },
 },
-{
-    tableName: "avaliations"
-})
+    {
+        tableName: "avaliations"
+    })
