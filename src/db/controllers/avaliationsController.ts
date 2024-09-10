@@ -37,7 +37,7 @@ export const avaliationsController = {
             const avaliation = await Avaliation.findOne(
                 { 
                     where: { user_id: userId, item_id: itemId },
-                    attributes:['rating','title','comment','createdAt'], 
+                    attributes:['user_id','rating','title','comment','createdAt'], 
                 }
             )
 
@@ -56,7 +56,7 @@ export const avaliationsController = {
 
             const avaliations = await Avaliation.findAndCountAll({
                 where: { item_id: id },
-                attributes:['rating','title','comment','createdAt'],
+                attributes:['user_id','rating','title','comment','createdAt'],
                 order: [[order[0], order[1]]],
                 limit: perPage,
                 offset: offset

@@ -2,9 +2,6 @@ import { Request, Response } from "express";
 import { User } from "../models/index.js";
 import { jwtService } from "../services/jwtServices.js";
 
-
-
-
 export const authController = {
 
     login:async(req:Request, res:Response)=>{
