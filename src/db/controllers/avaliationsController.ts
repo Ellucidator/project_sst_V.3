@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { Avaliation } from "../models/index.js";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 import { AuthenticatedRequest } from "../middlewares/auth.js";
+import { sequelize } from "../index.js";
 
 
 export const avaliationsController = {
@@ -54,15 +55,23 @@ export const avaliationsController = {
             const { id } = req.params
             const [perPage,offset,order] = getPaginationParams(req.query)
 
-            const avaliations = await Avaliation.findAndCountAll({
-                where: { item_id: id },
-                attributes:['user_id','rating','title','comment','createdAt'],
-                order: [[order[0], order[1]]],
-                limit: perPage,
-                offset: offset
-            })
+            const [avaliations,average]: any = await Promise.all([
+                Avaliation.findAndCountAll({
+                    where: { item_id: id },
+                    attributes:['user_id','rating','title','comment','createdAt'],
+                    order: [[order[0], order[1]]],
+                    limit: perPage,
+                    offset: offset,
+                }),
+                sequelize.query(`SELECT AVG(rating) as average FROM avaliations WHERE item_id = ${id}`)
+            ]) 
 
-            return res.status(200).json(avaliations)
+            
+            return res.status(200).json({
+                count: avaliations.count,
+                rows: avaliations.rows,
+                average: average[0][0].average
+            })
         } catch (error) {
             
             if (error instanceof Error) {
