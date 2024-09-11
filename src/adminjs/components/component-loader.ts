@@ -14,3 +14,6 @@ export const override = (
     componentName: OverridableComponent
 ): string => componentLoader.override(componentName, path.join(__dirname, url));
 
+export const Components ={
+    Dashboard: componentLoader.add('Dashboard','./dashboard'),
+}

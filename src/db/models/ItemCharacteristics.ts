@@ -53,5 +53,5 @@ export const ItemCharacteristics = sequelize.define<ItemCharacteristicsInstance,
     }
 },
 {
-    tableName:'item-characteristics'
+    tableName:'item_characteristics'
 })

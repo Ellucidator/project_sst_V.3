@@ -4,7 +4,7 @@ import AdminJSSequelize from "@adminjs/sequelize";
 import { sequelize } from "../db/index.js";
 import { themeConfig } from "./themes/index.js";
 import { light, noSidebar } from "@adminjs/themes";
-import { componentLoader } from "./components/component-loader.js";
+import { componentLoader, Components } from "./components/component-loader.js";
 import { AdminJSResources } from "./resources/index.js";
 import { User } from "../db/models/User.js";
 import bcrypt from "bcrypt"
@@ -20,6 +20,9 @@ AdminJS.registerAdapter(AdminJSSequelize)
 
 export const adminJs = new AdminJS({
     componentLoader,
+    dashboard: {
+        component:Components.Dashboard
+    },
     branding:{
         theme:{
             colors:{
@@ -45,15 +48,84 @@ export const adminJs = new AdminJS({
     },
     defaultTheme:themeConfig.id,
     availableThemes:[themeConfig,light, noSidebar],
-    
     resources:AdminJSResources,
     version:{admin:true},
     rootPath: '/admin',
     locale:{
         language:'pt-BR',
+        translations: {
+            ['pt-BR']: {
+                labels: {
+                    categories: 'Categorias',
+                    sub_categories: 'Sub Categorias',
+                    items: 'Itens',
+                    item_characteristics: 'Caracteristicas do Item',
+                    users: 'Usários',
+                    adresses: 'Endereços',
+                    purchases: 'Compras',
+                    promotions: 'Promoções',
+                    items_promotion: 'Itens Promocionais',
+                    tags: 'Marcações',
+                    tags_value: 'Filtros',
+                    sub_categories_tags: 'Marcações por Sub Categorias',
+                    items_tags_value: 'Filtros por Itens',
+                    company_information: 'Informação da Empresa',
+                },
+                properties: {
+                    createdAt: 'Criado em',
+                    updatedAt: 'Atualizado em',
+                    name: 'Nome',
+                    description: 'Descrição',
+                    position: 'Posição',
+                    category_id: 'Categoria',
+                    price: 'Preço',
+                    in_stock: 'Em Estoque',
+                    featured: 'Destaque',
+                    promotion: 'Em Promoção',
+                    sub_category_id: 'Sub Categoria',
+                    thumbnail: 'Imagem de Capa',
+                    images: 'Imagens',
+                    item_id: 'Item',
+                    width: 'Largura',
+                    Height: 'Altura',
+                    Weight: 'Peso',
+                    insurance_value: 'Valor de Seguro',
+                    perfilFile: 'Imagem de Perfil',
+                    first_name: 'Primeiro Nome',
+                    last_name: 'Ultimo Nome',
+                    phone: 'Telefone',
+                    birth: 'Data de Nascimento',
+                    role: 'Tipo de Usário',
+                    user_id: 'Usário',
+                    phone_number: 'Número de Telefone',
+                    receiver_name: 'Nome do Recebedor',
+                    zip_code: 'CEP',
+                    state: 'Estado',
+                    city: 'Cidade',
+                    street: 'Rua',
+                    house_number: 'Número da Casa',
+                    neighborhood: 'Bairro',
+                    complement: 'Complemento',
+                    reference_point: 'Ponto de Referência',
+                    active: 'Ativo',
+                    all_value: 'Valor Total',
+                    payment_type: 'Tipo de Pagamento',
+                    payment_status: 'Status do Pagamento',
+                    payment_id: 'Id do Pagamento-MP',
+                    thumbnailUrl: 'Imagem de Capa',
+                    promotion_id: 'Promoção',
+                    tag_id: 'Marcação',
+                    tag_value_id: 'Filtro',
+                    phone_url: 'Link de contato',
+                    address: 'Endereço',
+                    address_url: 'Link de Endereço',
+                    instagram_url: 'Link do Instagram',
+                }
+            }
+        },
         availableLanguages: ['pt-BR', 'en'],
+        localeDetection: true
     },
-    
 
 })
 
