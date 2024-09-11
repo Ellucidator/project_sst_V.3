@@ -11,6 +11,7 @@ import bcrypt from "bcrypt"
 import { ADMINJS_COOKIE_PASSWORD } from "../config/enviroment.js";
 import session from "express-session"
 import connectSession from "connect-session-sequelize"
+import { dashboardHandler } from "./components/dashboard.handler.js";
 
 const SequelizeStore = connectSession(session.Store)
 const store = new SequelizeStore({db:sequelize})
@@ -21,7 +22,8 @@ AdminJS.registerAdapter(AdminJSSequelize)
 export const adminJs = new AdminJS({
     componentLoader,
     dashboard: {
-        component:Components.Dashboard
+        component:Components.Dashboard,
+        handler:dashboardHandler
     },
     branding:{
         theme:{

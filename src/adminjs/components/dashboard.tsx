@@ -1,15 +1,24 @@
-import React from 'react'
+import { ApiClient } from 'adminjs'
+import React, { useState, useEffect } from 'react'
 
+import { LineChartComponent } from './linechart.component.js'
 
+const Dashboard: React.FC = () => {
+    const [data, setData] = useState(null)
+    const api = new ApiClient()
 
-export const Dashboard: React.FC = () => {
-
+    useEffect(() => {
+        api.getDashboard()
+            .then((response) => {
+                console.log(response.data)
+                setData(response.data)
+            })
+            .catch((error) => {
+                // Handle errors here
+            })
+    }, [])
     return (
-        <div>
-
-            <h1>Dashboard</h1>
-
-        </div>
+        <LineChartComponent data={data} />
     )
 }
 
