@@ -18,6 +18,7 @@ const Dashboard: React.FC = () => {
             })
     }, [])
     return (
+        //@ts-ignore
         <LineChartComponent data={data} />
     )
 }
