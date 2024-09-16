@@ -3,7 +3,7 @@ import { Filter } from 'adminjs'
 export const dashboardHandler = async (request, response, context) => {
     const resource = context._admin.findResource('items_sell')
     const filter = new Filter({}, resource)
-    const resourceData = await resource.find(filter, { sort: { sortBy: 'createdAt', direction: 'desc' } }, context)
+    const resourceData = await resource.find(filter, { sort: { sortBy: 'createdAt', direction: 'asc' } }, context)
 
     const data = resourceData.map((item: any) => item.toJSON(context.currentAdmin))
 
@@ -19,16 +19,17 @@ export const dashboardHandler = async (request, response, context) => {
 
     
     const chartdata = items.map(item => {
-        const scoreArr = data?.filter(filterItem => {
+        const scoreArr:any[] = data?.filter(filterItem => {
             const dateB = new Date(filterItem.params.createdAt)
             if(dateA === dateB.getFullYear() && item === dateB.getMonth() + 1) {
                 return filterItem
             }
-        }).map(mapItem => mapItem.params.quantity)
+        })
         return (
             {
                 name: item,
-                score: scoreArr.reduce((a, b) => a + b, 0)
+                quantity: scoreArr.reduce((a, b) => a + b.params.quantity, 0),
+                value: scoreArr.reduce((a, b) => a + b.params.price, 0)
             })
     })
     return chartdata

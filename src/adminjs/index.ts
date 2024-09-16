@@ -13,6 +13,7 @@ import session from "express-session"
 import connectSession from "connect-session-sequelize"
 import { dashboardHandler } from "./components/dashboard.handler.js";
 
+
 const SequelizeStore = connectSession(session.Store)
 const store = new SequelizeStore({db:sequelize})
 store.sync()
@@ -46,7 +47,10 @@ export const adminJs = new AdminJS({
                 accent:'#00FA9A',
             },
         },
-        withMadeWithLove: false
+        withMadeWithLove: false,
+        companyName: 'e-commerce',
+        favicon: '/icon.png',
+        logo: '/logo.svg',
     },
     defaultTheme:themeConfig.id,
     availableThemes:[themeConfig,light, noSidebar],

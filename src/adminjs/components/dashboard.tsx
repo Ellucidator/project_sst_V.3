@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 import { LineChartComponent } from './linechart.component.js'
 
 const Dashboard: React.FC = () => {
-    const [data, setData] = useState(null)
+    const [data, setData] = useState<any>(null)
     const api = new ApiClient()
 
     useEffect(() => {
