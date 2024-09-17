@@ -10,11 +10,10 @@ const Dashboard: React.FC = () => {
     useEffect(() => {
         api.getDashboard()
             .then((response) => {
-                console.log(response.data)
                 setData(response.data)
             })
             .catch((error) => {
-                // Handle errors here
+
             })
     }, [])
     return (

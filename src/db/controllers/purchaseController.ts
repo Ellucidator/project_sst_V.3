@@ -5,18 +5,11 @@ import { Op } from "sequelize";
 import { getPaginationParams } from "../../helpers/getPaginationParams.js";
 import { Cart } from "../models/Purchases.js";
 import { preference } from "../models/MercadoPago.js";
+import { sequelize } from "../index.js";
 
 
 
 export const purchaseController = {
-    destroyAll: async (req: Request, res: Response) => {
-            await Purchase.destroy({
-                where: { user_id: {[Op.in]:[4,5,1]}}
-            })
-
-        return res.status(204).json('Purchases deleted')
-    },
-
     addPurchase: async (req: AuthenticatedRequest, res: Response) => {
         try {
 

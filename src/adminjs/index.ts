@@ -81,6 +81,7 @@ export const adminJs = new AdminJS({
                     createdAt: 'Criado em',
                     updatedAt: 'Atualizado em',
                     name: 'Nome',
+                    iten: 'Item',
                     description: 'Descrição',
                     position: 'Posição',
                     category_id: 'Categoria',

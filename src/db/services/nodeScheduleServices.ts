@@ -51,11 +51,13 @@ export async function nodeScheduleServices() {
 
             item.save()
         })
-
+        
         await Purchase.destroy({
             where: { id: { [Op.in]: purchases.map(purchase => purchase.id)} } 
         })
+
+        console.log('Purchases deleted')
     } catch (error) {
-        
+        if(error instanceof Error) console.log(error.message)
     }
 }
