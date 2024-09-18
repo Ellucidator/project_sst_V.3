@@ -72,7 +72,7 @@ export const AdminJSResources: ResourceWithOptions[] = [
     },
     {
         resource:Purchase,
-        options: purchaseResourceOptions
+        options: purchaseResourceOptions,
     },
     {
         resource: CompanyInformation,
@@ -80,7 +80,7 @@ export const AdminJSResources: ResourceWithOptions[] = [
     },
     {
         resource:ItemSell,
-        options: itemsSellResourceOptions
+        options: itemsSellResourceOptions,
     }
 
 ]

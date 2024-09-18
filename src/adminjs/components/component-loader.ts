@@ -16,4 +16,5 @@ export const override = (
 
 export const Components ={
     Dashboard: componentLoader.add('Dashboard','./dashboard'),
+    ItemsSell: componentLoader.add('ItemsSell','./itemsSell'),
 }

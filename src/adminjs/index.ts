@@ -12,6 +12,7 @@ import { ADMINJS_COOKIE_PASSWORD } from "../config/enviroment.js";
 import session from "express-session"
 import connectSession from "connect-session-sequelize"
 import { dashboardHandler } from "./components/dashboard.handler.js";
+import { itemsSellHandler } from "./components/itemsSell.handler.js";
 
 
 const SequelizeStore = connectSession(session.Store)
@@ -25,6 +26,16 @@ export const adminJs = new AdminJS({
     dashboard: {
         component:Components.Dashboard,
         handler:dashboardHandler
+    },
+    pages: {
+        items_sell:{
+            component:Components.ItemsSell,
+            handler:itemsSellHandler
+        },
+        items:{
+            component:Components.ItemsSell,
+            handler:itemsSellHandler,
+        }
     },
     branding:{
         theme:{
