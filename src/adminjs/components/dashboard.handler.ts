@@ -1,6 +1,7 @@
 import { Filter } from 'adminjs'
 
 export const dashboardHandler = async (request, response, context) => {
+    
     const resource = context._admin.findResource('items_sell')
     const filter = new Filter({}, resource)
     const resourceData = await resource.find(filter, { sort: { sortBy: 'createdAt', direction: 'asc' } }, context)
@@ -27,9 +28,9 @@ export const dashboardHandler = async (request, response, context) => {
         })
         return (
             {
-                name: item,
+                name: `Mês ${item}`,
                 quantity: scoreArr.reduce((a, b) => a + b.params.quantity, 0),
-                value: scoreArr.reduce((a, b) => a + b.params.price, 0)
+                value: scoreArr.reduce((a, b) => a + (b.params.price * b.params.quantity), 0)
             })
     })
     return chartdata
