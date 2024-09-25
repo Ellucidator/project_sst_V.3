@@ -5,7 +5,7 @@ import { componentLoader } from "../components/component-loader.js";
 export const userResourceOptions:ResourceOptions = {
     navigation: 'Clientes',
     editProperties: ['perfilFile','first_name', 'last_name','phone', 'birth', 'email', 'password','role'],
-    listProperties: ['id','perfilFile', 'first_name', 'last_name','phone', 'email', 'role'],
+    listProperties: ['id', 'first_name', 'last_name','phone', 'email', 'role'],
     showProperties: ['id','role','perfilFile', 'first_name', 'last_name','phone','birth', 'email', 'createdAt', 'updatedAt'],
     filterProperties: ['id', 'first_name', 'last_name', 'email','role','birth', 'createdAt', 'updatedAt'],
     properties: {

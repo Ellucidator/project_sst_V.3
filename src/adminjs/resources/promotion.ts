@@ -3,7 +3,7 @@ import uploadFeature from "@adminjs/upload";
 import { componentLoader } from "../components/component-loader.js";
 
 export const promotionResourceOptions:ResourceOptions = {
-    navigation: 'Sales',
+    navigation: 'Ofertas',
     editProperties: [ 'name','thumbnailUrl', 'description', 'featured'],
     listProperties: ['id','thumbnailUrl', 'name', 'description', 'featured'],
     showProperties: ['id','thumbnailUrl', 'name', 'description','featured', 'createdAt', 'updatedAt'],
