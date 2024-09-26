@@ -35,7 +35,7 @@ export const overrides:ThemeConfig['overrides'] = {
     error: "#C20012",
     success: "#007D7F",
     love: "#C20012",
-    white: "#d3d3d3",
+    white: "#000000",
     black: "#fff",
 },
 

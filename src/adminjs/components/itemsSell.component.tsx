@@ -4,7 +4,6 @@ import React from 'react'
 
 export const ItemsSellComponent: React.FC = ({ data }: any) => {
     
-    console.log(data)
     return (
         <div style={{
             display: 'flex',
