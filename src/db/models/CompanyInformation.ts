@@ -24,28 +24,36 @@ export const CompanyInformation = sequelize.define<CompanyInformationInstace,Com
         autoIncrement: true
     },
     name:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     cnpj:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     email:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     phone:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     phone_url:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     },
     address:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: false
     },
     address_url:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     },
     instagram_url:{
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        allowNull: true
     }
 },
 {
