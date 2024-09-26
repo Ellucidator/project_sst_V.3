@@ -2,6 +2,7 @@ import { DataTypes, Model, Optional } from "sequelize";
 import { sequelize } from "../index.js";
 import { ItemCharacteristics } from "./ItemCharacteristics.js";
 import { ItemSellInstance } from "./ItemSell.js";
+import { UserInstance } from "./User.js";
 
 export interface ItemToCar{
     id:number
@@ -36,6 +37,7 @@ export interface Purchase{
 export interface CreatePurchaseAttributes extends Optional<Purchase,'id'|'all_value'|'status'|'payment_id'|'payment_status'|'payment_type'|'createdAt'|'updatedAt'>{}
 
 export interface PurchaseInstance extends Model<Purchase,CreatePurchaseAttributes>,Purchase{
+    User?:UserInstance
     ItemSells?:ItemSellInstance[]
 }
 
