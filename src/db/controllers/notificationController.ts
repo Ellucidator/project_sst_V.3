@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { MercadoPagoPaymentActionResponse, payment } from "../models/MercadoPago.js";
 import { CompanyInformation, Purchase } from "../models/index.js";
-import { wpMenssage } from "../../helpers/wpMenssage.js";
+import { wpMenssage, wpMenssageTemplate } from "../../helpers/wpMenssage.js";
 
 
 export const notificationController = {
@@ -42,21 +42,17 @@ export const notificationController = {
                     if (payamentInfo.status === 'approved' || payamentInfo.status === 'authorized') {
 
                         await Promise.all([
-                            wpMenssage({
+                            wpMenssageTemplate({
                                 to: purchase.User!.phone,
-                                body: 'Ola, ' + purchase.User!.first_name + ' obrigado por comprar na ' + company!.name + '!\n' +
-                                    'Seu pagamento foi aprovado e seu pedido já está em preparação :).' +
-                                    '\n' +
-                                    '\nQualquer duvida, entre em contato com nosso suporte:' +
-                                    '\n' + company!.phone_url
+                                name:'confirmacao_pedido',
+                                variables:[purchase.User!.first_name, company!.name],
+                                dinamicUrl:purchase.id
                             }),
-                            wpMenssage({
+                            wpMenssageTemplate({
                                 to: company!.phone,
-                                body: 'Acabamos de receber um novo pedido de ID ' + purchase.id + '!\n' +
-                                    '\n'
-                                    + 'Para mais informações, acesse a plataforma:\n\n '
-                                    + `${process.env.DOMINIO_URL}/admin/resources/purchases/records/${purchase.id}/show'`
-                            })
+                                name:'shipment_confirmation_3',
+                                dinamicUrl:`${purchase.id}/show`
+                            }),
                         ])
 
                     }
