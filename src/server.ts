@@ -19,9 +19,8 @@ app.use(express.json());
 app.use(router);
 
 const rule = new schedule.RecurrenceRule();
-rule.hour = 0;
+rule.hour = 1;
 rule.minute = 0;
-rule.dayOfWeek = 0;
 rule.tz = 'America/Sao_Paulo';
 schedule.scheduleJob(rule,nodeScheduleServices)
 

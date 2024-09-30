@@ -11,7 +11,9 @@ export const ItemsSellComponent: React.FC = ({ data }: any) => {
             gap: '1rem',
             border: '1px solid grey',
             borderRadius: '5px',
-            width: '35%',
+            width: 'fit-content',
+            minWidth: '30%',
+            maxWidth: '500px',
         }}>
             {data?.map((item: any) =>{
                 return (
