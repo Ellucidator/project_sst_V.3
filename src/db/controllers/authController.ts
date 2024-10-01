@@ -6,7 +6,8 @@ export const authController = {
 
     login:async(req:Request, res:Response)=>{
         try {
-            const {email, password} = req.body
+            const {email, password, remember} = req.body
+            const expiresIn = remember === 'on' ? '30 days' : '2h'
 
             const user = await User.findOne({where: {email:email}})
             if(user){
@@ -21,7 +22,7 @@ export const authController = {
                     last_name: user.last_name,
                     imgUrl: user.img_key
                 }
-                const token = jwtService.generateToken(payload, '8h')
+                const token = jwtService.generateToken(payload, expiresIn)
                 return res.status(200).json({authenticated: true, user, token})
             }
 
