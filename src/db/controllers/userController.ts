@@ -61,10 +61,11 @@ export const userController = {
             const userId = req.user!.id
             const updateAttributes:UpdateUserAttributes = req.body
 
-            const user = await User.update(updateAttributes, { where: { id: userId } })
+            await User.update(updateAttributes, { where: { id: userId } })
 
-
-            return res.status(204).json('User updated')
+            return res.status(200).json({
+                message: 'User updated'
+            })
         } catch (error) {
             if (error instanceof Error) {
                 res.status(500).json({ error: error.message })

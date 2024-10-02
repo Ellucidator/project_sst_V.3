@@ -19,8 +19,9 @@ export const ensureAuth = (req: AuthenticatedRequest, res: Response, next: NextF
 
     jwtService.verifyToken(token, (err, decoded) => {
         if (err || !decoded) return res.status(401).json({ error: 'Invalid token' })
+        
 
-        User.findOne({ where: { email: (decoded as JwtPayload).email } }).then((user) => {
+        User.findOne({ where: { id: (decoded as JwtPayload).id } }).then((user) => {
             req.user = user
             next()
         })
