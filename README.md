@@ -4,12 +4,12 @@ Este repositório contém um projeto desenvolvido utilizando TypeScript, Sequeli
 
 ## Conteudo
 
-*Sistema de gerenciamento de e-commerce com painel administrativo para controle de:
-**Catalogo, Estoque, Marcações, Ofertas, Usuarios
-*Gráfico de vendas mensais
-*Cryptrografia de senha e controle de authenticação via token
-*Integração com a api do MercadoPago para controle da parte de pagamentos
-*Notificação em tempo real via WP após aprovação do pagamento
+*Sistema de gerenciamento de e-commerce com painel administrativo para controle de:</br>
+**Catalogo, Estoque, Marcações, Ofertas, Usuarios</br>
+*Gráfico de vendas mensais</br>
+*Cryptrografia de senha e controle de authenticação via token</br>
+*Integração com a api do MercadoPago para controle da parte de pagamentos</br>
+*Notificação em tempo real via WP após aprovação do pagamento</br>
 
 ## Pré-requisitos
 
@@ -63,9 +63,9 @@ npm run dev
 Feito isso a api devera rodar na sua maquina, o painel administrativo podera ser acessado a partir da sua porta local
 ex: http://localhost:3000/admin
 
-Obs. O DB tem o controle dividido em duas partes: 
-    1º Chamadas do administrador controladas pelo admin JS
-    2º Chamadas do cliente controladas diretamente na API estas disponiveis no modelo do Postman abaixo:
+Obs. O DB tem o controle dividido em duas partes: </br>
+    1º Chamadas do administrador controladas pelo admin JS</br>
+    2º Chamadas do cliente controladas diretamente na API estas disponiveis no modelo do Postman abaixo:</br>
 
 
 ## Consideções Finais
