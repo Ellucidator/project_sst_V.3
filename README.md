@@ -2,6 +2,15 @@
 
 Este repositório contém um projeto desenvolvido utilizando TypeScript, Sequelize, Express, PostgresSQL e AdminJs. A seguir, você encontrará um guia passo a passo interativo para abrir o projeto em seu ambiente local.
 
+## Conteudo
+
+*Sistema de gerenciamento de e-commerce com painel administrativo para controle de:
+**Catalogo, Estoque, Marcações, Ofertas, Usuarios
+*Gráfico de vendas mensais
+*Cryptrografia de senha e controle de authenticação via token
+*Integração com a api do MercadoPago para controle da parte de pagamentos
+*Notificação em tempo real via WP após aprovação do pagamento
+
 ## Pré-requisitos
 
 Antes de começar, verifique se você possui as seguintes ferramentas instaladas em sua máquina:
@@ -20,6 +29,7 @@ git clone https://github.com/Ellucidator/project_sst_V.3.git
 Isso criará uma cópia local do repositório em seu ambiente.
 
 ## Passo 2️⃣: Instalação das dependencias
+
 Execute o seguinte comando no terminal, isso fara com que as dependencias sejam instaladas:
 
 ```bash
@@ -35,6 +45,7 @@ No postgres crie o usuario responsavel pelo DB e crie o db do projeto.
 No diretório raiz do projeto crie o arquivo .env seguindo os exemplos do .env.example
 
 ## Passo 5️⃣: Subir o modelo para o db local
+
 Execute o seguinte comando no terminal, isso fara com que as tabelas do DB sejam criadas:
 
 ```bash
@@ -57,7 +68,7 @@ Obs. O DB tem o controle dividido em duas partes:
     2º Chamadas do cliente controladas diretamente na API estas disponiveis no modelo do Postman abaixo:
 
 
-# Consideções Finais
+## Consideções Finais
 
 Tratas-se do meu primeiro projeto pessoal e foi desenvolvido com o objetivo de estudo, durante o desenvolvimento 
 pude testar diversas tecnologias, estudar documentações, entender o processo por trás do desenvolvimento e da tomada de decisões,
