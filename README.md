@@ -67,6 +67,8 @@ Obs. O DB tem o controle dividido em duas partes: </br>
     1º Chamadas do administrador controladas pelo admin JS</br>
     2º Chamadas do cliente controladas diretamente na API estas disponiveis no modelo do Postman abaixo:</br>
 
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/31790006-7da760ed-df41-4216-a5aa-5de8840a11da?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D31790006-7da760ed-df41-4216-a5aa-5de8840a11da%26entityType%3Dcollection%26workspaceId%3Db920721b-7b06-4d46-8331-49ec4cdb4e0a)
+
 
 ## Consideções Finais
 
