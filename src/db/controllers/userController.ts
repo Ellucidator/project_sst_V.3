@@ -149,7 +149,7 @@ export const userController = {
 
             await userServices.deleteFavorite(userId, itemId)
 
-            return res.status(204).json('Favorite deleted')
+            return res.status(200).json('Favorite deleted')
 
         } catch (error) {
             if (error instanceof Error) {

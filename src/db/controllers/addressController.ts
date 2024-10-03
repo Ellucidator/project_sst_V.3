@@ -14,7 +14,7 @@ export const addressController = {
                 if(count > 5) return res.status(400).json('You can only have 6 addresses')
                 
                 await Address.update({active: false}, { where: { user_id: userId , active: true} })
-                await Address.create(
+                const newAddress = await Address.create(
                     { 
                         user_id: userId,
                         receiver_name: address.receiver_name,
@@ -30,6 +30,8 @@ export const addressController = {
                         active: true
                     }
                 )
+
+                return res.status(201).json(newAddress)
             }
             
             else await Address.update({ 
@@ -46,7 +48,7 @@ export const addressController = {
                 reference_point: address.reference_point, }, { where: { id: address.id, user_id: userId } })
             
 
-            return res.status(201).json('Address created')
+            return res.status(201).json('Address updated')
         } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
@@ -59,7 +61,7 @@ export const addressController = {
 
             await Address.destroy({ where: { id } })
 
-            return res.status(204).json('Address deleted')
+            return res.status(200).json('Address deleted')
 
         } catch (error) {
             if(error instanceof Error) {
@@ -77,7 +79,7 @@ export const addressController = {
 
             await Address.update({active: true}, { where: { id } })
 
-            return res.status(204).json('Address activated')
+            return res.status(200).json('Address activated')
         } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
@@ -103,11 +105,11 @@ export const addressController = {
     },
     showAddress: async (req: AuthenticatedRequest, res: Response) => {
         try {
+
             const { id } = req.params
-            console.log(id)
             const address = await Address.findOne({ where: { id } })
-            console.log(address)
             return res.status(200).json(address)
+
         } catch (error) {
             if(error instanceof Error) {
                 res.status(500).json({error: error.message})
