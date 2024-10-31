@@ -2,6 +2,10 @@
 
 Este repositório contém um projeto desenvolvido utilizando TypeScript, Sequelize, Express, PostgresSQL e AdminJs. A seguir, você encontrará um guia passo a passo interativo para abrir o projeto em seu ambiente local.
 
+<a href="https://www.devleal.com.br/admin/" >Acesse o Beta<a/>
+
+Usuario: admin@admin.com <br/>
+Senha: admin
 ## Conteudo
 
 *Sistema de gerenciamento de e-commerce com painel administrativo para controle de:</br>
